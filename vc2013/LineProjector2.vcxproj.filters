@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Blocks">
+      <UniqueIdentifier>{DD4DE3A3-541C-467E-AC6D-4D05DA0DD357}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\Base">
+      <UniqueIdentifier>{14442C40-A1BD-4747-82F6-9F6462D34403}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\Base\src">
+      <UniqueIdentifier>{09E4CA75-F07D-43F3-8296-6BB74C1D5DD0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\Base\src\Notifications">
+      <UniqueIdentifier>{9A3D566B-D857-4134-BDC6-8DA92B0A3A79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\Base\src\Settings">
+      <UniqueIdentifier>{A332924B-C90D-48F4-9655-7FAEB8C2451D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\Cinder-Warping">
+      <UniqueIdentifier>{AFE2712B-83A9-4567-B2AF-E5306C83937F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\Cinder-Warping\include">
+      <UniqueIdentifier>{13C62538-DF82-4FAC-8E2A-CA8260C5DC9C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\Cinder-Warping\src">
+      <UniqueIdentifier>{658BE96F-E677-4788-8CE4-4CC4A848EBF7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\OSC">
+      <UniqueIdentifier>{0F979BE5-51AC-4A3F-B4CC-CD155B8F5B6F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\OSC\src">
+      <UniqueIdentifier>{B012E1BD-BEE4-4652-8B78-92DE437498E1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\OSC\src\cinder">
+      <UniqueIdentifier>{879768DC-C2C1-4A59-B1C2-C1CFC7C0C9E7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\OSC\src\cinder\osc">
+      <UniqueIdentifier>{A2EF48E3-E2C1-4B84-A163-6D8E2463F39E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\classes">
+      <UniqueIdentifier>{e0590bd1-aaf2-49c9-8b4e-a87e30797df8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\LineProjector2App.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\LineProjector2App.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClInclude Include="..\include\Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\blocks\Base\src\poHelper.h">
+      <Filter>Blocks\Base\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\blocks\Base\src\Singleton.h">
+      <Filter>Blocks\Base\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\blocks\Base\src\Notifications\NotificationLogger.h">
+      <Filter>Blocks\Base\src\Notifications</Filter>
+    </ClInclude>
+    <ClInclude Include="..\blocks\Base\src\Notifications\NotificationManager.h">
+      <Filter>Blocks\Base\src\Notifications</Filter>
+    </ClInclude>
+    <ClCompile Include="..\blocks\Base\src\Notifications\NotificationLogger.cpp">
+      <Filter>Blocks\Base\src\Notifications</Filter>
+    </ClCompile>
+    <ClCompile Include="..\blocks\Base\src\Notifications\NotificationManager.cpp">
+      <Filter>Blocks\Base\src\Notifications</Filter>
+    </ClCompile>
+    <ClInclude Include="..\blocks\Base\src\Settings\GlobalSettings.h">
+      <Filter>Blocks\Base\src\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\blocks\Base\src\Settings\SettingBase.h">
+      <Filter>Blocks\Base\src\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\blocks\Base\src\Settings\SettingController.h">
+      <Filter>Blocks\Base\src\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\blocks\Base\src\Settings\SettingManager.h">
+      <Filter>Blocks\Base\src\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\blocks\Base\src\Settings\SettingString.h">
+      <Filter>Blocks\Base\src\Settings</Filter>
+    </ClInclude>
+    <ClCompile Include="..\blocks\Base\src\Settings\GlobalSettings.cpp">
+      <Filter>Blocks\Base\src\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\blocks\Base\src\Settings\SettingController.cpp">
+      <Filter>Blocks\Base\src\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\blocks\Base\src\Settings\SettingManager.cpp">
+      <Filter>Blocks\Base\src\Settings</Filter>
+    </ClCompile>
+    <ClInclude Include="..\blocks\Cinder-Warping\include\Warp.h">
+      <Filter>Blocks\Cinder-Warping\include</Filter>
+    </ClInclude>
+    <ClCompile Include="..\blocks\Cinder-Warping\src\Warp.cpp">
+      <Filter>Blocks\Cinder-Warping\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\blocks\Cinder-Warping\src\WarpBilinear.cpp">
+      <Filter>Blocks\Cinder-Warping\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\blocks\Cinder-Warping\src\WarpPerspective.cpp">
+      <Filter>Blocks\Cinder-Warping\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\blocks\Cinder-Warping\src\WarpPerspectiveBilinear.cpp">
+      <Filter>Blocks\Cinder-Warping\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\blocks\OSC\src\cinder\osc\Osc.cpp">
+      <Filter>Blocks\OSC\src\cinder\osc</Filter>
+    </ClCompile>
+    <ClInclude Include="..\blocks\OSC\src\cinder\osc\Osc.h">
+      <Filter>Blocks\OSC\src\cinder\osc</Filter>
+    </ClInclude>
+    <ClCompile Include="..\src\classes\BrushManager.cpp">
+      <Filter>Source Files\classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\classes\Composition.cpp">
+      <Filter>Source Files\classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\classes\GlobalSettings.cpp">
+      <Filter>Source Files\classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\classes\NetworkHelper.cpp">
+      <Filter>Source Files\classes</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\classes\Composition.hpp">
+      <Filter>Source Files\classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\classes\GlobalSettings.h">
+      <Filter>Source Files\classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\classes\Lab101Utils.h">
+      <Filter>Source Files\classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\classes\NetworkHelper.h">
+      <Filter>Source Files\classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\classes\BrushManager.h">
+      <Filter>Source Files\classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\classes\WindowData.h">
+      <Filter>Source Files\classes</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resources.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
