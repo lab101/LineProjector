@@ -33,7 +33,6 @@ class Composition{
     int                         mImageLayerId;
     int                         mStepId;
 
-    ci::gl::FboRef              mActiveFbo;
     ci::gl::TextureRef          mLastDrawingTexture;
     
     float                       mWindowScale;
@@ -56,7 +55,8 @@ class Composition{
 
 public:
     
-    
+	ci::gl::FboRef              mActiveFbo;
+
     ci::signals::Signal<void(pointVec)>   onNewPoints;
 
     ci::vec2    mSize;
