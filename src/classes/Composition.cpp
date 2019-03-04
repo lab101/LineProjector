@@ -206,7 +206,8 @@ void Composition::drawInFbo(std::vector<ci::vec3>& points){
         gl::setMatricesWindow( mActiveFbo->getSize() );
 
         gl::ScopedBlendPremult scpBlend;
-   
+		gl::enableAlphaBlendingPremult();
+
         
         gl::color(1, 1, 1);
 
@@ -230,7 +231,7 @@ void Composition::drawFadeOut(){
   //  gl::ScopedBlendPremult scpBlend;
 
         ci::ColorA fade = GS()->fboBackground;
-    fade.a = GS()->fadeoutFactor;
+		fade.a = GS()->fadeoutFactor;
         gl::color(fade);
         ci::gl::drawSolidRect(Rectf(0,0, mActiveFbo->getSize().x, mActiveFbo->getSize().y));
         
@@ -298,13 +299,20 @@ void Composition::draw(ci::Rectf drawingArea){
 
     ci::gl::pushMatrices();
     
-        gl::ScopedGlslProg glslProg( mOnionShader );
-        mOnionShader->uniform( "uTex0", 0 );
-        mOnionShader->uniform( "uTex1", 1 );
+       // gl::ScopedGlslProg glslProg( mOnionShader );
+      //  mOnionShader->uniform( "uTex0", 0 );
+      //  mOnionShader->uniform( "uTex1", 1 );
+
+	ci::gl::GlslProgRef textureShader = ci::gl::getStockShader(ci::gl::ShaderDef().texture().color());
+	ScopedGlslProg glslProg(textureShader);
+
+
+
 
         mActiveFbo->getColorTexture()->bind(0);
-        mLastDrawingTexture->bind(1);
+       // mLastDrawingTexture->bind(1);
 
+		//gl::enableAlphaBlending();
         //gl::drawSolidRect(ci::Rectf(0,0,mActiveFbo->getWidth(),mActiveFbo->getHeight()));
 
 
@@ -334,12 +342,12 @@ void Composition::draw(ci::Rectf drawingArea){
 		ScopedBuffer bufferBindScp(defaultVbo);
 		defaultVbo->bufferSubData(0, sizeof(float) * 16, data);
 
-		int posLoc = mOnionShader->getAttribSemanticLocation(geom::Attrib::POSITION);
+		int posLoc = textureShader->getAttribSemanticLocation(geom::Attrib::POSITION);
 		if (posLoc >= 0) {
 			enableVertexAttribArray(posLoc);
 			vertexAttribPointer(posLoc, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
 		}
-		int texLoc = mOnionShader->getAttribSemanticLocation(geom::Attrib::TEX_COORD_0);
+		int texLoc = textureShader->getAttribSemanticLocation(geom::Attrib::TEX_COORD_0);
 		if (texLoc >= 0) {
 			enableVertexAttribArray(texLoc);
 			vertexAttribPointer(texLoc, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(float) * 8));

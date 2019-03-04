@@ -12,10 +12,10 @@ in vec2             TexCoord0;
 void main(void)
 {
     vec4 color = texture( uTex0, TexCoord0 );
-    vec4 mask = texture( uTex1, TexCoord0 );
+    //vec4 mask = texture( uTex1, TexCoord0 );
     
-    color.r *= mask.r;
-    color.g *= mask.g;
+    //color.r *= mask.r;
+   // color.g *= mask.g;
     //color.b *= mask.b;
     oColor =  color;
 }

@@ -3,7 +3,7 @@
 #include "cinder/gl/gl.h"
 #include "cinder/Log.h"
 
-#include "../blocks/Base/src/Settings/GlobalSettings.h"
+#include "GlobalSettings.h"
 
 #include "Composition.hpp"
 #include "BrushManager.h"
@@ -50,18 +50,22 @@ void LineProjector2App::setup()
 
 	activeWindow = -1;
 	int nrOfScreens = 4;
+	bool flipHorizontal = true;
+
 	float offset = 1.0 / nrOfScreens;
-	float scale = 1;
+	float scale = 0.4;
+	float offsetLeft = 0;
 	ci::vec2 size(1920, 1080);
 
-	getWindow()->setUserData(new WindowData(ci::Rectf(offset, 1, 0, 0.0), 0));
-//	setWindowPos((int)size.x, 120);
+
+	getWindow()->setUserData(new WindowData(ci::Rectf(flipHorizontal ? 0 : offset, 1, flipHorizontal ? offset : 0, 0.0), 0));
+	setWindowPos(offsetLeft, 120);
 	setWindowSize(size * scale);
 	getWindow()->setTitle("MAIN window");
 
 
 	CI_LOG_I("SETUP brush");
-	GS()->brushColor = ci::ColorA(1.0, 0.0, 0.0, 1.0);
+	GS()->brushColor = ci::ColorA(0.0, 1.0, 0.0, 0.0);
 
 	BrushManagerSingleton::Instance()->setup();
 
@@ -89,19 +93,26 @@ void LineProjector2App::setup()
 	});
 
 
-	mActiveComposition->newLine(vec3(10, 10, 40));
-	mActiveComposition->lineTo(vec3(size.x * nrOfScreens -10, size.y -20, 40));
+	mActiveComposition->newLine(vec3(10, 10, 20));
+	mActiveComposition->lineTo(vec3(size.x * nrOfScreens - 10, size.y - 20, 20));
 	mActiveComposition->endLine();
+	GS()->brushColor = ci::ColorA(1.0, 1.0, 0.0, 1.0);
 
-	mActiveComposition->newLine(vec3(size.x * nrOfScreens - 10, 10, 40));
-	mActiveComposition->lineTo(vec3(10, size.y, 40));
+	mActiveComposition->newLine(vec3(size.x * nrOfScreens - 10, 10, 20));
+	mActiveComposition->lineTo(vec3(10, size.y, 20));
 	mActiveComposition->endLine();
 
 
 	for (int i = 0; i < nrOfScreens-1; i++){
 
-		app::WindowRef newWindow2 = createWindow(Window::Format().size(size * scale).pos(size.x * scale * (i+2), 120));
-		newWindow2->setUserData(new WindowData(ci::Rectf(offset * (i+2), 1, offset * (i+1), 0), i+1));
+		vec2 position(offsetLeft + (size.x * scale) * (i+1) , 120);
+		app::WindowRef newWindow2 = createWindow(Window::Format().size(size * scale).pos(position));
+
+
+		float offsetX1 = offset * (i + (flipHorizontal ? 1 : 2));
+		float offsetX2 = offset * (i + (flipHorizontal ? 2 : 1));
+
+		newWindow2->setUserData(new WindowData(ci::Rectf(offsetX1, 1, offsetX2, 0), i + 1));
 		newWindow2->setTitle("Window " + toString(i+2));
 
 	}
@@ -158,20 +169,15 @@ void LineProjector2App::draw()
 
 	if (activeWindow > -1 && data->mId != activeWindow){
 		gl::clear(ColorA(49.0f / 255.0f, 24.0f / 255.0f, 160.0f / 25.0f, 1.0f));
-		mWarps[data->mId]->begin();
-		mActiveComposition->draw(data->mDrawingArea);
-		mWarps[data->mId]->end();
-
 	} else{
 		gl::clear(ColorA(249.0f / 255.0f, 242.0f / 255.0f, 160.0f / 255.0f, 1.0f));
-
-		mWarps[data->mId]->begin();
-		mActiveComposition->draw(data->mDrawingArea);
-		mWarps[data->mId]->end();
 	}
 
+	mWarps[data->mId]->begin();
+	mActiveComposition->draw(data->mDrawingArea);
+	mWarps[data->mId]->end();
 
-//	warp->draw(mImage, mSrcArea);
+
 
 }
 

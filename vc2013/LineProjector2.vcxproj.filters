@@ -81,9 +81,6 @@
     <ClCompile Include="..\blocks\Base\src\Notifications\NotificationManager.cpp">
       <Filter>Blocks\Base\src\Notifications</Filter>
     </ClCompile>
-    <ClInclude Include="..\blocks\Base\src\Settings\GlobalSettings.h">
-      <Filter>Blocks\Base\src\Settings</Filter>
-    </ClInclude>
     <ClInclude Include="..\blocks\Base\src\Settings\SettingBase.h">
       <Filter>Blocks\Base\src\Settings</Filter>
     </ClInclude>
@@ -96,9 +93,6 @@
     <ClInclude Include="..\blocks\Base\src\Settings\SettingString.h">
       <Filter>Blocks\Base\src\Settings</Filter>
     </ClInclude>
-    <ClCompile Include="..\blocks\Base\src\Settings\GlobalSettings.cpp">
-      <Filter>Blocks\Base\src\Settings</Filter>
-    </ClCompile>
     <ClCompile Include="..\blocks\Base\src\Settings\SettingController.cpp">
       <Filter>Blocks\Base\src\Settings</Filter>
     </ClCompile>

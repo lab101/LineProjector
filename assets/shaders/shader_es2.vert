@@ -5,8 +5,8 @@ in vec3 ciColor;
 
 uniform mat4 ciModelViewProjection;
 
-out vec3 vColor;
-out float pointSize;
+out highp vec3 vColor;
+out highp float pointSize;
 
 void main()
 {

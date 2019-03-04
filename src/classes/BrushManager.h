@@ -21,7 +21,6 @@ public:
     ci::gl::GlslProgRef     mShader;
 
     bool isEraserOn;
-    float brushScale;
     void setup();
     
     void drawBrush(std::vector<ci::vec3>& points,float softness);
