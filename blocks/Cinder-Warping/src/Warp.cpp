@@ -715,7 +715,7 @@ void Warp::queueControlPoint( const vec2 &pt, const Color &clr, float scale )
 void Warp::drawControlPoints()
 {
 	if( !mInstancedBatch ) {
-		gl::VboMeshRef mesh = gl::VboMesh::create( geom::Circle().radius( 15 ) );
+		gl::VboMeshRef mesh = gl::VboMesh::create( geom::Circle().radius( 65 ) );
 
 		std::vector<Data> positions;
 		positions.resize( MAX_NUM_CONTROL_POINTS );

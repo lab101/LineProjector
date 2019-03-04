@@ -54,8 +54,8 @@ void LineProjector2App::setup()
 	float scale = 1;
 	ci::vec2 size(1920, 1080);
 
-	getWindow()->setUserData(new WindowData(ci::Rectf(0, 1, offset, 0.0), 0));
-	setWindowPos((int)size.x, 120);
+	getWindow()->setUserData(new WindowData(ci::Rectf(offset, 1, 0, 0.0), 0));
+//	setWindowPos((int)size.x, 120);
 	setWindowSize(size * scale);
 	getWindow()->setTitle("MAIN window");
 
@@ -89,19 +89,19 @@ void LineProjector2App::setup()
 	});
 
 
-	mActiveComposition->newLine(vec3(10, 10, 10));
-	mActiveComposition->lineTo(vec3(size.x * nrOfScreens -10, size.y -20, 10));
+	mActiveComposition->newLine(vec3(10, 10, 40));
+	mActiveComposition->lineTo(vec3(size.x * nrOfScreens -10, size.y -20, 40));
 	mActiveComposition->endLine();
 
-	mActiveComposition->newLine(vec3(size.x * nrOfScreens - 10, 10, 10));
-	mActiveComposition->lineTo(vec3(10, size.y, 10));
+	mActiveComposition->newLine(vec3(size.x * nrOfScreens - 10, 10, 40));
+	mActiveComposition->lineTo(vec3(10, size.y, 40));
 	mActiveComposition->endLine();
 
 
 	for (int i = 0; i < nrOfScreens-1; i++){
 
 		app::WindowRef newWindow2 = createWindow(Window::Format().size(size * scale).pos(size.x * scale * (i+2), 120));
-		newWindow2->setUserData(new WindowData(ci::Rectf(offset * (i+1), 1, offset * (i+2), 0), i+1));
+		newWindow2->setUserData(new WindowData(ci::Rectf(offset * (i+2), 1, offset * (i+1), 0), i+1));
 		newWindow2->setTitle("Window " + toString(i+2));
 
 	}
@@ -152,6 +152,7 @@ void LineProjector2App::setupComposition(std::shared_ptr<Composition>& compositi
 void LineProjector2App::draw()
 {
 
+	ci::gl::lineWidth(4);
 
 	WindowData *data = getWindow()->getUserData<WindowData>();
 

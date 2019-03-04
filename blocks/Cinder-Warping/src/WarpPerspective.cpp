@@ -164,10 +164,10 @@ void WarpPerspective::draw( bool controls )
 		gl::multModelMatrix( getTransform() );
 
 		gl::ScopedGlslProg  scpGlsl( gl::getStockShader( gl::ShaderDef().color() ) );
-		gl::ScopedLineWidth scpLinewidth( 1.0f );
+		gl::ScopedLineWidth scpLinewidth( 14.0f );
 		glHint( GL_LINE_SMOOTH_HINT, GL_NICEST );
 
-		gl::ScopedColor scpColor( Color::white() );
+		gl::ScopedColor scpColor( Color(1,0,0) );
 		for( int i = 0; i <= 1; i++ ) {
 			float s = i / 1.0f;
 			gl::drawLine( vec2( s * (float)mWidth, 0.0f ), vec2( s * (float)mWidth, (float)mHeight ) );
