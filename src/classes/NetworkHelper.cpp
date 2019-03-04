@@ -78,16 +78,6 @@ bool NetworkHelper::setup(){
 	}, mIoService));
 
 
-    //try{
-    //    setupOSCSender();
-    //   // mListener.setup(3000);
-    //    
-    //}catch(...){
-    //    return false;
-    //}
-    //
-    //return true;
-
 
 	return true;
 }
@@ -116,49 +106,6 @@ void NetworkHelper::update(){
 	mPointsQueueLock.unlock();
 
 
-    
-    //while( mListener.hasWaitingMessages() ) {
-    //    osc::Message message;
-    //    mListener.getNextMessage( &message );
-    //    
-    //    // return from our own broadcast
-    //    std::string remoteIp = message.getRemoteIp();
-    //    if( remoteIp ==  mOwnIpAdress)
-    //        continue;
-    //    
-    //    std::string remoteLastNr = extractLastIpNr(remoteIp);
-    //    std::string const adress = message.getAddress();
-    //    
-    //    int incomingGroupId =  message.getArgAsInt32(0);
-    //    
-    //    // discard packages from other groups
-    //    if(incomingGroupId == groupId){
-
-    //        
-    //        if(mAliveIps.find(remoteLastNr) == mAliveIps.end()){
-    //            onNewConnection.emit(remoteLastNr);
-    //        }
-    //        
-    //        mAliveIps[remoteLastNr] = ci::app::getElapsedSeconds();
-    //        onAlivePing.emit(remoteLastNr);
-
-
-    //        if(adress == "points"){
-    //            int totals = message.getNumArgs() ;
-    //            bool isEraserOn = message.getArgAsInt32(1);
-
-    //            
-    //            std::vector<ci::vec3> points;
-    //            for(int i=2;i < totals;i+=3){
-    //                points.push_back(ci::vec3(message.getArgAsFloat(i),message.getArgAsFloat(i+1),message.getArgAsFloat(i+2)));
-    //            }
-    //            
-    //            onReceivePoints.emit(points,isEraserOn);
-    //        }
-    //    }
-    //    
-    //    
-    //}
 
 }
 

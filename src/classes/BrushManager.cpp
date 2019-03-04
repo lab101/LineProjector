@@ -50,13 +50,11 @@ void BrushManager::drawBrush(std::vector<vec3>& points,float softness){
 	//mShader = gl::GlslProg::create(loadAsset("shaders/shader_es2.vert"), loadAsset("shaders/shader_es2.frag"));
 	ci::Color(1, 1, 1);
 	gl::ScopedGlslProg glslProg(mShader);
-	//mShader->bind();
     ci::gl::VertBatchRef mBatch = gl::VertBatch::create();
     
     for(vec3& p : points){
         mBatch->vertex( p );
 		mBatch->color(GS()->brushColor);
-		//mBatch->color(Color(1,0,0));
 	}
     
     
