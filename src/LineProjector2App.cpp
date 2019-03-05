@@ -21,7 +21,7 @@ class LineProjector2App : public App {
 	std::shared_ptr<Composition>    mActiveComposition;
 	std::queue<std::vector<ci::vec3> > pointsQueue;
 
-	void setupComposition(std::shared_ptr<Composition>& composition, bool hasHistory = false);
+	void setupComposition(std::shared_ptr<Composition>& composition,ci::ivec2 size, bool hasHistory = false);
 	NetworkHelper*       mNetworkHelper;
 
 	WarpList		mWarps;
@@ -49,11 +49,11 @@ void LineProjector2App::setup()
 
 
 	activeWindow = -1;
-	int nrOfScreens = 4;
+	int nrOfScreens = 2;
 	bool flipHorizontal = true;
 
 	float offset = 1.0 / nrOfScreens;
-	float scale = 0.4;
+	float scale = 0.25;
 	float offsetLeft = 0;
 	ci::vec2 size(1920, 1080);
 
@@ -72,7 +72,7 @@ void LineProjector2App::setup()
 
 
 	CI_LOG_I("SETUP composition with FBO");
-	setupComposition(mActiveComposition);
+	setupComposition(mActiveComposition,ivec2(size.x * nrOfScreens,size.y));
 
 
 	mNetworkHelper = new NetworkHelper();
@@ -146,11 +146,11 @@ void LineProjector2App::update()
 
 
 
-void LineProjector2App::setupComposition(std::shared_ptr<Composition>& composition, bool hasHistory){
+void LineProjector2App::setupComposition(std::shared_ptr<Composition>& composition,ci::ivec2 size , bool hasHistory){
 
 	composition = make_shared<Composition>();
 	//composition->setup(GS()->compositionSize);
-	composition->setup(vec2(1920 *4.0 , 1080));
+	composition->setup(size);
 
 	// when the new points with correct spacing are calculated we send them to the other
 	// clients we don't send rawpoints.
