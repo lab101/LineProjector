@@ -117,65 +117,75 @@ void Composition::endLine(){
 }
 
 
-void Composition::lineTo(ci::vec3 pressurePoint){
+void Composition::lineTo(ci::vec3 pressurePoint,ci::ColorA color){
     mPath.lineTo(vec2(pressurePoint.x,pressurePoint.y));
     mDepths.lineTo(vec2(pressurePoint.x,pressurePoint.z));
     
-    calculatePath(mPath,mDepths,true);
+    calculatePath(mPath,mDepths,true,color);
 }
 
-void Composition::drawCircle(ci::vec3 point1,ci::vec3 point2){
+void Composition::drawCircle(ci::vec3 point1,ci::vec3 point2, ci::Color color){
+    //------------------------------------------------------------------------FBO
     gl::ScopedFramebuffer fbScp( mActiveFbo );
     gl::ScopedViewport fbVP (mActiveFbo->getSize());
     gl::setMatricesWindow( mActiveFbo->getSize() );
     
     gl::ScopedBlendPremult scpBlend;
-    
-    
-    gl::color(GS()->brushColor);
-    
-    
+    //------------------------------------------------------------------------DRAW
+    gl::color(color);
     ci::gl::drawSolidCircle(vec2(point1.x,point1.y), glm::distance(point1, point2));
     
+    gl::setMatricesWindow(ci::app::getWindowSize());//------------------------FBO END
+    //------------------------------------------------------------------------DRAW STROKE
+    std::vector<vec3> circumference;
+    const int brushSize = 15;
+    for(float i = 0; i< 362.0f ; i+=1){
+        float x = point1.x + (glm::distance(point1, point2) * glm::cos(glm::radians(i)));
+        float y = point1.y + (glm::distance(point1, point2) * glm::sin(glm::radians(i)));
+        circumference.push_back(vec3(x,y,brushSize));
+    }
+    newLine(circumference[0]);
+    for(int j =1 ; j< circumference.size();j++){
+         lineTo(vec3(circumference[j].x,circumference[j].y,brushSize),color);
+    }
+    endLine();
     
-    gl::setMatricesWindow( ci::app::getWindowSize() );
-    
-   //DRAW CIRCLE STROKE
     
 }
+void Composition::drawLine(ci::vec3 point1,ci::vec3 point2, ci::Color color){
+    std::cout<< point1 << std::endl;
+    const int brushSize = 20;
+    point1.z = brushSize;
+    newLine(point1);
+    lineTo(vec3(point2.x,point2.y,brushSize),color);
+    endLine();
+}
 
-void Composition::drawRectangle(ci::vec3 point1,ci::vec3 point2){
+void Composition::drawRectangle(ci::vec3 point1,ci::vec3 point2, ci::Color color){
    
+
+    GS()->brushColor = ci::ColorA(color);
+    //------------------------------------------------------------------------FBO
     gl::ScopedFramebuffer fbScp( mActiveFbo );
     gl::ScopedViewport fbVP (mActiveFbo->getSize());
     gl::setMatricesWindow( mActiveFbo->getSize() );
-
     gl::ScopedBlendPremult scpBlend;
-
-
-    gl::color(GS()->brushColor);
+    //------------------------------------------------------------------------DRAW
+    gl::color(color);
+    Rectf rect( point1.x, point1.y, point2.x , point2.y);
+    ci::gl::drawSolidRect(rect);
     
-        Rectf rect( point1.x, point1.y, point2.x , point2.y);
-      ci::gl::drawSolidRect(rect);
-    //BrushManagerSingleton::Instance()->drawBrush(points, 0.98);
-    
-    gl::setMatricesWindow( ci::app::getWindowSize() );
-    
+    gl::setMatricesWindow( ci::app::getWindowSize() );//----------------------FBO END
+    //------------------------------------------------------------------------DRAW STROKE
     const int brushSize = 10;
     point1.z = brushSize;
-     newLine(point1);
-    mPath.lineTo(vec2(point2.x,point1.y));
-    mDepths.lineTo(vec2(point2.x,brushSize));
-   calculatePath(mPath,mDepths,false);
-    mPath.lineTo(vec2(point2.x,point2.y));
-     mDepths.lineTo(vec2(point2.x,brushSize));
-    calculatePath(mPath,mDepths,false);
-    mPath.lineTo(vec2(point1.x,point2.y));
-    mDepths.lineTo(vec2(point1.x,brushSize));
-    calculatePath(mPath,mDepths,false);
-    mPath.lineTo(vec2(point1.x,point1.y));
-    mDepths.lineTo(vec2(point1.x,brushSize));
-    calculatePath(mPath,mDepths,false);
+    newLine(point1);
+ 
+    lineTo(vec3(point2.x,point1.y,brushSize),color);
+     lineTo(vec3(point2.x,point2.y,brushSize),color);
+     lineTo(vec3(point1.x,point2.y,brushSize),color);
+     lineTo(vec3(point1.x,point1.y,brushSize),color);
+
     endLine();
 }
 
@@ -196,7 +206,7 @@ void Composition::setFbo(ci::gl::FboRef& fbo,ci::ivec2 size,float windowScale){
 }
 
 
-void Composition::drawInFbo(std::vector<ci::vec3>& points){
+void Composition::drawInFbo(std::vector<ci::vec3>& points, ci::ColorA color){
     
     
     if(points.size() > 0){
@@ -209,7 +219,7 @@ void Composition::drawInFbo(std::vector<ci::vec3>& points){
 		gl::enableAlphaBlendingPremult();
 
         
-        gl::color(1, 1, 1);
+        gl::color(color);
 
         BrushManagerSingleton::Instance()->drawBrush(points, 0.98);
         
@@ -243,7 +253,7 @@ void Composition::drawFadeOut(){
 
 
 
-void Composition::calculatePath(ci::Path2d& path,ci::Path2d& depths, bool emmitTrueOrFalse){
+void Composition::calculatePath(ci::Path2d& path,ci::Path2d& depths, bool emmitTrueOrFalse,ci::ColorA color){
     
     
     float length = path.calcLength();
@@ -284,7 +294,7 @@ void Composition::calculatePath(ci::Path2d& path,ci::Path2d& depths, bool emmitT
         // emmit to other listner in this case network
         onNewPoints.emit(pointsToDrawNormalised);
         // draw the new points into the fbo.
-        drawInFbo(pointsToDraw);
+        drawInFbo(pointsToDraw,color);
     }
 }
 

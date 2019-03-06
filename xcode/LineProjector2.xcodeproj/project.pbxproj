@@ -259,16 +259,16 @@
 		505F84C0222EE744002AFC56 /* classes */ = {
 			isa = PBXGroup;
 			children = (
-				505F84C1222EE744002AFC56 /* GlobalSettings.cpp */,
-				505F84C2222EE744002AFC56 /* NetworkHelper.cpp */,
-				505F84C3222EE744002AFC56 /* Composition.cpp */,
 				505F84C4222EE744002AFC56 /* BrushManager.cpp */,
-				505F84C5222EE744002AFC56 /* Composition.hpp */,
-				505F84C6222EE744002AFC56 /* GlobalSettings.h */,
 				505F84C7222EE744002AFC56 /* BrushManager.h */,
-				505F84C8222EE744002AFC56 /* WindowData.h */,
+				505F84C3222EE744002AFC56 /* Composition.cpp */,
+				505F84C5222EE744002AFC56 /* Composition.hpp */,
+				505F84C1222EE744002AFC56 /* GlobalSettings.cpp */,
+				505F84C6222EE744002AFC56 /* GlobalSettings.h */,
 				505F84C9222EE744002AFC56 /* Lab101Utils.h */,
+				505F84C2222EE744002AFC56 /* NetworkHelper.cpp */,
 				505F84CA222EE744002AFC56 /* NetworkHelper.h */,
+				505F84C8222EE744002AFC56 /* WindowData.h */,
 			);
 			name = classes;
 			path = ../src/classes;

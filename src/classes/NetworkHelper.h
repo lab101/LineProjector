@@ -31,6 +31,11 @@ class NetworkHelper{
 
 	std::queue<std::vector<ci::vec3> > pointsQueue;
 	std::mutex mPointsQueueLock;
+    
+    std::queue<std::vector<ci::vec3> > shapesQueue;
+    std::mutex mShapesQueueLock;
+    std::string hexColor;
+    std::string receivedShape;
 
 public:
 
@@ -45,7 +50,8 @@ public:
 	std::map<uint64_t, protocol::endpoint> mConnections;
 
 
-    ci::signals::Signal<void(std::vector<ci::vec3>& , bool isEraserOn)>   onReceivePoints;
+    ci::signals::Signal<void(std::vector<ci::vec3>& , bool isEraserOn, std::string hexColor)>   onReceivePoints;
+    ci::signals::Signal<void(std::vector<ci::vec3>& points, std::string shape, std::string color)> onReceiveShapes;
     ci::signals::Signal<void(std::string&)>   onNewConnection;
     ci::signals::Signal<void(std::string&)>   onAlivePing;
 

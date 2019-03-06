@@ -10,6 +10,8 @@
 #include "NetworkHelper.h"
 #include "WindowData.h"
 #include "Warp.h"
+#include "Lab101Utils.h"
+
 
 using namespace ci;
 using namespace ci::app;
@@ -49,7 +51,7 @@ void LineProjector2App::setup()
 
 
 	activeWindow = -1;
-	int nrOfScreens = 2;
+	int nrOfScreens = 1;
 	bool flipHorizontal = true;
 
 	float offset = 1.0 / nrOfScreens;
@@ -78,22 +80,40 @@ void LineProjector2App::setup()
 	mNetworkHelper = new NetworkHelper();
 	mNetworkHelper->setup();
 
-	mNetworkHelper->onReceivePoints.connect([=](std::vector<ci::vec3>& points, bool isEraserOn){
-		BrushManagerSingleton::Instance()->isEraserOn = false;
+    mNetworkHelper->onReceivePoints.connect([=](std::vector<ci::vec3>& points, bool isEraserOn, std::string color){
+        BrushManagerSingleton::Instance()->isEraserOn = isEraserOn;
+        
+        for(auto&p : points){
+            p.x *= mActiveComposition->mSize.x;
+            p.y *= mActiveComposition->mSize.y;
+        }
+        GS()->brushColor =hexStringToColor(color);
+        mActiveComposition->drawInFbo(points, hexStringToColor(color));
+    });
+    mNetworkHelper->onReceiveShapes.connect([=] (std::vector<ci::vec3>& points, std::string shape, std::string color){
+         GS()->brushColor =hexStringToColor(color);
+        
+        for (auto&p : points){
+            p.x *= mActiveComposition->mSize.x;
+            p.y *= mActiveComposition->mSize.y;
+        }
 
-		for (auto&p : points){
-			p.x *= mActiveComposition->mSize.x;
-			p.y *= mActiveComposition->mSize.y;
-		}
+        
+        if(shape == "RECT"){
+            mActiveComposition->drawRectangle(points[0],points[1], hexStringToColor(color));
+        }
+        else if(shape == "CIRCLE"){
+           
+           mActiveComposition->drawCircle(points[0],points[1], hexStringToColor(color));
+        }
+        else if(shape == "LINE"){
+            mActiveComposition->drawLine(points[0],points[1], hexStringToColor(color));
+        }
+    });
 
-		GS()->brushColor = ci::ColorA(1.0, 0.0, 0.0, 1.0);
-		mActiveComposition->drawInFbo(points);
-
-		//pointsQueue.push(points);
-	});
-
-
-	mActiveComposition->newLine(vec3(10, 10, 20));
+    
+    //CROSS
+/*	mActiveComposition->newLine(vec3(10, 10, 20));
 	mActiveComposition->lineTo(vec3(size.x * nrOfScreens - 10, size.y - 20, 20));
 	mActiveComposition->endLine();
 	GS()->brushColor = ci::ColorA(1.0, 1.0, 0.0, 1.0);
@@ -102,7 +122,7 @@ void LineProjector2App::setup()
 	mActiveComposition->lineTo(vec3(10, size.y, 20));
 	mActiveComposition->endLine();
 
-
+*/
 	for (int i = 0; i < nrOfScreens-1; i++){
 
 		vec2 position(offsetLeft + (size.x * scale) * (i+1) , 120);

@@ -74,18 +74,18 @@ public:
     void setNewSize(ci::ivec2 size,float windowScale);
     void setFbo(ci::gl::FboRef& fbo, ci::ivec2 size,float windowScale);
     
-    void drawInFbo(std::vector<ci::vec3>& points);
-    void calculatePath(ci::Path2d& path,ci::Path2d& depths, bool emmitTrueOrFalse);
+    void drawInFbo(std::vector<ci::vec3>& points,ci::ColorA color);
+    void calculatePath(ci::Path2d& path,ci::Path2d& depths, bool emmitTrueOrFalse,ci::ColorA color);
 	void draw(ci::Rectf drawingArea);
     
     
     void newLine(ci::vec3 pressurePoint);
-    void lineTo(ci::vec3 pressurePoint);
+    void lineTo(ci::vec3 pressurePoint,ci::ColorA color);
     void endLine();
     
-    void drawRectangle(ci::vec3 point1,ci::vec3 point2);
-    void drawCircle(ci::vec3 point1,ci::vec3 point2);
-    
+    void drawRectangle(ci::vec3 point1,ci::vec3 point2, ci::Color color);
+    void drawCircle(ci::vec3 point1,ci::vec3 point2, ci::Color color);
+    void drawLine(ci::vec3 point1,ci::vec3 point2, ci::Color color);
     void drawFadeOut();
     
     void saveLineSegmentForGif();
