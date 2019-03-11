@@ -30,6 +30,8 @@ public:
     Setting<int> compositionWidth;
     Setting<int> compositionHeight;
     Setting<int> maxGroups;
+	Setting<int> nrOfScreens;
+
 
     
     Setting<bool>   hasGifOutput;

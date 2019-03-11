@@ -178,7 +178,7 @@ void Composition::drawRectangle(ci::vec3 point1,ci::vec3 point2, ci::Color color
 
 
 
-void Composition::setFbo(ci::gl::FboRef& fbo,ci::ivec2 size,float windowScale){
+void Composition::setFbo(ci::gl::FboRef& fbo,ci::ivec2 size,float window1){
     
     gl::Fbo::Format format;
     format.setColorTextureFormat( gl::Texture2d::Format().internalFormat( GL_RGBA32F ) );
@@ -293,8 +293,8 @@ void Composition::draw(ci::Rectf drawingArea){
     gl::color(1, 1, 1, 1);
     
 	// for debugging only
-    ci::gl::draw(mActiveFbo->getColorTexture());
-	return;
+  //  ci::gl::draw(mActiveFbo->getColorTexture());
+//	return;
 
 
     ci::gl::enableAlphaBlendingPremult();
@@ -311,6 +311,7 @@ void Composition::draw(ci::Rectf drawingArea){
     
     
 	ScopedActiveTexture scopedText(mActiveFbo->getColorTexture()->getId());
+	mActiveFbo->getColorTexture()->bind(0);
     // mLastDrawingTexture->bind(1);
     
     //gl::enableAlphaBlending();

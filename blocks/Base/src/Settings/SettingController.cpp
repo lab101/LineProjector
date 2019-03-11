@@ -25,6 +25,8 @@ void SettingController::draw(){
         setup();
     }
     float yPos = 20;
+	float xPos = 200;
+
     int mLoopIndex = 0;
     
     for (auto s : SettingManager::Instance()->getSettings()){
@@ -32,10 +34,10 @@ void SettingController::draw(){
         float offset = (mLoopIndex == mIndex) ? 4 : 0;
         
         ci::gl::color(mLoopIndex == mIndex ? activeBGColor : normalBGColor);
-        ci::gl::drawSolidRoundedRect(Rectf(20 - offset, yPos - 8 - offset, 400 + offset, yPos + 14 + offset), 4);        
+		ci::gl::drawSolidRoundedRect(Rectf(xPos + 20 - offset, yPos - 8 - offset, xPos + 400 + offset, yPos + 14 + offset), 4);
         
-        ci::gl::drawString(s->getKey(), vec2(40, yPos), mLoopIndex == mIndex ? activeColor : normalColor, mFont);
-        ci::gl::drawString(s->getValueAsString(), vec2(280, yPos), mLoopIndex == mIndex ? activeColor : normalColor, mFont);
+		ci::gl::drawString(s->getKey(), vec2(xPos + 40, yPos), mLoopIndex == mIndex ? activeColor : normalColor, mFont);
+		ci::gl::drawString(s->getValueAsString(), vec2(xPos +  280, yPos), mLoopIndex == mIndex ? activeColor : normalColor, mFont);
         
         
         
