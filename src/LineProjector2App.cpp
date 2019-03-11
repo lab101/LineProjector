@@ -51,7 +51,8 @@ void LineProjector2App::setup()
     
     
     activeWindow = -1;
-    int nrOfScreens = 7;
+    int nrOfScreens = 3;
+     int screenOrder[3] = {1,2,3};
     bool flipHorizontal = true;
     
     float offset = 1.0 / nrOfScreens;
@@ -60,10 +61,10 @@ void LineProjector2App::setup()
     ci::vec2 size(1920, 1080);
     
     
-    getWindow()->setUserData(new WindowData(ci::Rectf(flipHorizontal ? 0 : offset, 1, flipHorizontal ? offset : 0, 0.0), 0));
-    setWindowPos(offsetLeft, 120);
+    getWindow()->setUserData(new WindowData(ci::Rectf(flipHorizontal ? 0 : offset, 1, flipHorizontal ? offset : 0, 0.0),0 ));
+    setWindowPos(offsetLeft+((screenOrder[0]-1) * size.x * scale), 120);
     setWindowSize(size * scale);
-    getWindow()->setTitle("MAIN window");
+    getWindow()->setTitle("Window 1");
     
     
     CI_LOG_I("SETUP brush");
@@ -122,31 +123,31 @@ void LineProjector2App::setup()
     //     mActiveComposition->newLine(vec3(size.x * nrOfScreens - 10, 10, 20));
     //     mActiveComposition->lineTo(vec3(10, size.y, 20),ci::ColorA(1.0, 1.0, 1.0, 1.0));
     //     mActiveComposition->endLine();
-    float posCounter =2;
-    
+    float posCounter =2.25;
+   
     for(int i = 1; i <= nrOfScreens; i++){
         float posX = posCounter - (0.25 * (i-1) );
         for(int j = 1; j <= i; j++){
-            
+
             float  xPosMid = offsetLeft + (size.x * scale) * (posX);
-            
+
             mActiveComposition->newLine(vec3(xPosMid,size.y/4,10));
             mActiveComposition->lineTo(vec3(xPosMid,size.y*0.7,10),hexStringToColor("#000000"));
             mActiveComposition->endLine();
-            
+
             mActiveComposition->newLine(vec3(xPosMid-70,size.y/4,10));
             mActiveComposition->lineTo(vec3(xPosMid+70,size.y/4,10),hexStringToColor("#000000"));
             mActiveComposition->endLine();
-            
+
             mActiveComposition->newLine(vec3(xPosMid-70,size.y*0.7,10));
             mActiveComposition->lineTo(vec3(xPosMid+70,size.y*0.7,10),hexStringToColor("#000000"));
             mActiveComposition->endLine();
-            
+
             posX +=0.5 ;
         }
         posCounter += 4;
     }
-    
+
     
     
     
@@ -160,18 +161,14 @@ void LineProjector2App::setup()
     
     
     for (int i = 0; i < nrOfScreens-1; i++){
-        
-        
-        
-        vec2 position(offsetLeft + (size.x * scale) * (i+1) , 120);
-        //______________________________________________________________________________ARRAY OF POS {3,1,2}
+        vec2 position(offsetLeft + (size.x * scale) * (screenOrder[i+1]-1) , 120);
         app::WindowRef newWindow2 = createWindow(Window::Format().size(size * scale).pos(position));
         
         
         float offsetX1 = offset * (i + (flipHorizontal ? 1 : 2));
         float offsetX2 = offset * (i + (flipHorizontal ? 2 : 1));
         
-        newWindow2->setUserData(new WindowData(ci::Rectf(offsetX1, 1, offsetX2, 0), i + 1));
+        newWindow2->setUserData(new WindowData(ci::Rectf(offsetX1, 1, offsetX2, 0), i));
         newWindow2->setTitle("Window " + toString(i+2));
         
         

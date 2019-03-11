@@ -275,9 +275,9 @@ void Composition::calculatePath(ci::Path2d& path,ci::Path2d& depths, bool emmitT
     
     
     
-    if(pointsToDraw.size() > 0  && emmitTrueOrFalse){
+    if(pointsToDraw.size() > 0 ){
         // emmit to other listner in this case network
-        onNewPoints.emit(pointsToDrawNormalised);
+        if(emmitTrueOrFalse) onNewPoints.emit(pointsToDrawNormalised);
         // draw the new points into the fbo.
         drawInFbo(pointsToDraw,color);
     }
