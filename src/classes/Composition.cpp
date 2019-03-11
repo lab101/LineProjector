@@ -178,7 +178,7 @@ void Composition::drawRectangle(ci::vec3 point1,ci::vec3 point2, ci::Color color
 
 
 
-void Composition::setFbo(ci::gl::FboRef& fbo,ci::ivec2 size,float windowScale){
+void Composition::setFbo(ci::gl::FboRef& fbo,ci::ivec2 size,float window1){
     
     gl::Fbo::Format format;
     format.setColorTextureFormat( gl::Texture2d::Format().internalFormat( GL_RGBA32F ) );

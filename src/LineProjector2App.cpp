@@ -51,14 +51,14 @@ void LineProjector2App::setup()
     
     
     activeWindow = -1;
-    int nrOfScreens = 3;
+    int nrOfScreens = 5;
 
-     int screenOrder[3] = {1,2,3};
+     int screenOrder[5] = {1,2,3,4,5};
 
     bool flipHorizontal = true;
     
     float offset = 1.0 / nrOfScreens;
-    float scale = 0.75;
+    float scale = 0.15;
     float offsetLeft = 0;
     ci::vec2 size(1920, 1080);
     
@@ -142,13 +142,13 @@ void LineProjector2App::setup()
     //     mActiveComposition->newLine(vec3(size.x * nrOfScreens - 10, 10, 20));
     //     mActiveComposition->lineTo(vec3(10, size.y, 20),ci::ColorA(1.0, 1.0, 1.0, 1.0));
     //     mActiveComposition->endLine();
-    float posCounter =2.25;
+    float posCounter =1;
    
     for(int i = 1; i <= nrOfScreens; i++){
-        float posX = posCounter - (0.25 * (i-1) );
+        float posX = posCounter - (0.25 * ((i-1)/2) );
         for(int j = 1; j <= i; j++){
 
-            float  xPosMid = offsetLeft + (size.x * scale) * (posX);
+            float  xPosMid = offsetLeft + (size.x * 0.5) * (posX);
 
             mActiveComposition->newLine(vec3(xPosMid,size.y/4,10));
             mActiveComposition->lineTo(vec3(xPosMid,size.y*0.7,10),hexStringToColor("#000000"));
@@ -162,9 +162,9 @@ void LineProjector2App::setup()
             mActiveComposition->lineTo(vec3(xPosMid+70,size.y*0.7,10),hexStringToColor("#000000"));
             mActiveComposition->endLine();
 
-            posX +=0.5 ;
+            posX +=0.25 ;
         }
-        posCounter += 4;
+        posCounter += 2;
     }
 
     
