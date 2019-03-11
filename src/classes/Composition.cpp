@@ -98,6 +98,8 @@ void Composition::newLine(ci::vec3 pressurePoint){
 
 
 void Composition::endLine(){
+	calculatePath(mPath, mDepths, true, ci::Color(0,0,0));
+
     mStepId++;
 }
 
@@ -106,7 +108,6 @@ void Composition::lineTo(ci::vec3 pressurePoint,ci::ColorA color){
     mPath.lineTo(vec2(pressurePoint.x,pressurePoint.y));
     mDepths.lineTo(vec2(pressurePoint.x,pressurePoint.z));
     
-    calculatePath(mPath,mDepths,true,color);
 }
 
 void Composition::drawCircle(ci::vec3 point1,ci::vec3 point2, ci::Color color){
@@ -275,12 +276,12 @@ void Composition::calculatePath(ci::Path2d& path,ci::Path2d& depths, bool emmitT
     
     
     
-    if(pointsToDraw.size() > 0  && emmitTrueOrFalse){
-        // emmit to other listner in this case network
-        onNewPoints.emit(pointsToDrawNormalised);
-        // draw the new points into the fbo.
-        drawInFbo(pointsToDraw,color);
-    }
+	if (pointsToDraw.size() > 0){
+		// emmit to other listner in this case network
+		if (emmitTrueOrFalse) onNewPoints.emit(pointsToDrawNormalised);
+		// draw the new points into the fbo.
+		drawInFbo(pointsToDraw, color);
+	}
 }
 
 
