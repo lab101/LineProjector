@@ -52,11 +52,13 @@ void LineProjector2App::setup()
     
     activeWindow = -1;
     int nrOfScreens = 3;
+
      int screenOrder[3] = {1,2,3};
+
     bool flipHorizontal = true;
     
     float offset = 1.0 / nrOfScreens;
-    float scale = 0.25;
+    float scale = 0.75;
     float offsetLeft = 0;
     ci::vec2 size(1920, 1080);
     
@@ -84,6 +86,23 @@ void LineProjector2App::setup()
     mNetworkHelper->onReceivePoints.connect([=](std::vector<ci::vec3>& points, bool isEraserOn, std::string color){
         BrushManagerSingleton::Instance()->isEraserOn = isEraserOn;
         
+		//points[0].x *= mActiveComposition->mSize.x;
+		//points[0].y *= mActiveComposition->mSize.y;
+
+		//mActiveComposition->newLine(points[0]);
+		//for (int i = 1; i < points.size(); i++){
+		//	points[i].x *= mActiveComposition->mSize.x;
+		//	points[i].y *= mActiveComposition->mSize.y;
+
+
+		//	mActiveComposition->lineTo(points[i] , hexStringToColor(color));
+
+		//}
+
+		//mActiveComposition->endLine();
+	
+
+
         for(auto&p : points){
             p.x *= mActiveComposition->mSize.x;
             p.y *= mActiveComposition->mSize.y;
