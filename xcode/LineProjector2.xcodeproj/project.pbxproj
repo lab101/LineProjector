@@ -16,33 +16,23 @@
 		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
 		00B9955A1B128DF400A5C623 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995581B128DF400A5C623 /* IOKit.framework */; };
 		00B9955B1B128DF400A5C623 /* IOSurface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995591B128DF400A5C623 /* IOSurface.framework */; };
-		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
-		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		56DAB32BE2CB42F9B93D9FDC /* Osc.h in Headers */ = {isa = PBXBuildFile; fileRef = B1F22C5BB9074395A5B63756 /* Osc.h */; };
-		3907DBF166EC484389CB608B /* Osc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA8E7BF48FC04B9488CE8D72 /* Osc.cpp */; };
-		E69D33D4B4E4457F8F19DA9F /* WarpPerspectiveBilinear.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3AC39CFC7677499D945B107A /* WarpPerspectiveBilinear.cpp */; };
-		3FC86CCAE3B94C949CCC8C8A /* WarpPerspective.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48EBA8E5DA884D319FC306B2 /* WarpPerspective.cpp */; };
-		27EC12BF46324CC6B9E35769 /* WarpBilinear.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 276643A2E47B4DB69540EEAA /* WarpBilinear.cpp */; };
-		5A60C80110724ABFA6C791BA /* Warp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BAC9BA945EC64ABAAA01D1FC /* Warp.cpp */; };
-		BAA2230A12CC481F89453C33 /* Warp.h in Headers */ = {isa = PBXBuildFile; fileRef = 18070AE9CF9E4D7DB2F21A22 /* Warp.h */; };
-		33DBD6C853834710B2D89B85 /* SettingManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6FB99A42F634475F9ACC143A /* SettingManager.cpp */; };
 		158EAD9106DD4A5384AA445D /* SettingController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F14EC6BD85AB4C55A67D822A /* SettingController.cpp */; };
-		A33340B780DE4A95A98616EB /* GlobalSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D3035F0145C4D49BF3EA835 /* GlobalSettings.cpp */; };
-		9168A1FF55BE48109C93BE2C /* SettingString.h in Headers */ = {isa = PBXBuildFile; fileRef = C0809B21E9D2410D9AD7E7F4 /* SettingString.h */; };
-		5D2B86AB51034F39B0DA07D8 /* SettingManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 3870AF2B245E41379142FFF5 /* SettingManager.h */; };
-		FA42628265AB4BD2AD488D39 /* SettingController.h in Headers */ = {isa = PBXBuildFile; fileRef = 46042EDD41224BF89A06B7C4 /* SettingController.h */; };
-		70B70CA4DF0647E7A70534EE /* SettingBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 89790A4ECC88428FB36A5FB5 /* SettingBase.h */; };
-		81A759D01C6044E59A0A8B58 /* GlobalSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 67AD0FCA75644933A8EF66B3 /* GlobalSettings.h */; };
-		E1D6B60D793E4AF38C3EAF6D /* NotificationManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDEB39BD31374DDFA967AD84 /* NotificationManager.cpp */; };
 		181A6485359A4A04AC5AED8E /* NotificationLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12E68E4B480B410FAEE52AA5 /* NotificationLogger.cpp */; };
-		444D66F7B54F4DD1B919E3F9 /* NotificationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 3CFCB388D2DF4BD290BC01D3 /* NotificationManager.h */; };
-		96E91E2A31B64726B3ED4455 /* NotificationLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 2FCD182BEB6248D781756B20 /* NotificationLogger.h */; };
-		8BC691F783034F2D8F570286 /* Singleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 87647F57AEB74E8E8EDBE54F /* Singleton.h */; };
-		A0D8F708AFB84F2EA2A63832 /* poHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 386E1D50087146FC833429E2 /* poHelper.h */; };
-		DB92052E0D3B4AB095216FD6 /* LineProjector2_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 0DE9C56F1185468590DF52E4 /* LineProjector2_Prefix.pch */; };
+		27EC12BF46324CC6B9E35769 /* WarpBilinear.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 276643A2E47B4DB69540EEAA /* WarpBilinear.cpp */; };
+		33DBD6C853834710B2D89B85 /* SettingManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6FB99A42F634475F9ACC143A /* SettingManager.cpp */; };
+		3907DBF166EC484389CB608B /* Osc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA8E7BF48FC04B9488CE8D72 /* Osc.cpp */; };
+		3FC86CCAE3B94C949CCC8C8A /* WarpPerspective.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48EBA8E5DA884D319FC306B2 /* WarpPerspective.cpp */; };
+		505F84CB222EE744002AFC56 /* GlobalSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 505F84C1222EE744002AFC56 /* GlobalSettings.cpp */; };
+		505F84CC222EE744002AFC56 /* NetworkHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 505F84C2222EE744002AFC56 /* NetworkHelper.cpp */; };
+		505F84CD222EE744002AFC56 /* Composition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 505F84C3222EE744002AFC56 /* Composition.cpp */; };
+		505F84CE222EE744002AFC56 /* BrushManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 505F84C4222EE744002AFC56 /* BrushManager.cpp */; };
+		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
+		5A60C80110724ABFA6C791BA /* Warp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BAC9BA945EC64ABAAA01D1FC /* Warp.cpp */; };
+		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		C90CB9869E9740ADB5A3449E /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 5B05071BD2324C7A86A63617 /* CinderApp.icns */; };
-		F6A8F1F2ADC44B7D9BC7DAEF /* Resources.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C6F4407FD50461D9CB33C61 /* Resources.h */; };
 		DCB530845CCC4BF1B8C9156C /* LineProjector2App.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15BFE965442040CBBF7075BA /* LineProjector2App.cpp */; };
+		E1D6B60D793E4AF38C3EAF6D /* NotificationManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDEB39BD31374DDFA967AD84 /* NotificationManager.cpp */; };
+		E69D33D4B4E4457F8F19DA9F /* WarpPerspectiveBilinear.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3AC39CFC7677499D945B107A /* WarpPerspectiveBilinear.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,37 +45,45 @@
 		00B784B20FF439BC000DE1D7 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		00B995581B128DF400A5C623 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		00B995591B128DF400A5C623 /* IOSurface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOSurface.framework; path = System/Library/Frameworks/IOSurface.framework; sourceTree = SDKROOT; };
+		0DE9C56F1185468590DF52E4 /* LineProjector2_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = LineProjector2_Prefix.pch; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		12E68E4B480B410FAEE52AA5 /* NotificationLogger.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = NotificationLogger.cpp; path = ../blocks/Base/src/Notifications/NotificationLogger.cpp; sourceTree = "<group>"; };
+		15BFE965442040CBBF7075BA /* LineProjector2App.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = LineProjector2App.cpp; path = ../src/LineProjector2App.cpp; sourceTree = "<group>"; };
+		18070AE9CF9E4D7DB2F21A22 /* Warp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Warp.h; path = "../blocks/Cinder-Warping/include/Warp.h"; sourceTree = "<group>"; };
+		276643A2E47B4DB69540EEAA /* WarpBilinear.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = WarpBilinear.cpp; path = "../blocks/Cinder-Warping/src/WarpBilinear.cpp"; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		2FCD182BEB6248D781756B20 /* NotificationLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NotificationLogger.h; path = ../blocks/Base/src/Notifications/NotificationLogger.h; sourceTree = "<group>"; };
+		386E1D50087146FC833429E2 /* poHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poHelper.h; path = ../blocks/Base/src/poHelper.h; sourceTree = "<group>"; };
+		3870AF2B245E41379142FFF5 /* SettingManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SettingManager.h; path = ../blocks/Base/src/Settings/SettingManager.h; sourceTree = "<group>"; };
+		3AC39CFC7677499D945B107A /* WarpPerspectiveBilinear.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = WarpPerspectiveBilinear.cpp; path = "../blocks/Cinder-Warping/src/WarpPerspectiveBilinear.cpp"; sourceTree = "<group>"; };
+		3CFCB388D2DF4BD290BC01D3 /* NotificationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NotificationManager.h; path = ../blocks/Base/src/Notifications/NotificationManager.h; sourceTree = "<group>"; };
+		46042EDD41224BF89A06B7C4 /* SettingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SettingController.h; path = ../blocks/Base/src/Settings/SettingController.h; sourceTree = "<group>"; };
+		48EBA8E5DA884D319FC306B2 /* WarpPerspective.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = WarpPerspective.cpp; path = "../blocks/Cinder-Warping/src/WarpPerspective.cpp"; sourceTree = "<group>"; };
+		505F84C1222EE744002AFC56 /* GlobalSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GlobalSettings.cpp; sourceTree = "<group>"; };
+		505F84C2222EE744002AFC56 /* NetworkHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkHelper.cpp; sourceTree = "<group>"; };
+		505F84C3222EE744002AFC56 /* Composition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Composition.cpp; sourceTree = "<group>"; };
+		505F84C4222EE744002AFC56 /* BrushManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BrushManager.cpp; sourceTree = "<group>"; };
+		505F84C5222EE744002AFC56 /* Composition.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Composition.hpp; sourceTree = "<group>"; };
+		505F84C6222EE744002AFC56 /* GlobalSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalSettings.h; sourceTree = "<group>"; };
+		505F84C7222EE744002AFC56 /* BrushManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrushManager.h; sourceTree = "<group>"; };
+		505F84C8222EE744002AFC56 /* WindowData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindowData.h; sourceTree = "<group>"; };
+		505F84C9222EE744002AFC56 /* Lab101Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lab101Utils.h; sourceTree = "<group>"; };
+		505F84CA222EE744002AFC56 /* NetworkHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkHelper.h; sourceTree = "<group>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
+		54B674F858B0467EB8804FDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5B05071BD2324C7A86A63617 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
+		6C6F4407FD50461D9CB33C61 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
+		6FB99A42F634475F9ACC143A /* SettingManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = SettingManager.cpp; path = ../blocks/Base/src/Settings/SettingManager.cpp; sourceTree = "<group>"; };
+		87647F57AEB74E8E8EDBE54F /* Singleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Singleton.h; path = ../blocks/Base/src/Singleton.h; sourceTree = "<group>"; };
+		89790A4ECC88428FB36A5FB5 /* SettingBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SettingBase.h; path = ../blocks/Base/src/Settings/SettingBase.h; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* LineProjector2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LineProjector2.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		15BFE965442040CBBF7075BA /* LineProjector2App.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../src/LineProjector2App.cpp; sourceTree = "<group>"; name = LineProjector2App.cpp; };
-		6C6F4407FD50461D9CB33C61 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../include/Resources.h; sourceTree = "<group>"; name = Resources.h; };
-		5B05071BD2324C7A86A63617 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; name = CinderApp.icns; };
-		54B674F858B0467EB8804FDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; name = Info.plist; };
-		0DE9C56F1185468590DF52E4 /* LineProjector2_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = LineProjector2_Prefix.pch; sourceTree = "<group>"; name = LineProjector2_Prefix.pch; };
-		386E1D50087146FC833429E2 /* poHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../blocks/Base/src/poHelper.h; sourceTree = "<group>"; name = poHelper.h; };
-		87647F57AEB74E8E8EDBE54F /* Singleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../blocks/Base/src/Singleton.h; sourceTree = "<group>"; name = Singleton.h; };
-		2FCD182BEB6248D781756B20 /* NotificationLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../blocks/Base/src/Notifications/NotificationLogger.h; sourceTree = "<group>"; name = NotificationLogger.h; };
-		3CFCB388D2DF4BD290BC01D3 /* NotificationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../blocks/Base/src/Notifications/NotificationManager.h; sourceTree = "<group>"; name = NotificationManager.h; };
-		12E68E4B480B410FAEE52AA5 /* NotificationLogger.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../blocks/Base/src/Notifications/NotificationLogger.cpp; sourceTree = "<group>"; name = NotificationLogger.cpp; };
-		CDEB39BD31374DDFA967AD84 /* NotificationManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../blocks/Base/src/Notifications/NotificationManager.cpp; sourceTree = "<group>"; name = NotificationManager.cpp; };
-		67AD0FCA75644933A8EF66B3 /* GlobalSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../blocks/Base/src/Settings/GlobalSettings.h; sourceTree = "<group>"; name = GlobalSettings.h; };
-		89790A4ECC88428FB36A5FB5 /* SettingBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../blocks/Base/src/Settings/SettingBase.h; sourceTree = "<group>"; name = SettingBase.h; };
-		46042EDD41224BF89A06B7C4 /* SettingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../blocks/Base/src/Settings/SettingController.h; sourceTree = "<group>"; name = SettingController.h; };
-		3870AF2B245E41379142FFF5 /* SettingManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../blocks/Base/src/Settings/SettingManager.h; sourceTree = "<group>"; name = SettingManager.h; };
-		C0809B21E9D2410D9AD7E7F4 /* SettingString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../blocks/Base/src/Settings/SettingString.h; sourceTree = "<group>"; name = SettingString.h; };
-		3D3035F0145C4D49BF3EA835 /* GlobalSettings.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../blocks/Base/src/Settings/GlobalSettings.cpp; sourceTree = "<group>"; name = GlobalSettings.cpp; };
-		F14EC6BD85AB4C55A67D822A /* SettingController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../blocks/Base/src/Settings/SettingController.cpp; sourceTree = "<group>"; name = SettingController.cpp; };
-		6FB99A42F634475F9ACC143A /* SettingManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../blocks/Base/src/Settings/SettingManager.cpp; sourceTree = "<group>"; name = SettingManager.cpp; };
-		18070AE9CF9E4D7DB2F21A22 /* Warp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "../blocks/Cinder-Warping/include/Warp.h"; sourceTree = "<group>"; name = Warp.h; };
-		BAC9BA945EC64ABAAA01D1FC /* Warp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = "../blocks/Cinder-Warping/src/Warp.cpp"; sourceTree = "<group>"; name = Warp.cpp; };
-		276643A2E47B4DB69540EEAA /* WarpBilinear.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = "../blocks/Cinder-Warping/src/WarpBilinear.cpp"; sourceTree = "<group>"; name = WarpBilinear.cpp; };
-		48EBA8E5DA884D319FC306B2 /* WarpPerspective.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = "../blocks/Cinder-Warping/src/WarpPerspective.cpp"; sourceTree = "<group>"; name = WarpPerspective.cpp; };
-		3AC39CFC7677499D945B107A /* WarpPerspectiveBilinear.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = "../blocks/Cinder-Warping/src/WarpPerspectiveBilinear.cpp"; sourceTree = "<group>"; name = WarpPerspectiveBilinear.cpp; };
-		CA8E7BF48FC04B9488CE8D72 /* Osc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../blocks/OSC/src/cinder/osc/Osc.cpp; sourceTree = "<group>"; name = Osc.cpp; };
-		B1F22C5BB9074395A5B63756 /* Osc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../blocks/OSC/src/cinder/osc/Osc.h; sourceTree = "<group>"; name = Osc.h; };
+		B1F22C5BB9074395A5B63756 /* Osc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Osc.h; path = ../blocks/OSC/src/cinder/osc/Osc.h; sourceTree = "<group>"; };
+		BAC9BA945EC64ABAAA01D1FC /* Warp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = Warp.cpp; path = "../blocks/Cinder-Warping/src/Warp.cpp"; sourceTree = "<group>"; };
+		C0809B21E9D2410D9AD7E7F4 /* SettingString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SettingString.h; path = ../blocks/Base/src/Settings/SettingString.h; sourceTree = "<group>"; };
+		CA8E7BF48FC04B9488CE8D72 /* Osc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = Osc.cpp; path = ../blocks/OSC/src/cinder/osc/Osc.cpp; sourceTree = "<group>"; };
+		CDEB39BD31374DDFA967AD84 /* NotificationManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = NotificationManager.cpp; path = ../blocks/Base/src/Notifications/NotificationManager.cpp; sourceTree = "<group>"; };
+		F14EC6BD85AB4C55A67D822A /* SettingController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = SettingController.cpp; path = ../blocks/Base/src/Settings/SettingController.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,9 +108,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01B97315FEAEA392516A2CEA /* Blocks */ = {
+			isa = PBXGroup;
+			children = (
+				A28082EBFA4B4CD9B42992FF /* Base */,
+				7168A493737E48C6A29DAFC7 /* Cinder-Warping */,
+				C66FB2FB6ED54C76AC895078 /* OSC */,
+			);
+			name = Blocks;
+			sourceTree = "<group>";
+		};
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				505F84C0222EE744002AFC56 /* classes */,
 				15BFE965442040CBBF7075BA /* LineProjector2App.cpp */,
 			);
 			name = Source;
@@ -145,12 +154,36 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
+		1186BDF2D54D4E39AEBF0781 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				2FCD182BEB6248D781756B20 /* NotificationLogger.h */,
+				3CFCB388D2DF4BD290BC01D3 /* NotificationManager.h */,
+				12E68E4B480B410FAEE52AA5 /* NotificationLogger.cpp */,
+				CDEB39BD31374DDFA967AD84 /* NotificationManager.cpp */,
+			);
+			name = Notifications;
+			sourceTree = "<group>";
+		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				8D1107320486CEB800E47090 /* LineProjector2.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		21850C996F8C4A8AAC5CDB4E /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				89790A4ECC88428FB36A5FB5 /* SettingBase.h */,
+				46042EDD41224BF89A06B7C4 /* SettingController.h */,
+				3870AF2B245E41379142FFF5 /* SettingManager.h */,
+				C0809B21E9D2410D9AD7E7F4 /* SettingString.h */,
+				F14EC6BD85AB4C55A67D822A /* SettingController.cpp */,
+				6FB99A42F634475F9ACC143A /* SettingManager.cpp */,
+			);
+			name = Settings;
 			sourceTree = "<group>";
 		};
 		29B97314FDCFA39411CA2CEA /* LineProjector2 */ = {
@@ -164,122 +197,6 @@
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
 			name = LineProjector2;
-			sourceTree = "<group>";
-		};
-		1186BDF2D54D4E39AEBF0781 /* Notifications */ = {
-			isa = PBXGroup;
-			children = (
-				2FCD182BEB6248D781756B20 /* NotificationLogger.h */,
-				3CFCB388D2DF4BD290BC01D3 /* NotificationManager.h */,
-				12E68E4B480B410FAEE52AA5 /* NotificationLogger.cpp */,
-				CDEB39BD31374DDFA967AD84 /* NotificationManager.cpp */,
-			);
-			name = Notifications;
-			sourceTree = "<group>";
-		};
-		21850C996F8C4A8AAC5CDB4E /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				67AD0FCA75644933A8EF66B3 /* GlobalSettings.h */,
-				89790A4ECC88428FB36A5FB5 /* SettingBase.h */,
-				46042EDD41224BF89A06B7C4 /* SettingController.h */,
-				3870AF2B245E41379142FFF5 /* SettingManager.h */,
-				C0809B21E9D2410D9AD7E7F4 /* SettingString.h */,
-				3D3035F0145C4D49BF3EA835 /* GlobalSettings.cpp */,
-				F14EC6BD85AB4C55A67D822A /* SettingController.cpp */,
-				6FB99A42F634475F9ACC143A /* SettingManager.cpp */,
-			);
-			name = Settings;
-			sourceTree = "<group>";
-		};
-		32D7211CCFA5458980FD0F9F /* src */ = {
-			isa = PBXGroup;
-			children = (
-				386E1D50087146FC833429E2 /* poHelper.h */,
-				87647F57AEB74E8E8EDBE54F /* Singleton.h */,
-				1186BDF2D54D4E39AEBF0781 /* Notifications */,
-				21850C996F8C4A8AAC5CDB4E /* Settings */,
-			);
-			name = src;
-			sourceTree = "<group>";
-		};
-		A28082EBFA4B4CD9B42992FF /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				32D7211CCFA5458980FD0F9F /* src */,
-			);
-			name = Base;
-			sourceTree = "<group>";
-		};
-		3F0E7EEA258C4899A3669B3B /* include */ = {
-			isa = PBXGroup;
-			children = (
-				18070AE9CF9E4D7DB2F21A22 /* Warp.h */,
-			);
-			name = include;
-			sourceTree = "<group>";
-		};
-		4CB58EB14D2B410199C4D85B /* src */ = {
-			isa = PBXGroup;
-			children = (
-				BAC9BA945EC64ABAAA01D1FC /* Warp.cpp */,
-				276643A2E47B4DB69540EEAA /* WarpBilinear.cpp */,
-				48EBA8E5DA884D319FC306B2 /* WarpPerspective.cpp */,
-				3AC39CFC7677499D945B107A /* WarpPerspectiveBilinear.cpp */,
-			);
-			name = src;
-			sourceTree = "<group>";
-		};
-		7168A493737E48C6A29DAFC7 /* Cinder-Warping */ = {
-			isa = PBXGroup;
-			children = (
-				3F0E7EEA258C4899A3669B3B /* include */,
-				4CB58EB14D2B410199C4D85B /* src */,
-			);
-			name = "Cinder-Warping";
-			sourceTree = "<group>";
-		};
-		5B71CFD10EFD4014BC1F7076 /* osc */ = {
-			isa = PBXGroup;
-			children = (
-				CA8E7BF48FC04B9488CE8D72 /* Osc.cpp */,
-				B1F22C5BB9074395A5B63756 /* Osc.h */,
-			);
-			name = osc;
-			sourceTree = "<group>";
-		};
-		F4118C0D10F04C31852DCBFB /* cinder */ = {
-			isa = PBXGroup;
-			children = (
-				5B71CFD10EFD4014BC1F7076 /* osc */,
-			);
-			name = cinder;
-			sourceTree = "<group>";
-		};
-		B783A8D58C074DBBB9CC6B23 /* src */ = {
-			isa = PBXGroup;
-			children = (
-				F4118C0D10F04C31852DCBFB /* cinder */,
-			);
-			name = src;
-			sourceTree = "<group>";
-		};
-		C66FB2FB6ED54C76AC895078 /* OSC */ = {
-			isa = PBXGroup;
-			children = (
-				B783A8D58C074DBBB9CC6B23 /* src */,
-			);
-			name = OSC;
-			sourceTree = "<group>";
-		};
-		01B97315FEAEA392516A2CEA /* Blocks */ = {
-			isa = PBXGroup;
-			children = (
-				A28082EBFA4B4CD9B42992FF /* Base */,
-				7168A493737E48C6A29DAFC7 /* Cinder-Warping */,
-				C66FB2FB6ED54C76AC895078 /* OSC */,
-			);
-			name = Blocks;
 			sourceTree = "<group>";
 		};
 		29B97315FDCFA39411CA2CEA /* Headers */ = {
@@ -309,6 +226,104 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		32D7211CCFA5458980FD0F9F /* src */ = {
+			isa = PBXGroup;
+			children = (
+				386E1D50087146FC833429E2 /* poHelper.h */,
+				87647F57AEB74E8E8EDBE54F /* Singleton.h */,
+				1186BDF2D54D4E39AEBF0781 /* Notifications */,
+				21850C996F8C4A8AAC5CDB4E /* Settings */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		3F0E7EEA258C4899A3669B3B /* include */ = {
+			isa = PBXGroup;
+			children = (
+				18070AE9CF9E4D7DB2F21A22 /* Warp.h */,
+			);
+			name = include;
+			sourceTree = "<group>";
+		};
+		4CB58EB14D2B410199C4D85B /* src */ = {
+			isa = PBXGroup;
+			children = (
+				BAC9BA945EC64ABAAA01D1FC /* Warp.cpp */,
+				276643A2E47B4DB69540EEAA /* WarpBilinear.cpp */,
+				48EBA8E5DA884D319FC306B2 /* WarpPerspective.cpp */,
+				3AC39CFC7677499D945B107A /* WarpPerspectiveBilinear.cpp */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		505F84C0222EE744002AFC56 /* classes */ = {
+			isa = PBXGroup;
+			children = (
+				505F84C4222EE744002AFC56 /* BrushManager.cpp */,
+				505F84C7222EE744002AFC56 /* BrushManager.h */,
+				505F84C3222EE744002AFC56 /* Composition.cpp */,
+				505F84C5222EE744002AFC56 /* Composition.hpp */,
+				505F84C1222EE744002AFC56 /* GlobalSettings.cpp */,
+				505F84C6222EE744002AFC56 /* GlobalSettings.h */,
+				505F84C9222EE744002AFC56 /* Lab101Utils.h */,
+				505F84C2222EE744002AFC56 /* NetworkHelper.cpp */,
+				505F84CA222EE744002AFC56 /* NetworkHelper.h */,
+				505F84C8222EE744002AFC56 /* WindowData.h */,
+			);
+			name = classes;
+			path = ../src/classes;
+			sourceTree = "<group>";
+		};
+		5B71CFD10EFD4014BC1F7076 /* osc */ = {
+			isa = PBXGroup;
+			children = (
+				CA8E7BF48FC04B9488CE8D72 /* Osc.cpp */,
+				B1F22C5BB9074395A5B63756 /* Osc.h */,
+			);
+			name = osc;
+			sourceTree = "<group>";
+		};
+		7168A493737E48C6A29DAFC7 /* Cinder-Warping */ = {
+			isa = PBXGroup;
+			children = (
+				3F0E7EEA258C4899A3669B3B /* include */,
+				4CB58EB14D2B410199C4D85B /* src */,
+			);
+			name = "Cinder-Warping";
+			sourceTree = "<group>";
+		};
+		A28082EBFA4B4CD9B42992FF /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				32D7211CCFA5458980FD0F9F /* src */,
+			);
+			name = Base;
+			sourceTree = "<group>";
+		};
+		B783A8D58C074DBBB9CC6B23 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				F4118C0D10F04C31852DCBFB /* cinder */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		C66FB2FB6ED54C76AC895078 /* OSC */ = {
+			isa = PBXGroup;
+			children = (
+				B783A8D58C074DBBB9CC6B23 /* src */,
+			);
+			name = OSC;
+			sourceTree = "<group>";
+		};
+		F4118C0D10F04C31852DCBFB /* cinder */ = {
+			isa = PBXGroup;
+			children = (
+				5B71CFD10EFD4014BC1F7076 /* osc */,
+			);
+			name = cinder;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -335,6 +350,8 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "LineProjector2" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -373,12 +390,15 @@
 				DCB530845CCC4BF1B8C9156C /* LineProjector2App.cpp in Sources */,
 				181A6485359A4A04AC5AED8E /* NotificationLogger.cpp in Sources */,
 				E1D6B60D793E4AF38C3EAF6D /* NotificationManager.cpp in Sources */,
-				A33340B780DE4A95A98616EB /* GlobalSettings.cpp in Sources */,
+				505F84CC222EE744002AFC56 /* NetworkHelper.cpp in Sources */,
 				158EAD9106DD4A5384AA445D /* SettingController.cpp in Sources */,
 				33DBD6C853834710B2D89B85 /* SettingManager.cpp in Sources */,
+				505F84CE222EE744002AFC56 /* BrushManager.cpp in Sources */,
 				5A60C80110724ABFA6C791BA /* Warp.cpp in Sources */,
 				27EC12BF46324CC6B9E35769 /* WarpBilinear.cpp in Sources */,
 				3FC86CCAE3B94C949CCC8C8A /* WarpPerspective.cpp in Sources */,
+				505F84CD222EE744002AFC56 /* Composition.cpp in Sources */,
+				505F84CB222EE744002AFC56 /* GlobalSettings.cpp in Sources */,
 				E69D33D4B4E4457F8F19DA9F /* WarpPerspectiveBilinear.cpp in Sources */,
 				3907DBF166EC484389CB608B /* Osc.cpp in Sources */,
 			);
@@ -391,17 +411,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				DEAD_CODE_STRIPPING = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = LineProjector2_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = LineProjector2_Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -423,12 +443,12 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = LineProjector2_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"NDEBUG=1",
 					"$(inherited)",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = LineProjector2_Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -445,7 +465,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CINDER_PATH = "../../../cinder_master";
+				CINDER_PATH = ../../../cinder_master;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
 				ENABLE_TESTABILITY = YES;
@@ -455,12 +475,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = (
-					"\"$(CINDER_PATH)/include\" ../include",
-					../blocks/Base/src,
-					"\"../blocks/Cinder-Warping/include\"",
-					../blocks/OSC/src,
-				);
+				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../blocks/Base/src \"../blocks/Cinder-Warping/include\" ../blocks/OSC/src";
 			};
 			name = Debug;
 		};
@@ -468,7 +483,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CINDER_PATH = "../../../cinder_master";
+				CINDER_PATH = ../../../cinder_master;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -476,12 +491,7 @@
 				HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = (
-					"\"$(CINDER_PATH)/include\" ../include",
-					../blocks/Base/src,
-					"\"../blocks/Cinder-Warping/include\"",
-					../blocks/OSC/src,
-				);
+				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../blocks/Base/src \"../blocks/Cinder-Warping/include\" ../blocks/OSC/src";
 			};
 			name = Release;
 		};
