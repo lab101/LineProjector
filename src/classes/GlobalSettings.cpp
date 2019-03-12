@@ -25,8 +25,9 @@ GlobalSettings::GlobalSettings(){
     hasClearButton = Setting<bool>("hasClearButton",true);
     hasLayerButton = Setting<bool>("hasLayerButton",true);
     doFadeOut = Setting<bool>("doFadeout",false);
-    zoomLevel = Setting<float>("zoomlevel",0.9).setSteps(0.05);
-    debugMode = Setting<bool>("debugMode",false);
+	zoomLevel = Setting<float>("zoomlevel", 0.9).setSteps(0.05);
+	windowScale = Setting<float>("windowScale", 0.5).setSteps(0.05);
+	debugMode = Setting<bool>("debugMode", false);
 	maxGroups = Setting<int>("maxGroups", 2);
 	sceensLeftOffset = Setting<int>("sceensLeftOffset", 0);
 	activeGroup = Setting<int>("activeGroup", 0);
@@ -48,8 +49,8 @@ GlobalSettings::GlobalSettings(){
     addSetting(&maxGroups);
 	addSetting(&nrOfScreens);
 	addSetting(&sceensLeftOffset);
-	addSetting(&sceensLeftOffset);
 	addSetting(&activeGroup);
+	addSetting(&windowScale);
 
     compositionSize = ci::ivec2(compositionWidth.value(),compositionHeight.value());
     

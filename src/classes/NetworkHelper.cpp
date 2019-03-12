@@ -32,6 +32,7 @@ bool NetworkHelper::setup(){
 		//mCurrentCirclePos.x = msg[0].int32();
 		//mCurrentCirclePos.y = msg[1].int32();
 
+
 		int totals = msg.getNumArgs();
 		int incomingGroupId = msg[0].int32();
 		if (incomingGroupId != GS()->activeGroup.value()) return;

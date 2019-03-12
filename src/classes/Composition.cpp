@@ -98,7 +98,6 @@ void Composition::newLine(ci::vec3 pressurePoint){
 
 
 void Composition::endLine(){
-	calculatePath(mPath, mDepths, true, ci::Color(0,0,0));
 
     mStepId++;
 }
@@ -107,7 +106,8 @@ void Composition::endLine(){
 void Composition::lineTo(ci::vec3 pressurePoint,ci::ColorA color){
     mPath.lineTo(vec2(pressurePoint.x,pressurePoint.y));
     mDepths.lineTo(vec2(pressurePoint.x,pressurePoint.z));
-    
+	calculatePath(mPath, mDepths, true, ci::Color(0, 0, 0));
+
 }
 
 void Composition::drawCircle(ci::vec3 point1,ci::vec3 point2, ci::Color color){
@@ -124,15 +124,14 @@ void Composition::drawCircle(ci::vec3 point1,ci::vec3 point2, ci::Color color){
     gl::setMatricesWindow(ci::app::getWindowSize());//------------------------FBO END
     //------------------------------------------------------------------------DRAW STROKE
     std::vector<vec3> circumference;
-    const int brushSize = 15;
     for(float i = 0; i< 362.0f ; i+=1){
         float x = point1.x + (glm::distance(point1, point2) * glm::cos(glm::radians(i)));
         float y = point1.y + (glm::distance(point1, point2) * glm::sin(glm::radians(i)));
-        circumference.push_back(vec3(x,y,brushSize));
+        circumference.push_back(vec3(x,y,point1.z));
     }
     newLine(circumference[0]);
     for(int j =1 ; j< circumference.size();j++){
-        lineTo(vec3(circumference[j].x,circumference[j].y,brushSize),color);
+        lineTo(vec3(circumference[j].x,circumference[j].y,point1.z),color);
     }
     endLine();
     
@@ -140,10 +139,8 @@ void Composition::drawCircle(ci::vec3 point1,ci::vec3 point2, ci::Color color){
 }
 void Composition::drawLine(ci::vec3 point1,ci::vec3 point2, ci::Color color){
     std::cout<< point1 << std::endl;
-    const int brushSize = 20;
-    point1.z = brushSize;
     newLine(point1);
-    lineTo(vec3(point2.x,point2.y,brushSize),color);
+    lineTo(vec3(point2.x,point2.y,point1.z),color);
     endLine();
 }
 
@@ -163,14 +160,14 @@ void Composition::drawRectangle(ci::vec3 point1,ci::vec3 point2, ci::Color color
     
     gl::setMatricesWindow( ci::app::getWindowSize() );//----------------------FBO END
     //------------------------------------------------------------------------DRAW STROKE
-    const int brushSize = 10;
-    point1.z = brushSize;
+    
+    
     newLine(point1);
     
-    lineTo(vec3(point2.x,point1.y,brushSize),color);
-    lineTo(vec3(point2.x,point2.y,brushSize),color);
-    lineTo(vec3(point1.x,point2.y,brushSize),color);
-    lineTo(vec3(point1.x,point1.y,brushSize),color);
+    lineTo(vec3(point2.x,point1.y,point1.z),color);
+    lineTo(vec3(point2.x,point2.y,point1.z),color);
+    lineTo(vec3(point1.x,point2.y,point1.z),color);
+    lineTo(vec3(point1.x,point1.y,point1.z),color);
     
     endLine();
 }

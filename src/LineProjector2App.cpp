@@ -14,8 +14,6 @@
 
 #include "../blocks/Base/src/Settings/SettingController.h"
 
-
-
 using namespace ci;
 using namespace ci::app;
 using namespace std;
@@ -32,8 +30,8 @@ class LineProjector2App : public App {
     WarpList		mWarps;
     fs::path		mWrapSettings;
     int activeWindow;
-	SettingController   mSettingController;
-	ci::vec2		mMousePosition;
+    SettingController   mSettingController;
+    ci::vec2		mMousePosition;
     
 public:
     void setup() override;
@@ -56,6 +54,7 @@ public:
 void LineProjector2App::setup()
 {
     
+
 	activeWindow = -1;
 	int nrOfScreens = GS()->nrOfScreens.value();
 	int screenOrder[5] = {1,2,3,4,5};
@@ -63,16 +62,15 @@ void LineProjector2App::setup()
     bool flipHorizontal = false;
     
     float offset = 1.0 / nrOfScreens;
-    float scale = .5;
+	float scale = GS()->windowScale.value();
 
 	ci::vec2 size(GS()->compositionWidth.value(), GS()->compositionHeight.value());
+
     
-    
-	getWindow()->setUserData(new WindowData(ci::Rectf(flipHorizontal ? offset : 0, 1, flipHorizontal ? 0 : offset, 0.0), 0));
+  	getWindow()->setUserData(new WindowData(ci::Rectf(flipHorizontal ? offset : 0, 1, flipHorizontal ? 0 : offset, 0.0), 0));
     setWindowPos(GS()->sceensLeftOffset.value() + ((screenOrder[0]-1) * size.x * scale), 120);
     setWindowSize(size * scale);
     getWindow()->setTitle("Window 1");
-    
     
     CI_LOG_I("SETUP brush");
     GS()->brushColor = ci::ColorA(.0, 1.0, .0, 1.0);
@@ -81,14 +79,13 @@ void LineProjector2App::setup()
 	mSettingController.setup();
 
     
-    
     CI_LOG_I("SETUP composition with FBO");
     setupComposition(mActiveComposition,ivec2(size.x * nrOfScreens,size.y));
     
     
 	setupNetwork();
 	drawScreenNumbers();
-    
+	    
     
     // creating the EXTRA WINDOWS
     for (int i = 0; i < nrOfScreens-1; i++){
@@ -215,38 +212,38 @@ void LineProjector2App::draw()
 {
     
     WindowData *data = getWindow()->getUserData<WindowData>();
-   
-	if (GS()->debugMode.value()){
-		if (activeWindow > -1 && data->mId != activeWindow){
-			gl::clear(ColorA(49.0f / 255.0f, 24.0f / 255.0f, 160.0f / 25.0f, 1.0f));
-		}
-		else{
-			gl::clear(ColorA(40 / 255.0f, 40 / 255.0f, 40 / 255.0f, 1.0f));
-			ci::gl::color(1, 1, 1);
-			ci::gl::drawSolidCircle(mMousePosition, 10);
-		}
-	}
-	else{
-		gl::clear(ColorA(0, 0, 0, 1.0f));
-	}
     
 
-   
+    if (GS()->debugMode.value()){
+        if (activeWindow > -1 && data->mId != activeWindow){
+            gl::clear(ColorA(49.0f / 255.0f, 24.0f / 255.0f, 160.0f / 25.0f, 1.0f));
+        }
+        else{
+            gl::clear(ColorA(40 / 255.0f, 40 / 255.0f, 40 / 255.0f, 1.0f));
+            ci::gl::color(1, 1, 1);
+            ci::gl::drawSolidCircle(mMousePosition, 10);
+        }
+    }
+    else{
+        gl::clear(ColorA(0, 0, 0, 1.0f));
+    }
+    
+    
     
     mWarps[data->mId]->begin();
     mActiveComposition->draw(data->mDrawingArea);
     mWarps[data->mId]->end();
-	
-	if (GS()->doFadeOut.value())  mActiveComposition->drawFadeOut();
     
-
-	if (GS()->debugMode.value()){
-		ci::gl::enableAlphaBlending();
-		//NotificationManagerSingleton::Instance()->draw();
-		mSettingController.draw();
-	}
-
-   
+    if (GS()->doFadeOut.value())  mActiveComposition->drawFadeOut();
+    
+    
+    if (GS()->debugMode.value()){
+        ci::gl::enableAlphaBlending();
+        //NotificationManagerSingleton::Instance()->draw();
+        mSettingController.draw();
+    }
+    
+    
     
 }
 
@@ -257,6 +254,7 @@ void LineProjector2App::draw()
 void LineProjector2App::mouseMove(MouseEvent event)
 {
 
+
 	mMousePosition = event.getPos();
 
 	if (mWarps.size() == 0) return;
@@ -264,14 +262,15 @@ void LineProjector2App::mouseMove(MouseEvent event)
 	if (activeWindow != -1){
 		mWarps[activeWindow]->mouseMove(event);
 	}
+
 }
 
 
 
 void LineProjector2App::mouseDown(MouseEvent event)
 {
-	mMousePosition = event.getPos();
-
+    mMousePosition = event.getPos();
+    
     if(mWarps.size() == 0) return;
     
     if (activeWindow != -1){
@@ -282,8 +281,8 @@ void LineProjector2App::mouseDown(MouseEvent event)
 
 void LineProjector2App::mouseDrag(MouseEvent event)
 {
-	mMousePosition = event.getPos();
-
+    mMousePosition = event.getPos();
+    
     if(mWarps.size() == 0) return;
 
 	if (activeWindow != -1){
@@ -294,26 +293,30 @@ void LineProjector2App::mouseDrag(MouseEvent event)
 void LineProjector2App::mouseUp(MouseEvent event)
 {
 	mMousePosition = event.getPos();
+	if (mWarps.size() == 0) return;
 
 	if (activeWindow != -1){
 		mWarps[activeWindow]->mouseUp(event);
 	}
+    mMousePosition = event.getPos();
+    
+
 }
 
 
 void LineProjector2App::keyDown(KeyEvent event)
 {
-
-	if (event.getCode() == event.KEY_d){
-		GS()->debugMode.value() = !GS()->debugMode.value();
-	}
     
-
-	if (mSettingController.checkKeyDown(event))
-	{
-		return;
-	}
-
+    if (event.getCode() == event.KEY_d){
+        GS()->debugMode.value() = !GS()->debugMode.value();
+    }
+    
+    
+    if (mSettingController.checkKeyDown(event))
+    {
+        return;
+    }
+    
     // pass this key event to the warp editor first
     if (!Warp::handleKeyDown(mWarps, event)) {
         // warp editor did not handle the key, so handle it here
@@ -330,16 +333,16 @@ void LineProjector2App::keyDown(KeyEvent event)
                 // toggle vertical sync
                 gl::enableVerticalSync(!gl::isVerticalSyncEnabled());
                 break;
-			case KeyEvent::KEY_w:
-				// toggle warp edit mode
-				Warp::enableEditMode(!Warp::isEditModeEnabled());
-				break;
-
-			case KeyEvent::KEY_c:
-				// toggle warp edit mode
-				mActiveComposition->clearScene();
-				break;
-
+            case KeyEvent::KEY_w:
+                // toggle warp edit mode
+                Warp::enableEditMode(!Warp::isEditModeEnabled());
+                break;
+                
+            case KeyEvent::KEY_c:
+                // toggle warp edit mode
+                mActiveComposition->clearScene();
+                break;
+                
             case KeyEvent::KEY_0:
                 activeWindow = -1;
                 break;
@@ -348,16 +351,16 @@ void LineProjector2App::keyDown(KeyEvent event)
                 activeWindow = 0;
                 break;
             case KeyEvent::KEY_2:
-				if (GS()->nrOfScreens.value() > 1) activeWindow = 1;
+                if (GS()->nrOfScreens.value() > 1) activeWindow = 1;
                 break;
             case KeyEvent::KEY_3:
-				if (GS()->nrOfScreens.value() > 2) activeWindow = 2;
+                if (GS()->nrOfScreens.value() > 2) activeWindow = 2;
                 break;
             case KeyEvent::KEY_4:
-				if (GS()->nrOfScreens.value() > 3) activeWindow = 3;
+                if (GS()->nrOfScreens.value() > 3) activeWindow = 3;
                 break;
             case KeyEvent::KEY_r:
-              
+                
                 break;
                 
         }
