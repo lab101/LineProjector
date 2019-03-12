@@ -51,14 +51,14 @@ void LineProjector2App::setup()
     
     
     activeWindow = -1;
-    int nrOfScreens = 5;
+    int nrOfScreens = 2;
 
      int screenOrder[5] = {1,2,3,4,5};
 
     bool flipHorizontal = true;
     
     float offset = 1.0 / nrOfScreens;
-    float scale = 0.15;
+    float scale = 0.5;
     float offsetLeft = 0;
     ci::vec2 size(1920, 1080);
     
