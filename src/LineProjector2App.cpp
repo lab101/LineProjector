@@ -12,6 +12,9 @@
 #include "Warp.h"
 #include "Lab101Utils.h"
 
+#include "../blocks/Base/src/Settings/SettingController.h"
+
+
 
 using namespace ci;
 using namespace ci::app;
@@ -29,7 +32,8 @@ class LineProjector2App : public App {
     WarpList		mWarps;
     fs::path		mWrapSettings;
     int activeWindow;
-    
+	SettingController   mSettingController;
+	ci::vec2		mMousePosition;
     
 public:
     void setup() override;
@@ -46,31 +50,34 @@ public:
     void draw() override;
 };
 
+
 void LineProjector2App::setup()
 {
     
-    
-    activeWindow = -1;
-    int nrOfScreens = 2;
 
-     int screenOrder[5] = {1,2,3,4,5};
+	activeWindow = -1;
+	int nrOfScreens = 3;
+	int screenOrder[3] = {1,2,3};
+
 
     bool flipHorizontal = true;
     
     float offset = 1.0 / nrOfScreens;
+
     float scale = 0.5;
     float offsetLeft = 0;
-    ci::vec2 size(1920, 1080);
+	ci::vec2 size(GS()->compositionWidth.value(), GS()->compositionHeight.value());
+
     
     
-    getWindow()->setUserData(new WindowData(ci::Rectf(flipHorizontal ? 0 : offset, 1, flipHorizontal ? offset : 0, 0.0),0 ));
-    setWindowPos(offsetLeft+((screenOrder[0]-1) * size.x * scale), 120);
+    getWindow()->setUserData(new WindowData(ci::Rectf(flipHorizontal ? 0 : offset, 1, flipHorizontal ? offset : 0, 0.0), 0 ));
+    setWindowPos(offsetLeft + ((screenOrder[0]-1) * size.x * scale), 120);
     setWindowSize(size * scale);
     getWindow()->setTitle("Window 1");
     
     
     CI_LOG_I("SETUP brush");
-    GS()->brushColor = ci::ColorA(0.0, 0.0, 0.0, 1.0);
+    GS()->brushColor = ci::ColorA(.0, 1.0, .0, 1.0);
     
     BrushManagerSingleton::Instance()->setup();
     
@@ -83,25 +90,9 @@ void LineProjector2App::setup()
     mNetworkHelper = new NetworkHelper();
     mNetworkHelper->setup();
     
+	// incoming points
     mNetworkHelper->onReceivePoints.connect([=](std::vector<ci::vec3>& points, bool isEraserOn, std::string color){
         BrushManagerSingleton::Instance()->isEraserOn = isEraserOn;
-        
-		//points[0].x *= mActiveComposition->mSize.x;
-		//points[0].y *= mActiveComposition->mSize.y;
-
-		//mActiveComposition->newLine(points[0]);
-		//for (int i = 1; i < points.size(); i++){
-		//	points[i].x *= mActiveComposition->mSize.x;
-		//	points[i].y *= mActiveComposition->mSize.y;
-
-
-		//	mActiveComposition->lineTo(points[i] , hexStringToColor(color));
-
-		//}
-
-		//mActiveComposition->endLine();
-	
-
 
         for(auto&p : points){
             p.x *= mActiveComposition->mSize.x;
@@ -110,6 +101,8 @@ void LineProjector2App::setup()
         GS()->brushColor =hexStringToColor(color);
         mActiveComposition->drawInFbo(points, hexStringToColor(color));
     });
+
+	// incoming shapes
     mNetworkHelper->onReceiveShapes.connect([=] (std::vector<ci::vec3>& points, std::string shape, std::string color){
         GS()->brushColor =hexStringToColor(color);
         
@@ -117,7 +110,6 @@ void LineProjector2App::setup()
             p.x *= mActiveComposition->mSize.x;
             p.y *= mActiveComposition->mSize.y;
         }
-        
         
         if(shape == "RECT"){
             mActiveComposition->drawRectangle(points[0],points[1], hexStringToColor(color));
@@ -132,51 +124,31 @@ void LineProjector2App::setup()
     });
     
     
-    
-    //CROSS
-    //        mActiveComposition->newLine(vec3(10, 10, 20));
-    //     mActiveComposition->lineTo(vec3(size.x * nrOfScreens - 10, size.y - 20, 20),ci::ColorA(1.0, 1.0, 1.0, 1.0));
-    //     mActiveComposition->endLine();
-    //     GS()->brushColor = ci::ColorA(1.0, 1.0, 0.0, 1.0);
-    //
-    //     mActiveComposition->newLine(vec3(size.x * nrOfScreens - 10, 10, 20));
-    //     mActiveComposition->lineTo(vec3(10, size.y, 20),ci::ColorA(1.0, 1.0, 1.0, 1.0));
-    //     mActiveComposition->endLine();
-    float posCounter =1;
-   
-    for(int i = 1; i <= nrOfScreens; i++){
-        float posX = posCounter - (0.25 * ((i-1)/2) );
-        for(int j = 1; j <= i; j++){
+    // DRAW screen numbers
+	float posCounter = 1;
 
-            float  xPosMid = offsetLeft + (size.x * 0.5) * (posX);
+	for (int i = 1; i <= nrOfScreens; i++){
+		float posX = posCounter - (0.25 * ((i - 1) / 2));
+		for (int j = 1; j <= i; j++){
 
-            mActiveComposition->newLine(vec3(xPosMid,size.y/4,10));
-            mActiveComposition->lineTo(vec3(xPosMid,size.y*0.7,10),hexStringToColor("#000000"));
-            mActiveComposition->endLine();
+			float  xPosMid = offsetLeft + (size.x * 0.5) * (posX);
 
-            mActiveComposition->newLine(vec3(xPosMid-70,size.y/4,10));
-            mActiveComposition->lineTo(vec3(xPosMid+70,size.y/4,10),hexStringToColor("#000000"));
-            mActiveComposition->endLine();
+			mActiveComposition->newLine(vec3(xPosMid, size.y / 4, 10));
+			mActiveComposition->lineTo(vec3(xPosMid, size.y*0.7, 10), hexStringToColor("#FF00FF"));
+			mActiveComposition->endLine();
 
-            mActiveComposition->newLine(vec3(xPosMid-70,size.y*0.7,10));
-            mActiveComposition->lineTo(vec3(xPosMid+70,size.y*0.7,10),hexStringToColor("#000000"));
-            mActiveComposition->endLine();
+			mActiveComposition->newLine(vec3(xPosMid - 70, size.y / 4, 10));
+			mActiveComposition->lineTo(vec3(xPosMid + 70, size.y / 4, 10), hexStringToColor("#FF00FF"));
+			mActiveComposition->endLine();
 
-            posX +=0.25 ;
-        }
-        posCounter += 2;
-    }
+			mActiveComposition->newLine(vec3(xPosMid - 70, size.y*0.7, 10));
+			mActiveComposition->lineTo(vec3(xPosMid + 70, size.y*0.7, 10), hexStringToColor("#FFFFFF"));
+			mActiveComposition->endLine();
 
-    
-    
-    
-    //   mActiveComposition->newLine(vec3(offsetLeft + (size.x * scale) * (6),size.y/4,10));
-    //   mActiveComposition->lineTo(vec3(offsetLeft + (size.x * scale) * (6),size.y*0.7,10),ci::ColorA(1.0, 1.0, 1.0, 1.0));
-    //                mActiveComposition->endLine();
-    //
-    //    mActiveComposition->newLine(vec3(offsetLeft + (size.x * scale) * (10),size.y/4,10));
-    //    mActiveComposition->lineTo(vec3(offsetLeft + (size.x * scale) * (10),size.y*0.7,10),ci::ColorA(1.0, 1.0, 1.0, 1.0));
-    //    mActiveComposition->endLine();
+			posX += 0.25;
+		}
+		posCounter += 2;
+	}
     
     
     for (int i = 0; i < nrOfScreens-1; i++){
@@ -187,7 +159,7 @@ void LineProjector2App::setup()
         float offsetX1 = offset * (i + (flipHorizontal ? 1 : 2));
         float offsetX2 = offset * (i + (flipHorizontal ? 2 : 1));
         
-        newWindow2->setUserData(new WindowData(ci::Rectf(offsetX1, 1, offsetX2, 0), i));
+        newWindow2->setUserData(new WindowData(ci::Rectf(offsetX1, 1, offsetX2, 0), i+1));
         newWindow2->setTitle("Window " + toString(i+2));
         
         
@@ -212,6 +184,8 @@ void LineProjector2App::setup()
     
     // adjust the content size of the warps
     Warp::setSize(mWarps, size);
+	mSettingController.setup();
+
 }
 
 
@@ -242,21 +216,38 @@ void LineProjector2App::draw()
     ci::gl::lineWidth(4);
     
     WindowData *data = getWindow()->getUserData<WindowData>();
+   
+	if (GS()->debugMode.value()){
+		if (activeWindow > -1 && data->mId != activeWindow){
+			gl::clear(ColorA(49.0f / 255.0f, 24.0f / 255.0f, 160.0f / 25.0f, 1.0f));
+		}
+		else{
+			gl::clear(ColorA(40 / 255.0f, 40 / 255.0f, 40 / 255.0f, 1.0f));
+			ci::gl::color(1, 1, 1);
+			ci::gl::drawSolidCircle(mMousePosition, 10);
+		}
+	}
+	else{
+		gl::clear(ColorA(0, 0, 0, 1.0f));
+	}
     
-    if (activeWindow > -1 && data->mId != activeWindow){
-        gl::clear(ColorA(49.0f / 255.0f, 24.0f / 255.0f, 160.0f / 25.0f, 1.0f));
-    } else{
-        gl::clear(ColorA(249.0f / 255.0f, 242.0f / 255.0f, 160.0f / 255.0f, 1.0f));
-    }
-    
+
+
     
     
     mWarps[data->mId]->begin();
     mActiveComposition->draw(data->mDrawingArea);
-
     mWarps[data->mId]->end();
-        // mActiveComposition->drawFadeOut();
+	
+	if (GS()->doFadeOut.value())  mActiveComposition->drawFadeOut();
     
+
+	if (GS()->debugMode.value()){
+		ci::gl::enableAlphaBlending();
+		//NotificationManagerSingleton::Instance()->draw();
+		mSettingController.draw();
+	}
+
    
     
 }
@@ -267,6 +258,9 @@ void LineProjector2App::draw()
 
 void LineProjector2App::mouseMove(MouseEvent event)
 {
+
+	mMousePosition = event.getPos();
+
     if(mWarps.size() == 0) return;
     
     WarpList		mWarpsSelected;
@@ -283,6 +277,8 @@ void LineProjector2App::mouseMove(MouseEvent event)
 
 void LineProjector2App::mouseDown(MouseEvent event)
 {
+	mMousePosition = event.getPos();
+
     if(mWarps.size() == 0) return;
     WarpList		mWarpsSelected;
     
@@ -303,6 +299,8 @@ void LineProjector2App::mouseDown(MouseEvent event)
 
 void LineProjector2App::mouseDrag(MouseEvent event)
 {
+	mMousePosition = event.getPos();
+
     if(mWarps.size() == 0) return;
     WarpList		mWarpsSelected;
     
@@ -322,6 +320,8 @@ void LineProjector2App::mouseDrag(MouseEvent event)
 
 void LineProjector2App::mouseUp(MouseEvent event)
 {
+	mMousePosition = event.getPos();
+
     if(mWarps.size() == 0) return;
     WarpList		mWarpsSelected;
     
@@ -341,9 +341,17 @@ void LineProjector2App::mouseUp(MouseEvent event)
 
 void LineProjector2App::keyDown(KeyEvent event)
 {
-    if(mWarps.size() == 0) return;
-    ci::vec2 size(1280, 720);
+
+	if (event.getCode() == event.KEY_d){
+		GS()->debugMode.value() = !GS()->debugMode.value();
+	}
     
+
+	if (mSettingController.checkKeyDown(event))
+	{
+		return;
+	}
+
     // pass this key event to the warp editor first
     if (!Warp::handleKeyDown(mWarps, event)) {
         // warp editor did not handle the key, so handle it here
@@ -360,11 +368,16 @@ void LineProjector2App::keyDown(KeyEvent event)
                 // toggle vertical sync
                 gl::enableVerticalSync(!gl::isVerticalSyncEnabled());
                 break;
-            case KeyEvent::KEY_w:
-                // toggle warp edit mode
-                Warp::enableEditMode(!Warp::isEditModeEnabled());
-                break;
-                
+			case KeyEvent::KEY_w:
+				// toggle warp edit mode
+				Warp::enableEditMode(!Warp::isEditModeEnabled());
+				break;
+
+			case KeyEvent::KEY_c:
+				// toggle warp edit mode
+				mActiveComposition->clearScene();
+				break;
+
             case KeyEvent::KEY_0:
                 activeWindow = -1;
                 break;
@@ -373,20 +386,16 @@ void LineProjector2App::keyDown(KeyEvent event)
                 activeWindow = 0;
                 break;
             case KeyEvent::KEY_2:
-                activeWindow = 1;
+				if (GS()->nrOfScreens.value() > 1) activeWindow = 1;
                 break;
             case KeyEvent::KEY_3:
-                activeWindow = 2;
+				if (GS()->nrOfScreens.value() > 2) activeWindow = 2;
                 break;
             case KeyEvent::KEY_4:
-                activeWindow = 3;
+				if (GS()->nrOfScreens.value() > 3) activeWindow = 3;
                 break;
             case KeyEvent::KEY_r:
-                // adjust the content size of the warps
-                for (auto w : mWarps){
-                    w->setSize(size);
-                    
-                }
+              
                 break;
                 
         }

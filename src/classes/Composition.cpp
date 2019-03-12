@@ -224,7 +224,7 @@ void Composition::drawFadeOut(){
     //  gl::ScopedBlendPremult scpBlend;
     
     ci::ColorA fade = GS()->fboBackground;
-    fade.a = GS()->fadeoutFactor;
+	fade.a = GS()->fadeoutFactorDrawing.value() *0.00005f;
     gl::color(fade);
     ci::gl::drawSolidRect(Rectf(0,0, mActiveFbo->getSize().x, mActiveFbo->getSize().y));
     
@@ -289,7 +289,12 @@ void Composition::draw(ci::Rectf drawingArea){
     
     gl::color(1, 1, 1, 1);
     
-    ci::gl::enableAlphaBlending();
+	// for debugging only
+  //  ci::gl::draw(mActiveFbo->getColorTexture());
+//	return;
+
+
+    ci::gl::enableAlphaBlendingPremult();
     
     ci::gl::pushMatrices();
     
@@ -302,8 +307,8 @@ void Composition::draw(ci::Rectf drawingArea){
     
     
     
-    
-    mActiveFbo->getColorTexture()->bind(0);
+	ScopedActiveTexture scopedText(mActiveFbo->getColorTexture()->getId());
+	mActiveFbo->getColorTexture()->bind(0);
     // mLastDrawingTexture->bind(1);
     
     //gl::enableAlphaBlending();
@@ -352,8 +357,7 @@ void Composition::draw(ci::Rectf drawingArea){
     ctx->popVao();
     
     
-    // for debugging only
-    //    ci::gl::draw(mActiveFbo->getColorTexture());
+   
     ci::gl::popMatrices();
     
     

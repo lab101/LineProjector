@@ -27,10 +27,11 @@ GlobalSettings::GlobalSettings(){
     doFadeOut = Setting<bool>("doFadeout",false);
     zoomLevel = Setting<float>("zoomlevel",0.9).setSteps(0.05);
     debugMode = Setting<bool>("debugMode",false);
-    maxGroups = Setting<int>("maxGroups",2);
+	maxGroups = Setting<int>("maxGroups", 2);
+	nrOfScreens = Setting<int>("nrOfScreens", 3);
 
-    compositionWidth = Setting<int>("compositionWidth",850).setSteps(10);
-    compositionHeight = Setting<int>("compositionHeight",850).setSteps(10);
+    compositionWidth = Setting<int>("compositionWidth",1920).setSteps(10);
+    compositionHeight = Setting<int>("compositionHeight",1080).setSteps(10);
 
     addSetting(&hasGifOutput);
     addSetting(&hasClearButton);
@@ -41,6 +42,7 @@ GlobalSettings::GlobalSettings(){
     addSetting(&compositionHeight);
     addSetting(&debugMode);
     addSetting(&maxGroups);
+	addSetting(&nrOfScreens);
 
     compositionSize = ci::ivec2(compositionWidth.value(),compositionHeight.value());
     
@@ -48,7 +50,7 @@ GlobalSettings::GlobalSettings(){
     
     blue = ci::Color(0,0.6,1.0);
     
-    fboBackground = ci::ColorA(1.0,1.0,1.0,0.0);
+    fboBackground = ci::ColorA(0.0,0.0,0.0,0.0);
     brushColor = ci::ColorA(0.0, 0.0,.0,1.0);
 
     
