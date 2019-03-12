@@ -32,6 +32,7 @@ class Composition{
     std::string                 mOutputFolder;
     int                         mImageLayerId;
     int                         mStepId;
+	ci::vec2					mSize;
 
     ci::gl::TextureRef          mLastDrawingTexture;
     
@@ -57,7 +58,6 @@ public:
 
     ci::signals::Signal<void(pointVec)>   onNewPoints;
 
-    ci::vec2    mSize;
     
     ci::vec3 getNormalisedPositionAtIndex(ci::Path2d& points, ci::Path2d depths,int index);
     ci::vec3 getNormalisedPositionAtIndex(int index);
@@ -90,7 +90,7 @@ public:
     void saveLayer();
     
 
-    
+	const ci::vec2& getSize();
     ci::gl::TextureRef getTexture();
     void finished();
     void drawFadeout();

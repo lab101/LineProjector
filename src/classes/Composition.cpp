@@ -191,6 +191,10 @@ void Composition::setFbo(ci::gl::FboRef& fbo,ci::ivec2 size,float window1){
     
 }
 
+const vec2& Composition::getSize(){
+	return mSize;
+}
+
 
 void Composition::drawInFbo(std::vector<ci::vec3>& points, ci::ColorA color){
     

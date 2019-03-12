@@ -31,6 +31,9 @@ public:
     Setting<int> compositionHeight;
     Setting<int> maxGroups;
 	Setting<int> nrOfScreens;
+	Setting<int> sceensLeftOffset;
+	Setting<float> windowScale;
+	Setting<int> activeGroup;
 
 
     

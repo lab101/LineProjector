@@ -37,6 +37,8 @@ class LineProjector2App : public App {
     
 public:
     void setup() override;
+	void setupNetwork();
+	void drawScreenNumbers();
     
     void mouseMove(MouseEvent event) override;
     void mouseDown(MouseEvent event) override;
@@ -55,20 +57,19 @@ void LineProjector2App::setup()
 {
     
 	activeWindow = -1;
-	int nrOfScreens = 3;
-	int screenOrder[3] = {1,2,3};
+	int nrOfScreens = GS()->nrOfScreens.value();
+	int screenOrder[5] = {1,2,3,4,5};
 
-    bool flipHorizontal = true;
+    bool flipHorizontal = false;
     
     float offset = 1.0 / nrOfScreens;
-    float scale = 1.0;
+    float scale = .5;
 
-	float offsetLeft = 0;
 	ci::vec2 size(GS()->compositionWidth.value(), GS()->compositionHeight.value());
     
     
-    getWindow()->setUserData(new WindowData(ci::Rectf(flipHorizontal ? 0 : offset, 1, flipHorizontal ? offset : 0, 0.0), 0 ));
-    setWindowPos(offsetLeft + ((screenOrder[0]-1) * size.x * scale), 120);
+	getWindow()->setUserData(new WindowData(ci::Rectf(flipHorizontal ? offset : 0, 1, flipHorizontal ? 0 : offset, 0.0), 0));
+    setWindowPos(GS()->sceensLeftOffset.value() + ((screenOrder[0]-1) * size.x * scale), 120);
     setWindowSize(size * scale);
     getWindow()->setTitle("Window 1");
     
@@ -77,58 +78,112 @@ void LineProjector2App::setup()
     GS()->brushColor = ci::ColorA(.0, 1.0, .0, 1.0);
     
     BrushManagerSingleton::Instance()->setup();
-    
+	mSettingController.setup();
+
     
     
     CI_LOG_I("SETUP composition with FBO");
     setupComposition(mActiveComposition,ivec2(size.x * nrOfScreens,size.y));
     
     
-    mNetworkHelper = new NetworkHelper();
-    mNetworkHelper->setup();
+	setupNetwork();
+	drawScreenNumbers();
     
-	// incoming points
-    mNetworkHelper->onReceivePoints.connect([=](std::vector<ci::vec3>& points, bool isEraserOn, std::string color){
-        BrushManagerSingleton::Instance()->isEraserOn = isEraserOn;
-
-        for(auto&p : points){
-            p.x *= mActiveComposition->mSize.x;
-            p.y *= mActiveComposition->mSize.y;
+    
+    // creating the EXTRA WINDOWS
+    for (int i = 0; i < nrOfScreens-1; i++){
+		vec2 position(GS()->sceensLeftOffset.value() + (size.x * scale) * (screenOrder[i + 1] - 1), 120);
+        app::WindowRef newWindow2 = createWindow(Window::Format().size(size * scale).pos(position));
+        
+        
+        float offsetX1 = offset * (i + (flipHorizontal ? 2 : 1));
+        float offsetX2 = offset * (i + (flipHorizontal ? 1 : 2));
+        
+        newWindow2->setUserData(new WindowData(ci::Rectf(offsetX1, 1, offsetX2, 0), i+1));
+        newWindow2->setTitle("Window " + toString(i+2));
+        
+        
+    }
+    
+    
+    // setup WRAPS
+    mWrapSettings = getAssetPath("") / "warps.xml";
+    if (fs::exists(mWrapSettings)) {
+        // load warp settings from file if one exists
+        mWarps = Warp::readSettings(loadFile(mWrapSettings));
+    }
+    else {
+        // otherwise create a warp from scratch
+        for (int i = 0; i < nrOfScreens; i++){
+            auto w = WarpPerspective::create();
+            w->setSize(size);
+            mWarps.push_back(w);
         }
-        GS()->brushColor =hexStringToColor(color);
-        mActiveComposition->drawInFbo(points, hexStringToColor(color));
-    });
+    }
+    
+
+}
+
+
+void LineProjector2App::update()
+{
+    mNetworkHelper->update();
+}
+
+
+void LineProjector2App::setupNetwork(){
+
+	mNetworkHelper = new NetworkHelper();
+	mNetworkHelper->setup();
+
+	// incoming points
+	mNetworkHelper->onReceivePoints.connect([=](std::vector<ci::vec3>& points, bool isEraserOn, std::string color){
+		BrushManagerSingleton::Instance()->isEraserOn = isEraserOn;
+
+		for (auto&p : points){
+			p.x *= mActiveComposition->getSize().x;
+			p.y *= mActiveComposition->getSize().y;
+		}
+		GS()->brushColor = hexStringToColor(color);
+		mActiveComposition->drawInFbo(points, hexStringToColor(color));
+	});
 
 	// incoming shapes
-    mNetworkHelper->onReceiveShapes.connect([=] (std::vector<ci::vec3>& points, std::string shape, std::string color){
-        GS()->brushColor =hexStringToColor(color);
-        
-        for (auto&p : points){
-            p.x *= mActiveComposition->mSize.x;
-            p.y *= mActiveComposition->mSize.y;
-        }
-        
-        if(shape == "RECT"){
-            mActiveComposition->drawRectangle(points[0],points[1], hexStringToColor(color));
-        }
-        else if(shape == "CIRCLE"){
-            
-            mActiveComposition->drawCircle(points[0],points[1], hexStringToColor(color));
-        }
-        else if(shape == "LINE"){
-            mActiveComposition->drawLine(points[0],points[1], hexStringToColor(color));
-        }
-    });
-    
-    
-    // DRAW screen numbers
-	float posCounter = 1;
+	mNetworkHelper->onReceiveShapes.connect([=](std::vector<ci::vec3>& points, std::string shape, std::string color){
+		GS()->brushColor = hexStringToColor(color);
 
-	for (int i = 1; i <= nrOfScreens; i++){
+		for (auto&p : points){
+			p.x *= mActiveComposition->getSize().x;
+			p.y *= mActiveComposition->getSize().y;
+		}
+
+		if (shape == "RECT"){
+			mActiveComposition->drawRectangle(points[0], points[1], hexStringToColor(color));
+		}
+		else if (shape == "CIRCLE"){
+
+			mActiveComposition->drawCircle(points[0], points[1], hexStringToColor(color));
+		}
+		else if (shape == "LINE"){
+			mActiveComposition->drawLine(points[0], points[1], hexStringToColor(color));
+		}
+	});
+
+}
+
+
+
+void LineProjector2App::drawScreenNumbers(){
+	// DRAW screen numbers
+	float posCounter = 1;
+	vec2 size = mActiveComposition->getSize();
+	size.x /= GS()->nrOfScreens.value();
+
+	for (int i = 1; i <= GS()->nrOfScreens.value(); i++){
 		float posX = posCounter - (0.25 * ((i - 1) / 2));
 		for (int j = 1; j <= i; j++){
 
-			float  xPosMid = offsetLeft + (size.x * 0.5) * (posX);
+			float  xPosMid = (size.x * 0.5) * (posX);
 
 			mActiveComposition->newLine(vec3(xPosMid, size.y / 4, 10));
 			mActiveComposition->lineTo(vec3(xPosMid, size.y*0.7, 10), hexStringToColor("#FF00FF"));
@@ -146,71 +201,18 @@ void LineProjector2App::setup()
 		}
 		posCounter += 2;
 	}
-    
-    
-    for (int i = 0; i < nrOfScreens-1; i++){
-        vec2 position(offsetLeft + (size.x * scale) * (screenOrder[i+1]-1) , 120);
-        app::WindowRef newWindow2 = createWindow(Window::Format().size(size * scale).pos(position));
-        
-        
-        float offsetX1 = offset * (i + (flipHorizontal ? 1 : 2));
-        float offsetX2 = offset * (i + (flipHorizontal ? 2 : 1));
-        
-        newWindow2->setUserData(new WindowData(ci::Rectf(offsetX1, 1, offsetX2, 0), i+1));
-        newWindow2->setTitle("Window " + toString(i+2));
-        
-        
-    }
-    
-    
-    // setup wraps
-    // initialize warps
-    mWrapSettings = getAssetPath("") / "warps.xml";
-    if (fs::exists(mWrapSettings)) {
-        // load warp settings from file if one exists
-        mWarps = Warp::readSettings(loadFile(mWrapSettings));
-    }
-    else {
-        // otherwise create a warp from scratch
-        for (int i = 0; i < nrOfScreens; i++){
-            auto w = WarpPerspective::create();
-            w->setSize(size);
-            mWarps.push_back(w);
-        }
-    }
-    
-    // adjust the content size of the warps
-    Warp::setSize(mWarps, size);
-	mSettingController.setup();
 
 }
-
-
-void LineProjector2App::update()
-{
-    mNetworkHelper->update();
-}
-
-
 
 void LineProjector2App::setupComposition(std::shared_ptr<Composition>& composition,ci::ivec2 size , bool hasHistory){
     
     composition = make_shared<Composition>();
-    //composition->setup(GS()->compositionSize);
     composition->setup(size);
-    
-    // when the new points with correct spacing are calculated we send them to the other
-    // clients we don't send rawpoints.
-    composition->onNewPoints.connect([=](pointVec p){
-        //mNetworkHelper.sendPoints(p, BrushManagerSingleton::Instance()->isEraserOn);
-    });
-}
+ }
 
 
 void LineProjector2App::draw()
 {
-    
-    ci::gl::lineWidth(4);
     
     WindowData *data = getWindow()->getUserData<WindowData>();
    
@@ -229,8 +231,7 @@ void LineProjector2App::draw()
 	}
     
 
-
-    
+   
     
     mWarps[data->mId]->begin();
     mActiveComposition->draw(data->mDrawingArea);
@@ -258,40 +259,25 @@ void LineProjector2App::mouseMove(MouseEvent event)
 
 	mMousePosition = event.getPos();
 
-    if(mWarps.size() == 0) return;
-    
-    WarpList		mWarpsSelected;
-    if (activeWindow == -1){
-        mWarpsSelected = mWarps;
-    }
-    else{
-        mWarps[activeWindow]->mouseMove(event);
-    }
-    return;
-    
-    
+	if (mWarps.size() == 0) return;
+
+	if (activeWindow != -1){
+		mWarps[activeWindow]->mouseMove(event);
+	}
 }
+
+
 
 void LineProjector2App::mouseDown(MouseEvent event)
 {
 	mMousePosition = event.getPos();
 
     if(mWarps.size() == 0) return;
-    WarpList		mWarpsSelected;
     
-    if (activeWindow == -1){
-        mWarpsSelected = mWarps;
-    }
-    else{
+    if (activeWindow != -1){
         mWarps[activeWindow]->mouseDown(event);
     }
-    return;
     
-    // pass this mouse event to the warp editor first
-    
-    if (!Warp::handleMouseDown(mWarpsSelected, event)) {
-        // let your application perform its mouseDown handling here
-    }
 }
 
 void LineProjector2App::mouseDrag(MouseEvent event)
@@ -299,42 +285,21 @@ void LineProjector2App::mouseDrag(MouseEvent event)
 	mMousePosition = event.getPos();
 
     if(mWarps.size() == 0) return;
-    WarpList		mWarpsSelected;
-    
-    if (activeWindow == -1){
-        mWarpsSelected = mWarps;
-    }
-    else{
-        mWarps[activeWindow]->mouseDrag(event);
-    }
-    return;
-    
-    // pass this mouse event to the warp editor first
-    if (!Warp::handleMouseDrag(mWarps, event)) {
-        // let your application perform its mouseDrag handling here
-    }
+
+	if (activeWindow != -1){
+		mWarps[activeWindow]->mouseDrag(event);
+	}
 }
 
 void LineProjector2App::mouseUp(MouseEvent event)
 {
 	mMousePosition = event.getPos();
 
-    if(mWarps.size() == 0) return;
-    WarpList		mWarpsSelected;
-    
-    if (activeWindow == -1){
-        mWarpsSelected = mWarps;
-    }
-    else{
-        mWarps[activeWindow]->mouseUp(event);
-    }
-    
-    return;
-    // pass this mouse event to the warp editor first
-    if (!Warp::handleMouseUp(mWarps, event)) {
-        // let your application perform its mouseUp handling here
-    }
+	if (activeWindow != -1){
+		mWarps[activeWindow]->mouseUp(event);
+	}
 }
+
 
 void LineProjector2App::keyDown(KeyEvent event)
 {

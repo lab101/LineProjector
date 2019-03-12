@@ -28,10 +28,14 @@ GlobalSettings::GlobalSettings(){
     zoomLevel = Setting<float>("zoomlevel",0.9).setSteps(0.05);
     debugMode = Setting<bool>("debugMode",false);
 	maxGroups = Setting<int>("maxGroups", 2);
-	nrOfScreens = Setting<int>("nrOfScreens", 3);
+	sceensLeftOffset = Setting<int>("sceensLeftOffset", 0);
+	activeGroup = Setting<int>("activeGroup", 0);
 
     compositionWidth = Setting<int>("compositionWidth",1920).setSteps(10);
     compositionHeight = Setting<int>("compositionHeight",1080).setSteps(10);
+
+	zoomLevel = Setting<float>("zoomlevel", 0.9).setSteps(0.05);
+	nrOfScreens = Setting<int>("nrOfScreens", 3);
 
     addSetting(&hasGifOutput);
     addSetting(&hasClearButton);
@@ -43,6 +47,9 @@ GlobalSettings::GlobalSettings(){
     addSetting(&debugMode);
     addSetting(&maxGroups);
 	addSetting(&nrOfScreens);
+	addSetting(&sceensLeftOffset);
+	addSetting(&sceensLeftOffset);
+	addSetting(&activeGroup);
 
     compositionSize = ci::ivec2(compositionWidth.value(),compositionHeight.value());
     
