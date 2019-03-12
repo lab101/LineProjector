@@ -134,35 +134,35 @@ void LineProjector2App::setupNetwork(){
 	mNetworkHelper->setup();
 
 	// incoming points
-	mNetworkHelper->onReceivePoints.connect([=](std::vector<ci::vec3>& points, bool isEraserOn, std::string color){
-		BrushManagerSingleton::Instance()->isEraserOn = isEraserOn;
+	mNetworkHelper->onReceivePoints.connect([=](pointsPackage package){
+		BrushManagerSingleton::Instance()->isEraserOn = package.isEraserOn;
 
-		for (auto&p : points){
+		for (auto&p : package.points){
 			p.x *= mActiveComposition->getSize().x;
 			p.y *= mActiveComposition->getSize().y;
 		}
-		GS()->brushColor = hexStringToColor(color);
-		mActiveComposition->drawInFbo(points, hexStringToColor(color));
+		GS()->brushColor = hexStringToColor(package.color);
+		mActiveComposition->drawInFbo(package.points, hexStringToColor(package.color));
 	});
 
 	// incoming shapes
-	mNetworkHelper->onReceiveShapes.connect([=](std::vector<ci::vec3>& points, std::string shape, std::string color){
-		GS()->brushColor = hexStringToColor(color);
+	mNetworkHelper->onReceiveShapes.connect([=](pointsPackage package){
+		GS()->brushColor = hexStringToColor(package.color);
 
-		for (auto&p : points){
+		for (auto&p : package.points){
 			p.x *= mActiveComposition->getSize().x;
 			p.y *= mActiveComposition->getSize().y;
 		}
 
-		if (shape == "RECT"){
-			mActiveComposition->drawRectangle(points[0], points[1], hexStringToColor(color));
+		if (package.shape == "RECT"){
+			mActiveComposition->drawRectangle(package.points[0], package.points[1], hexStringToColor(package.color));
 		}
-		else if (shape == "CIRCLE"){
+		else if (package.shape == "CIRCLE"){
 
-			mActiveComposition->drawCircle(points[0], points[1], hexStringToColor(color));
+			mActiveComposition->drawCircle(package.points[0], package.points[1], hexStringToColor(package.color));
 		}
-		else if (shape == "LINE"){
-			mActiveComposition->drawLine(points[0], points[1], hexStringToColor(color));
+		else if (package.shape == "LINE"){
+			mActiveComposition->drawLine(package.points[0], package.points[1], hexStringToColor(package.color));
 		}
 	});
 

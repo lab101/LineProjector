@@ -29,6 +29,7 @@
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5A60C80110724ABFA6C791BA /* Warp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BAC9BA945EC64ABAAA01D1FC /* Warp.cpp */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		9F879561223805A900DD00DD /* pointsPackage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9F87955F223805A900DD00DD /* pointsPackage.cpp */; };
 		C90CB9869E9740ADB5A3449E /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 5B05071BD2324C7A86A63617 /* CinderApp.icns */; };
 		DCB530845CCC4BF1B8C9156C /* LineProjector2App.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15BFE965442040CBBF7075BA /* LineProjector2App.cpp */; };
 		E1D6B60D793E4AF38C3EAF6D /* NotificationManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDEB39BD31374DDFA967AD84 /* NotificationManager.cpp */; };
@@ -78,6 +79,8 @@
 		87647F57AEB74E8E8EDBE54F /* Singleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Singleton.h; path = ../blocks/Base/src/Singleton.h; sourceTree = "<group>"; };
 		89790A4ECC88428FB36A5FB5 /* SettingBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SettingBase.h; path = ../blocks/Base/src/Settings/SettingBase.h; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* LineProjector2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LineProjector2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F87955F223805A900DD00DD /* pointsPackage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = pointsPackage.cpp; sourceTree = "<group>"; };
+		9F879560223805A900DD00DD /* pointsPackage.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = pointsPackage.hpp; sourceTree = "<group>"; };
 		B1F22C5BB9074395A5B63756 /* Osc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Osc.h; path = ../blocks/OSC/src/cinder/osc/Osc.h; sourceTree = "<group>"; };
 		BAC9BA945EC64ABAAA01D1FC /* Warp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = Warp.cpp; path = "../blocks/Cinder-Warping/src/Warp.cpp"; sourceTree = "<group>"; };
 		C0809B21E9D2410D9AD7E7F4 /* SettingString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SettingString.h; path = ../blocks/Base/src/Settings/SettingString.h; sourceTree = "<group>"; };
@@ -269,6 +272,8 @@
 				505F84C2222EE744002AFC56 /* NetworkHelper.cpp */,
 				505F84CA222EE744002AFC56 /* NetworkHelper.h */,
 				505F84C8222EE744002AFC56 /* WindowData.h */,
+				9F87955F223805A900DD00DD /* pointsPackage.cpp */,
+				9F879560223805A900DD00DD /* pointsPackage.hpp */,
 			);
 			name = classes;
 			path = ../src/classes;
@@ -392,6 +397,7 @@
 				E1D6B60D793E4AF38C3EAF6D /* NotificationManager.cpp in Sources */,
 				505F84CC222EE744002AFC56 /* NetworkHelper.cpp in Sources */,
 				158EAD9106DD4A5384AA445D /* SettingController.cpp in Sources */,
+				9F879561223805A900DD00DD /* pointsPackage.cpp in Sources */,
 				33DBD6C853834710B2D89B85 /* SettingManager.cpp in Sources */,
 				505F84CE222EE744002AFC56 /* BrushManager.cpp in Sources */,
 				5A60C80110724ABFA6C791BA /* Warp.cpp in Sources */,

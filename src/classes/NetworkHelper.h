@@ -12,6 +12,8 @@
 #include "cinder/osc/Osc.h"
 #include "cinder/System.h"
 #include "cinder/Signals.h"
+#include "pointsPackage.hpp"
+
 
 #include <map>
 #include <queue>
@@ -29,10 +31,10 @@ class NetworkHelper{
 	int groupId = 0;
 	float lastBroadcast;
 
-	std::queue<std::vector<ci::vec3> > pointsQueue;
+	std::queue<pointsPackage> pointsQueue;
 	std::mutex mPointsQueueLock;
     
-    std::queue<std::vector<ci::vec3> > shapesQueue;
+    std::queue<pointsPackage> shapesQueue;
     std::mutex mShapesQueueLock;
     std::string hexColor;
     std::string receivedShape;
@@ -50,8 +52,8 @@ public:
 	std::map<uint64_t, protocol::endpoint> mConnections;
 
 
-    ci::signals::Signal<void(std::vector<ci::vec3>& , bool isEraserOn, std::string hexColor)>   onReceivePoints;
-    ci::signals::Signal<void(std::vector<ci::vec3>& points, std::string shape, std::string color)> onReceiveShapes;
+    ci::signals::Signal<void(pointsPackage pointPackage)>   onReceivePoints;
+    ci::signals::Signal<void(pointsPackage pointPackage)> onReceiveShapes;
     ci::signals::Signal<void(std::string&)>   onNewConnection;
     ci::signals::Signal<void(std::string&)>   onAlivePing;
 

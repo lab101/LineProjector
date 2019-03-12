@@ -43,10 +43,12 @@ bool NetworkHelper::setup(){
 		for (int i = 3; i < totals; i += 3){
 			points.push_back(ci::vec3(msg[i].flt(), msg[i + 1].flt(), msg[i + 2].flt()));
 		}
-
+            pointsPackage newPackage;
+            newPackage.setup(points, color);
+            newPackage.setEraser(false); ////// DE GOM
+            
 		mPointsQueueLock.lock();
-		pointsQueue.push(points);
-		hexColor = color;
+		pointsQueue.push(newPackage);
 		mPointsQueueLock.unlock();
 
 	});
@@ -64,10 +66,11 @@ bool NetworkHelper::setup(){
 		for (int i = 3; i < totals; i += 3){
 			points.push_back(ci::vec3(msg[i].flt(), msg[i + 1].flt(), msg[i + 2].flt()));
 		}
+            pointsPackage newPackage;
+            newPackage.setup(points, color);
+            newPackage.setShape(shape);
 		mShapesQueueLock.lock();
-		shapesQueue.push(points);
-		receivedShape = shape;
-		hexColor = color;
+		shapesQueue.push(newPackage);
 		mShapesQueueLock.unlock();
 
 	});
@@ -123,7 +126,7 @@ void NetworkHelper::update(){
 	while (!pointsQueue.empty())
 	{
 
-		onReceivePoints.emit(pointsQueue.front(), false, hexColor);
+		onReceivePoints.emit(pointsQueue.front());
 		pointsQueue.pop();
 	}
 
@@ -133,7 +136,7 @@ void NetworkHelper::update(){
 
 	while (!shapesQueue.empty())
 	{
-		onReceiveShapes.emit(shapesQueue.front(), receivedShape, hexColor);
+		onReceiveShapes.emit(shapesQueue.front());
 		shapesQueue.pop();
 	}
 
