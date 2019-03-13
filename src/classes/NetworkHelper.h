@@ -36,8 +36,7 @@ class NetworkHelper{
     
     std::queue<pointsPackage> shapesQueue;
     std::mutex mShapesQueueLock;
-    std::string hexColor;
-    std::string receivedShape;
+    
 
 public:
 
