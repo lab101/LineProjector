@@ -145,14 +145,22 @@ void LineProjector2App::setupNetwork(){
 
 	// incoming points
 	mNetworkHelper->onReceivePoints.connect([=](PointsPackage package){
-		BrushManagerSingleton::Instance()->isEraserOn = package.isEraserOn;
+        bool currentEraser = BrushManagerSingleton::Instance()->isEraserOn;
+        BrushManagerSingleton::Instance()->isEraserOn = package.isEraserOn;
 
 		for (auto&p : package.points){
 			p.x *= mActiveComposition->getSize().x;
 			p.y *= mActiveComposition->getSize().y;
 		}
-		GS()->brushColor = hexStringToColor(package.color);
+        if(BrushManagerSingleton::Instance()->isEraserOn)
+        {
+           GS()->brushColor = GS()->fboBackground;
+        } else{
+           GS()->brushColor = hexStringToColor(package.color);
+        }
+		
 		mActiveComposition->drawInFbo(package.points, hexStringToColor(package.color));
+        BrushManagerSingleton::Instance()->isEraserOn = currentEraser;
 	});
 
 	// incoming shapes
