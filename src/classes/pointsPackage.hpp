@@ -9,9 +9,10 @@
 #pragma once
 
 #include <stdio.h>
+#include "cinder/vector.h"
+#include <vector>
 
-
-class pointsPackage{
+class PointsPackage{
     
     
     

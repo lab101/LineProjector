@@ -12,7 +12,7 @@
 #include "cinder/osc/Osc.h"
 #include "cinder/System.h"
 #include "cinder/Signals.h"
-#include "pointsPackage.hpp"
+#include "PointsPackage.hpp"
 
 
 #include <map>
@@ -31,10 +31,10 @@ class NetworkHelper{
 	int groupId = 0;
 	float lastBroadcast;
 
-	std::queue<pointsPackage> pointsQueue;
+	std::queue<PointsPackage> pointsQueue;
 	std::mutex mPointsQueueLock;
     
-    std::queue<pointsPackage> shapesQueue;
+	std::queue<PointsPackage> shapesQueue;
     std::mutex mShapesQueueLock;
     std::string hexColor;
     std::string receivedShape;
@@ -52,8 +52,8 @@ public:
 	std::map<uint64_t, protocol::endpoint> mConnections;
 
 
-    ci::signals::Signal<void(pointsPackage pointPackage)>   onReceivePoints;
-    ci::signals::Signal<void(pointsPackage pointPackage)> onReceiveShapes;
+	ci::signals::Signal<void(PointsPackage& pointPackage)>   onReceivePoints;
+	ci::signals::Signal<void(PointsPackage& pointPackage)> onReceiveShapes;
     ci::signals::Signal<void(std::string&)>   onNewConnection;
     ci::signals::Signal<void(std::string&)>   onAlivePing;
 

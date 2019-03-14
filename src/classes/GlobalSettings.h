@@ -16,40 +16,31 @@ class GlobalSettings{
 public:
 
 
-    float maxWidth;
-    
-    float fadeoutFactor;
-    
-    
+ 
     Setting<float> fadeoutFactorDrawing;
     Setting<float> fadeoutFactorReplay;
 
     Setting<int> replayStartTime;
 
-    Setting<float> zoomLevel;
-    Setting<int> compositionWidth;
-    Setting<int> compositionHeight;
-    Setting<int> maxGroups;
-	Setting<int> nrOfScreens;
-	Setting<int> sceensLeftOffset;
-	Setting<float> windowScale;
-	Setting<int> activeGroup;
-
-
-    
+    Setting<float>	zoomLevel;
+    Setting<int>	compositionWidth;
+    Setting<int>	compositionHeight;
+    Setting<int>	maxGroups;
+	Setting<int>	nrOfScreens;
+	Setting<int>	sceensLeftOffset;
+	Setting<float>	windowScale;
+	Setting<int>	activeGroup;
     Setting<bool>   hasGifOutput;
     Setting<bool>   hasClearButton;
     Setting<bool>   hasLayerButton;
     Setting<bool>   doFadeOut;
-    Setting<bool>   debugMode;
+	Setting<bool>   debugMode;
+	Setting<bool>   isFullScreen;
 
-    ci::ColorA blue;
     ci::ColorA fboBackground;
     ci::ColorA brushColor;
 
     ci::ivec2 compositionSize;
-    ci::gl::TextureFontRef    mLargeFont;
-    ci::Font    mSmallFont;
 
     GlobalSettings();
     

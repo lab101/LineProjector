@@ -82,33 +82,49 @@ void Composition::newComposition(){
 
 void Composition::newLine(ci::vec3 pressurePoint){
     
-    mPath.clear();
-    mDepths.clear();
-    
+	clearPath();
+
     mPath.moveTo(vec2(pressurePoint.x   ,pressurePoint.y));
     mDepths.moveTo(vec2(pressurePoint.x ,pressurePoint.z));
     
-    lastDrawDistance = 0;
-    minDistance = 0;
-    
-    // adding new vector of strokes for data capture
-    pointVec newStrokes;
-    strokes.push_back(newStrokes);
 }
+
+
+void Composition::lineTo(ci::vec3 pressurePoint, ci::ColorA color){
+
+	if (mPath.empty()){
+		newLine(pressurePoint);
+	}
+	else{
+		mPath.lineTo(vec2(pressurePoint.x, pressurePoint.y));
+		mDepths.lineTo(vec2(pressurePoint.x, pressurePoint.z));
+		calculatePath(mPath, mDepths, true, color);
+	}
+}
+
 
 
 void Composition::endLine(){
 
-    mStepId++;
+	clearPath();
+	mStepId++;
 }
 
 
-void Composition::lineTo(ci::vec3 pressurePoint,ci::ColorA color){
-    mPath.lineTo(vec2(pressurePoint.x,pressurePoint.y));
-    mDepths.lineTo(vec2(pressurePoint.x,pressurePoint.z));
-	calculatePath(mPath, mDepths, true, ci::Color(0, 0, 0));
 
+
+void Composition::clearPath(){
+
+	mPath.clear();
+	mDepths.clear();
+
+	pointVec newStrokes;
+	strokes.push_back(newStrokes);
+
+	lastDrawDistance = 0;
+	minDistance = 0;
 }
+
 
 void Composition::drawCircle(ci::vec3 point1,ci::vec3 point2, ci::Color color){
     //------------------------------------------------------------------------FBO
@@ -228,7 +244,7 @@ void Composition::drawFadeOut(){
     //  gl::ScopedBlendPremult scpBlend;
     
     ci::ColorA fade = GS()->fboBackground;
-	fade.a = GS()->fadeoutFactorDrawing.value() *0.00005f;
+	fade.a = GS()->fadeoutFactorDrawing.value() *0.00001f;
     gl::color(fade);
     ci::gl::drawSolidRect(Rectf(0,0, mActiveFbo->getSize().x, mActiveFbo->getSize().y));
     

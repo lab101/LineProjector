@@ -26,7 +26,7 @@ NetworkHelper::NetworkHelper()
 
 bool NetworkHelper::setup(){
 
-	mReceiver.setListener("points",
+	mReceiver.setListener("/points",
 		[&](const osc::Message &msg){
 		//std::lock_guard<std::mutex> lock(mCirclePosMutex);
 		//mCurrentCirclePos.x = msg[0].int32();
@@ -43,9 +43,9 @@ bool NetworkHelper::setup(){
 		for (int i = 3; i < totals; i += 3){
 			points.push_back(ci::vec3(msg[i].flt(), msg[i + 1].flt(), msg[i + 2].flt()));
 		}
-            pointsPackage newPackage;
+            PointsPackage newPackage;
             newPackage.setup(points, color);
-            newPackage.setEraser(false); ////// DE GOM
+            newPackage.setEraser(false); ////// ERASER
             
 		mPointsQueueLock.lock();
 		pointsQueue.push(newPackage);
@@ -53,7 +53,7 @@ bool NetworkHelper::setup(){
 
 	});
 
-	mReceiver.setListener("shape",
+	mReceiver.setListener("/shape",
 		[&](const osc::Message &msg){
 		int totals = msg.getNumArgs();
 
@@ -66,7 +66,7 @@ bool NetworkHelper::setup(){
 		for (int i = 3; i < totals; i += 3){
 			points.push_back(ci::vec3(msg[i].flt(), msg[i + 1].flt(), msg[i + 2].flt()));
 		}
-            pointsPackage newPackage;
+			PointsPackage newPackage;
             newPackage.setup(points, color);
             newPackage.setShape(shape);
 		mShapesQueueLock.lock();

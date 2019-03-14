@@ -114,6 +114,7 @@
     <ClCompile Include="..\src\classes\Composition.cpp" />
     <ClCompile Include="..\src\classes\GlobalSettings.cpp" />
     <ClCompile Include="..\src\classes\NetworkHelper.cpp" />
+    <ClCompile Include="..\src\classes\PointsPackage.cpp" />
     <ClCompile Include="..\src\LineProjector2App.cpp" />
     <ClCompile Include="..\blocks\Base\src\Notifications\NotificationLogger.cpp" />
     <ClCompile Include="..\blocks\Base\src\Notifications\NotificationManager.cpp" />
@@ -142,6 +143,7 @@
     <ClInclude Include="..\src\classes\GlobalSettings.h" />
     <ClInclude Include="..\src\classes\Lab101Utils.h" />
     <ClInclude Include="..\src\classes\NetworkHelper.h" />
+    <ClInclude Include="..\src\classes\PointsPackage.hpp" />
     <ClInclude Include="..\src\classes\WindowData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

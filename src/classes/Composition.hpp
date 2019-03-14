@@ -80,6 +80,7 @@ public:
     void newLine(ci::vec3 pressurePoint);
     void lineTo(ci::vec3 pressurePoint,ci::ColorA color);
     void endLine();
+	void clearPath();
     
     void drawRectangle(ci::vec3 point1,ci::vec3 point2, ci::Color color);
     void drawCircle(ci::vec3 point1,ci::vec3 point2, ci::Color color);

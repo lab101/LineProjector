@@ -18,9 +18,6 @@ using namespace ci;
 
 GlobalSettings::GlobalSettings(){
 
-    // in some cases the software can be used
-    // to only send data not store, disabling output makes it faster.
-    
     hasGifOutput = Setting<bool>("hasGifOutput", true);
     hasClearButton = Setting<bool>("hasClearButton",true);
     hasLayerButton = Setting<bool>("hasLayerButton",true);
@@ -31,12 +28,18 @@ GlobalSettings::GlobalSettings(){
 	maxGroups = Setting<int>("maxGroups", 2);
 	sceensLeftOffset = Setting<int>("sceensLeftOffset", 0);
 	activeGroup = Setting<int>("activeGroup", 0);
+	isFullScreen = Setting<bool>("isFullScreen", false);
 
     compositionWidth = Setting<int>("compositionWidth",1920).setSteps(10);
     compositionHeight = Setting<int>("compositionHeight",1080).setSteps(10);
 
 	zoomLevel = Setting<float>("zoomlevel", 0.9).setSteps(0.05);
 	nrOfScreens = Setting<int>("nrOfScreens", 3);
+	fadeoutFactorDrawing = Setting<float>("fadeoutFactorDrawing", 1).setMin(0).setMax(1000).setSteps(1);
+	fadeoutFactorReplay = Setting<float>("fadeoutFactorReplay", 4).setMin(0).setMax(1000).setSteps(1);
+	replayStartTime = Setting<int>("replayStartTime", 10).setMin(0).setMax(60 * 10).setSteps(1);
+
+
 
     addSetting(&hasGifOutput);
     addSetting(&hasClearButton);
@@ -51,34 +54,18 @@ GlobalSettings::GlobalSettings(){
 	addSetting(&sceensLeftOffset);
 	addSetting(&activeGroup);
 	addSetting(&windowScale);
+	addSetting(&isFullScreen);
+	addSetting(&fadeoutFactorDrawing);
+	addSetting(&fadeoutFactorReplay);
+	addSetting(&replayStartTime);
+
+
 
     compositionSize = ci::ivec2(compositionWidth.value(),compositionHeight.value());
     
-    fadeoutFactor = 0.01f;
-    
-    blue = ci::Color(0,0.6,1.0);
     
     fboBackground = ci::ColorA(0.0,0.0,0.0,0.0);
     brushColor = ci::ColorA(0.0, 0.0,.0,1.0);
-
-    
-    fadeoutFactorDrawing = Setting<float>("fadeoutFactorDrawing", 1).setMin(0).setMax(1000).setSteps(1);
-    
-    fadeoutFactorReplay = Setting<float>("fadeoutFactorReplay", 4).setMin(0).setMax(1000).setSteps(1);
-    
-    
-    replayStartTime = Setting<int>("replayStartTime", 10).setMin(0).setMax(60 * 10).setSteps(1);
-
-    addSetting(&fadeoutFactorDrawing);
-    addSetting(&fadeoutFactorReplay);
-    addSetting(&replayStartTime);
-    
-    
-    float displayScale =  ci::app::getWindowContentScale();
-
-    mLargeFont = gl::TextureFont::create( Font( "Helvetica", 72 * displayScale ), gl::TextureFont::Format().enableMipmapping() );
-    mSmallFont = Font( "Helvetica", 10 * displayScale );
-
 
 }
 

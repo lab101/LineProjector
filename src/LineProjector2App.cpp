@@ -27,8 +27,11 @@ class LineProjector2App : public App {
     void setupComposition(std::shared_ptr<Composition>& composition,ci::ivec2 size, bool hasHistory = false);
     NetworkHelper*       mNetworkHelper;
     
+	// wrapping stuff
     WarpList		mWarps;
     fs::path		mWrapSettings;
+
+
     int activeWindow;
     SettingController   mSettingController;
     ci::vec2		mMousePosition;
@@ -57,7 +60,8 @@ void LineProjector2App::setup()
 
 	activeWindow = -1;
 	int nrOfScreens = GS()->nrOfScreens.value();
-	int screenOrder[5] = {1,2,3,4,5};
+	int screenOrder[4] = { 1, 2, 3, 4 };
+	//int screenOrder[4] = { 1, 4, 3, 2 };
 
     bool flipHorizontal = false;
     
@@ -99,7 +103,7 @@ void LineProjector2App::setup()
         newWindow2->setUserData(new WindowData(ci::Rectf(offsetX1, 1, offsetX2, 0), i+1));
         newWindow2->setTitle("Window " + toString(i+2));
         
-        
+		newWindow2->setFullScreen(GS()->isFullScreen.value());
     }
     
     
@@ -119,6 +123,12 @@ void LineProjector2App::setup()
     }
     
 
+
+	if (GS()->isFullScreen.value()){
+		setFullScreen(true);
+	}
+
+
 }
 
 
@@ -134,7 +144,7 @@ void LineProjector2App::setupNetwork(){
 	mNetworkHelper->setup();
 
 	// incoming points
-	mNetworkHelper->onReceivePoints.connect([=](pointsPackage package){
+	mNetworkHelper->onReceivePoints.connect([=](PointsPackage package){
 		BrushManagerSingleton::Instance()->isEraserOn = package.isEraserOn;
 
 		for (auto&p : package.points){
@@ -146,7 +156,7 @@ void LineProjector2App::setupNetwork(){
 	});
 
 	// incoming shapes
-	mNetworkHelper->onReceiveShapes.connect([=](pointsPackage package){
+	mNetworkHelper->onReceiveShapes.connect([=](PointsPackage package){
 		GS()->brushColor = hexStringToColor(package.color);
 
 		for (auto&p : package.points){
@@ -314,7 +324,7 @@ void LineProjector2App::keyDown(KeyEvent event)
     
     if (mSettingController.checkKeyDown(event))
     {
-        return;
+    //    return;
     }
     
     // pass this key event to the warp editor first
@@ -333,11 +343,16 @@ void LineProjector2App::keyDown(KeyEvent event)
                 // toggle vertical sync
                 gl::enableVerticalSync(!gl::isVerticalSyncEnabled());
                 break;
-            case KeyEvent::KEY_w:
-                // toggle warp edit mode
-                Warp::enableEditMode(!Warp::isEditModeEnabled());
-                break;
-                
+			case KeyEvent::KEY_w:
+				// toggle warp edit mode
+				Warp::enableEditMode(!Warp::isEditModeEnabled());
+				break;
+
+			case KeyEvent::KEY_s:
+				// toggle warp edit mode
+				Warp::writeSettings(mWarps, writeFile(mWrapSettings));
+				break;
+
             case KeyEvent::KEY_c:
                 // toggle warp edit mode
                 mActiveComposition->clearScene();
