@@ -244,7 +244,7 @@ void Composition::drawFadeOut(){
     //  gl::ScopedBlendPremult scpBlend;
     
     ci::ColorA fade = GS()->fboBackground;
-	fade.a = GS()->fadeoutFactorDrawing.value() *0.00001f;
+	fade.a = GS()->fadeoutFactorDrawing.value() *0.000001f;
     gl::color(fade);
     ci::gl::drawSolidRect(Rectf(0,0, mActiveFbo->getSize().x, mActiveFbo->getSize().y));
     
