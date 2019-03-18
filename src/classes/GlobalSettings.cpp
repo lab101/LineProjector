@@ -40,6 +40,10 @@ GlobalSettings::GlobalSettings(){
 	replayStartTime = Setting<int>("replayStartTime", 10).setMin(0).setMax(60 * 10).setSteps(1);
 
 
+	previewScale = Setting<float>("previewScale", 1).setMin(0).setMax(4).setSteps(0.01);
+
+	
+
 
     addSetting(&hasGifOutput);
     addSetting(&hasClearButton);
@@ -58,6 +62,7 @@ GlobalSettings::GlobalSettings(){
 	addSetting(&fadeoutFactorDrawing);
 	addSetting(&fadeoutFactorReplay);
 	addSetting(&replayStartTime);
+	addSetting(&previewScale);
 
 
 

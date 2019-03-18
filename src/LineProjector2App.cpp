@@ -60,8 +60,8 @@ void LineProjector2App::setup()
 
 	activeWindow = -1;
 	int nrOfScreens = GS()->nrOfScreens.value();
-	int screenOrder[4] = { 1, 2, 3, 4 };
-	//int screenOrder[4] = { 1, 4, 3, 2 };
+//	int screenOrder[4] = { 1, 2, 3, 4 };
+	int screenOrder[4] = { 1, 4, 3, 2 };
 
     bool flipHorizontal = false;
     
@@ -90,6 +90,13 @@ void LineProjector2App::setup()
 	setupNetwork();
 	drawScreenNumbers();
 	    
+
+	vec2 position(20,120);
+	app::WindowRef newWindow2 = createWindow(Window::Format().size(800,800).pos(position));
+
+
+	newWindow2->setUserData(new WindowData(ci::Rectf(0, 0, 1, 1),  -100));
+	newWindow2->setTitle("DEBUG ");
     
     // creating the EXTRA WINDOWS
     for (int i = 0; i < nrOfScreens-1; i++){
@@ -231,6 +238,25 @@ void LineProjector2App::draw()
     
     WindowData *data = getWindow()->getUserData<WindowData>();
     
+	if ( data->mId == -100){
+		gl::clear();
+
+		ci::gl::enableAlphaBlending();
+
+		ci::gl::pushMatrices();
+		ci::gl::scale(GS()->previewScale.value(), GS()->previewScale.value());
+
+
+		mActiveComposition->draw(ci::Rectf(0,1,1,0));
+
+		ci::gl::popMatrices();
+
+		//NotificationManagerSingleton::Instance()->draw();
+		ci::gl::enableAlphaBlending();
+
+		if (GS()->debugMode.value()) mSettingController.draw();
+		return;
+	}
 
     if (GS()->debugMode.value()){
         if (activeWindow > -1 && data->mId != activeWindow){
@@ -255,11 +281,7 @@ void LineProjector2App::draw()
     if (GS()->doFadeOut.value())  mActiveComposition->drawFadeOut();
     
     
-    if (GS()->debugMode.value()){
-        ci::gl::enableAlphaBlending();
-        //NotificationManagerSingleton::Instance()->draw();
-        mSettingController.draw();
-    }
+	
     
     
     
@@ -329,6 +351,15 @@ void LineProjector2App::keyDown(KeyEvent event)
         GS()->debugMode.value() = !GS()->debugMode.value();
     }
     
+	if (event.getCode() == event.KEY_j){ // FADE
+		if (GS()->fadeoutFactorDrawing.value() > 0){
+			GS()->fadeoutFactorDrawing.decreaseStep(1);
+		}
+	};
+
+	if (event.getCode() == event.KEY_l){ //FADE 
+		GS()->fadeoutFactorDrawing.increaseStep(1);
+	}
     
     if (mSettingController.checkKeyDown(event))
     {

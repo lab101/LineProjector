@@ -29,6 +29,7 @@ public:
 	Setting<int>	nrOfScreens;
 	Setting<int>	sceensLeftOffset;
 	Setting<float>	windowScale;
+	Setting<float>	previewScale;
 	Setting<int>	activeGroup;
     Setting<bool>   hasGifOutput;
     Setting<bool>   hasClearButton;
