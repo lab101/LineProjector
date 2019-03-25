@@ -40,19 +40,6 @@
 				</blend>
 			</warp>
 		</map>
-		<map id="4" display="1">
-			<warp method="perspective" width="2" height="2" brightness="1">
-				<controlpoint x="0" y="0"/>
-				<controlpoint x="1" y="0"/>
-				<controlpoint x="1" y="1"/>
-				<controlpoint x="0" y="1"/>
-				<blend exponent="2">
-					<edges left="0" top="0" right="1" bottom="1"/>
-					<gamma red="1" green="1" blue="1"/>
-					<luminance red="0.5" green="0.5" blue="0.5"/>
-				</blend>
-			</warp>
-		</map>
 	</profile>
 </warpconfig>
 

@@ -58,7 +58,7 @@ void LineProjector2App::setup()
 {
     
 
-	activeWindow = -1;
+	activeWindow = 0;
 	int nrOfScreens = GS()->nrOfScreens.value();
 //	int screenOrder[4] = { 1, 2, 3, 4 };
 	int screenOrder[4] = { 1, 4, 3, 2 };
@@ -125,6 +125,7 @@ void LineProjector2App::setup()
         for (int i = 0; i < nrOfScreens; i++){
             auto w = WarpPerspective::create();
             w->setSize(size);
+			w->resize(size);
             mWarps.push_back(w);
         }
     }
@@ -263,8 +264,8 @@ void LineProjector2App::draw()
             gl::clear(ColorA(49.0f / 255.0f, 24.0f / 255.0f, 160.0f / 25.0f, 1.0f));
         }
         else{
-            gl::clear(ColorA(40 / 255.0f, 40 / 255.0f, 40 / 255.0f, 1.0f));
-            ci::gl::color(1, 1, 1);
+			gl::clear(ColorA(0, 0, 0, 1.0f));
+			ci::gl::color(1, 1, 1);
             ci::gl::drawSolidCircle(mMousePosition, 10);
         }
     }

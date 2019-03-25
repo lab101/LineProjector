@@ -22,8 +22,8 @@ GlobalSettings::GlobalSettings(){
     hasClearButton = Setting<bool>("hasClearButton",true);
     hasLayerButton = Setting<bool>("hasLayerButton",true);
     doFadeOut = Setting<bool>("doFadeout",false);
-	zoomLevel = Setting<float>("zoomlevel", 0.9).setSteps(0.05);
-	windowScale = Setting<float>("windowScale", 0.5).setSteps(0.05);
+	zoomLevel = Setting<float>("zoomlevel", 1.0).setSteps(0.05);
+	windowScale = Setting<float>("windowScale", 1.0).setSteps(0.05);
 	debugMode = Setting<bool>("debugMode", false);
 	maxGroups = Setting<int>("maxGroups", 2);
 	sceensLeftOffset = Setting<int>("sceensLeftOffset", 0);
@@ -34,7 +34,7 @@ GlobalSettings::GlobalSettings(){
     compositionHeight = Setting<int>("compositionHeight",1080).setSteps(10);
 
 	zoomLevel = Setting<float>("zoomlevel", 0.9).setSteps(0.05);
-	nrOfScreens = Setting<int>("nrOfScreens", 3);
+	nrOfScreens = Setting<int>("nrOfScreens",1);
 	fadeoutFactorDrawing = Setting<float>("fadeoutFactorDrawing", 1).setMin(0).setMax(1000).setSteps(1);
 	fadeoutFactorReplay = Setting<float>("fadeoutFactorReplay", 4).setMin(0).setMax(1000).setSteps(1);
 	replayStartTime = Setting<int>("replayStartTime", 10).setMin(0).setMax(60 * 10).setSteps(1);
@@ -45,9 +45,9 @@ GlobalSettings::GlobalSettings(){
 	
 
 
-    addSetting(&hasGifOutput);
-    addSetting(&hasClearButton);
-    addSetting(&hasLayerButton);
+    //addSetting(&hasGifOutput);
+    //addSetting(&hasClearButton);
+    //addSetting(&hasLayerButton);
     addSetting(&doFadeOut);
     addSetting(&zoomLevel);
     addSetting(&compositionWidth);
@@ -60,8 +60,8 @@ GlobalSettings::GlobalSettings(){
 	addSetting(&windowScale);
 	addSetting(&isFullScreen);
 	addSetting(&fadeoutFactorDrawing);
-	addSetting(&fadeoutFactorReplay);
-	addSetting(&replayStartTime);
+	//addSetting(&fadeoutFactorReplay);
+	//addSetting(&replayStartTime);
 	addSetting(&previewScale);
 
 

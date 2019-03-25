@@ -146,7 +146,7 @@ class SettingManager{
         //return ci::app::getAssetPath("").string() + "/settings.json";
       //  getDocumentsDirectory();
         
-        return ci::getDocumentsDirectory().string() + "/settings_fnce.json";
+        return ci::getDocumentsDirectory().string() + "/settings_lineprojector.json";
     }
     static SettingManager* instance;
     
