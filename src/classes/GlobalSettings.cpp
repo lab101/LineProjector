@@ -18,22 +18,19 @@ using namespace ci;
 
 GlobalSettings::GlobalSettings(){
 
-    hasGifOutput = Setting<bool>("hasGifOutput", true);
-    hasClearButton = Setting<bool>("hasClearButton",true);
-    hasLayerButton = Setting<bool>("hasLayerButton",true);
+   
     doFadeOut = Setting<bool>("doFadeout",false);
 	zoomLevel = Setting<float>("zoomlevel", 1.0).setSteps(0.05);
 	windowScale = Setting<float>("windowScale", 1.0).setSteps(0.05);
 	debugMode = Setting<bool>("debugMode", false);
 	maxGroups = Setting<int>("maxGroups", 2);
-	sceensLeftOffset = Setting<int>("sceensLeftOffset", 0);
+	sceensLeftOffset = Setting<int>("sceensLeftOffset", 20);
 	activeGroup = Setting<int>("activeGroup", 0);
 	isFullScreen = Setting<bool>("isFullScreen", false);
 
     compositionWidth = Setting<int>("compositionWidth",1920).setSteps(10);
     compositionHeight = Setting<int>("compositionHeight",1080).setSteps(10);
 
-	zoomLevel = Setting<float>("zoomlevel", 0.9).setSteps(0.05);
 	nrOfScreens = Setting<int>("nrOfScreens",1);
 	fadeoutFactorDrawing = Setting<float>("fadeoutFactorDrawing", 1).setMin(0).setMax(1000).setSteps(1);
 	fadeoutFactorReplay = Setting<float>("fadeoutFactorReplay", 4).setMin(0).setMax(1000).setSteps(1);
@@ -45,9 +42,7 @@ GlobalSettings::GlobalSettings(){
 	
 
 
-    //addSetting(&hasGifOutput);
-    //addSetting(&hasClearButton);
-    //addSetting(&hasLayerButton);
+   
     addSetting(&doFadeOut);
     addSetting(&zoomLevel);
     addSetting(&compositionWidth);
