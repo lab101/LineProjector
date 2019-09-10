@@ -69,8 +69,8 @@ GlobalSettings::GlobalSettings(){
     compositionSize = ci::ivec2(compositionWidth.value(),compositionHeight.value());
     
     
-    fboBackground = ci::ColorA(0.0,0.0,0.0,0.0);
-    brushColor = ci::ColorA(0.0, 0.0,.0,1.0);
+    fboBackground = ci::ColorA(0.0,0.0,1.0,1.0);
+    brushColor = ci::ColorA(0.0, 1.0,1.0,0.0);
 
 }
 

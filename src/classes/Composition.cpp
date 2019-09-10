@@ -225,7 +225,6 @@ void Composition::drawInFbo(std::vector<ci::vec3>& points, ci::ColorA color){
         gl::color(color);
         
         BrushManagerSingleton::Instance()->drawBrush(points, 0.98);
-        
         gl::setMatricesWindow( ci::app::getWindowSize() );
     }
     
@@ -233,22 +232,24 @@ void Composition::drawInFbo(std::vector<ci::vec3>& points, ci::ColorA color){
 
 void Composition::drawFadeOut(){
     
-    
-    
-    gl::ScopedFramebuffer fbScp( mActiveFbo );
-    gl::ScopedViewport fbVP (mActiveFbo->getSize());
-    gl::setMatricesWindow( mActiveFbo->getSize() );
-    
-    
-    // Enable pre-multiplied alpha blending.
-    //  gl::ScopedBlendPremult scpBlend;
-    
-    ci::ColorA fade = GS()->fboBackground;
+	gl::ScopedFramebuffer fbScp( mActiveFbo );
+	gl::ScopedViewport fbVP (mActiveFbo->getSize());
+//	gl::setMatricesWindow( mActiveFbo->getSize() );
+
+	ci::ColorA fade = GS()->fboBackground;
 	fade.a = GS()->fadeoutFactorDrawing.value() *0.000001f;
-    gl::color(fade);
-    ci::gl::drawSolidRect(Rectf(0,0, mActiveFbo->getSize().x, mActiveFbo->getSize().y));
-    
-    gl::setMatricesWindow( ci::app::getWindowSize() );
+	gl::color(fade);
+	ci::gl::drawSolidRect(Rectf(-1000, -1000, mActiveFbo->getSize().x + 2000, mActiveFbo->getSize().y + 2000));
+
+	//ci::gl::clearColor(ColorA(0.0f, 0.0f, 0.0f, 0.5f));
+
+    //
+    //
+    //// Enable pre-multiplied alpha blending.
+    ////  gl::ScopedBlendPremult scpBlend;
+    //
+    //
+    //gl::setMatricesWindow( ci::app::getWindowSize() );
     
     
 }

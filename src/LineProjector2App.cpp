@@ -12,6 +12,8 @@
 #include "Warp.h"
 #include "Lab101Utils.h"
 
+#include "CiSpoutOut.h"
+
 #include "../blocks/Base/src/Settings/SettingController.h"
 
 using namespace ci;
@@ -35,8 +37,14 @@ class LineProjector2App : public App {
     int activeWindow;
     SettingController   mSettingController;
     ci::vec2		mMousePosition;
+
+	// spout
+	SpoutOut* mSpoutOut;
+
     
 public:
+
+	LineProjector2App();
     void setup() override;
 	void setupNetwork();
 	void drawScreenNumbers();
@@ -54,14 +62,19 @@ public:
 };
 
 
+LineProjector2App::LineProjector2App() {
+
+
+}
+
 void LineProjector2App::setup()
 {
     
 
 	activeWindow = 0;
 	int nrOfScreens = GS()->nrOfScreens.value();
-//	int screenOrder[4] = { 1, 2, 3, 4 };
-	int screenOrder[4] = { 1, 4, 3, 2 };
+	int screenOrder[4] = { 1, 2, 3, 4 };
+//	int screenOrder[4] = { 1, 4, 3, 2 };
 
     bool flipHorizontal = false;
     
@@ -75,6 +88,12 @@ void LineProjector2App::setup()
     setWindowPos(GS()->sceensLeftOffset.value() + ((screenOrder[0]-1) * size.x * scale), 120);
     setWindowSize(size * scale);
     getWindow()->setTitle("Window 1");
+
+	// set first projector window.
+	// debug window is initiated later.
+	if (GS()->isFullScreen.value()) {
+		setFullScreen(true);
+	}
     
     CI_LOG_I("SETUP brush");
     GS()->brushColor = ci::ColorA(.0, 1.0, .0, 1.0);
@@ -92,16 +111,16 @@ void LineProjector2App::setup()
 	    
 
 	vec2 position(20,120);
-	app::WindowRef newWindow2 = createWindow(Window::Format().size(800,800).pos(position));
+	app::WindowRef debugWindow = createWindow(Window::Format().size(800,800).pos(position));
 
 
-	newWindow2->setUserData(new WindowData(ci::Rectf(0, 0, 1, 1),  -100));
-	newWindow2->setTitle("DEBUG ");
+	debugWindow->setUserData(new WindowData(ci::Rectf(0, 0, 1, 1),  -100));
+	debugWindow->setTitle("DEBUG ");
     
     // creating the EXTRA WINDOWS
     for (int i = 0; i < nrOfScreens-1; i++){
-		vec2 position(GS()->sceensLeftOffset.value() + (size.x * scale) * (screenOrder[i + 1] - 1), 120);
-        app::WindowRef newWindow2 = createWindow(Window::Format().size(size * scale).pos(position));
+		vec2 position(GS()->sceensLeftOffset.value() + (size.x * scale) * (screenOrder[i + 1] - 1), 0);
+        app::WindowRef newWindow2 = createWindow(Window::Format().size(size * scale).pos(position).fullScreen(true));
         
         
         float offsetX1 = offset * (i + (flipHorizontal ? 2 : 1));
@@ -131,10 +150,9 @@ void LineProjector2App::setup()
     }
     
 
-
-	if (GS()->isFullScreen.value()){
-		setFullScreen(true);
-	}
+	// SPOUT
+	mSpoutOut = new ci::SpoutOut("lineproject", size);
+	
 
 
 }
@@ -209,15 +227,15 @@ void LineProjector2App::drawScreenNumbers(){
 			float  xPosMid = (size.x * 0.5) * (posX);
 
 			mActiveComposition->newLine(vec3(xPosMid, size.y / 4, 10));
-			mActiveComposition->lineTo(vec3(xPosMid, size.y*0.7, 10), hexStringToColor("#FF00FF"));
+			mActiveComposition->lineTo(vec3(xPosMid, size.y*0.7, 10), hexStringToColor("#00FFFF"));
 			mActiveComposition->endLine();
 
 			mActiveComposition->newLine(vec3(xPosMid - 70, size.y / 4, 10));
-			mActiveComposition->lineTo(vec3(xPosMid + 70, size.y / 4, 10), hexStringToColor("#FF00FF"));
+			mActiveComposition->lineTo(vec3(xPosMid + 70, size.y / 4, 10), hexStringToColor("#00FFFF"));
 			mActiveComposition->endLine();
 
 			mActiveComposition->newLine(vec3(xPosMid - 70, size.y*0.7, 10));
-			mActiveComposition->lineTo(vec3(xPosMid + 70, size.y*0.7, 10), hexStringToColor("#FFFFFF"));
+			mActiveComposition->lineTo(vec3(xPosMid + 70, size.y*0.7, 10), hexStringToColor("#0000FF"));
 			mActiveComposition->endLine();
 
 			posX += 0.25;
@@ -249,7 +267,9 @@ void LineProjector2App::draw()
 
 
 		mActiveComposition->draw(ci::Rectf(0,1,1,0));
-
+		
+		mSpoutOut->sendTexture(mActiveComposition->getTexture());
+		
 		ci::gl::popMatrices();
 
 		//NotificationManagerSingleton::Instance()->draw();
@@ -265,8 +285,8 @@ void LineProjector2App::draw()
         }
         else{
 			gl::clear(ColorA(0, 0, 0, 1.0f));
-			ci::gl::color(1, 1, 1);
-            ci::gl::drawSolidCircle(mMousePosition, 10);
+			//ci::gl::color(1, 1, 1);
+            ///ci::gl::drawSolidCircle(mMousePosition, 10);
         }
     }
     else{
@@ -277,9 +297,11 @@ void LineProjector2App::draw()
     
     mWarps[data->mId]->begin();
     mActiveComposition->draw(data->mDrawingArea);
-    mWarps[data->mId]->end();
+	if (GS()->doFadeOut.value())  mActiveComposition->drawFadeOut();
+
+	
+	mWarps[data->mId]->end();
     
-    if (GS()->doFadeOut.value())  mActiveComposition->drawFadeOut();
     
     
 	

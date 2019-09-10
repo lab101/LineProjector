@@ -26,6 +26,7 @@
 #include "cinder/gl/draw.h"
 #include "cinder/gl/scoped.h"
 
+
 using namespace ci;
 using namespace ci::app;
 
@@ -38,8 +39,8 @@ std::atomic<bool> Warp::sIsGammaMode{ false };
 Warp::Warp( WarpType type )
     : mType( type )
     , mIsDirty( true )
-    , mWidth( 800)
-    , mHeight( 800)
+    , mWidth( 1920)
+    , mHeight( 1080)
     , mBrightness( 1.0f )
     , mSelected( -1 )
     , mControlsX( 2 )
