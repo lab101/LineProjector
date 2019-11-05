@@ -37,7 +37,7 @@ bool NetworkHelper::setup(){
 		int incomingGroupId = msg[0].int32();
 		if (incomingGroupId != GS()->activeGroup.value()) return;
 
-		 bool isEraserOn = msg.getArgBool(1);
+		bool isEraserOn = msg.getArgBool(1);
 		std::string color = msg.getArgString(2);
 		std::vector<ci::vec3> points;
 		for (int i = 3; i < totals; i += 3){
@@ -66,9 +66,11 @@ bool NetworkHelper::setup(){
 		for (int i = 3; i < totals; i += 3){
 			points.push_back(ci::vec3(msg[i].flt(), msg[i + 1].flt(), msg[i + 2].flt()));
 		}
-			PointsPackage newPackage;
-            newPackage.setup(points, color);
-            newPackage.setShape(shape);
+			
+		
+		PointsPackage newPackage;
+        newPackage.setup(points, color);
+        newPackage.setShape(shape);
 		mShapesQueueLock.lock();
 		shapesQueue.push(newPackage);
 		mShapesQueueLock.unlock();

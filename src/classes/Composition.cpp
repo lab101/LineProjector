@@ -137,10 +137,10 @@ void Composition::drawCircle(ci::vec3 point1,ci::vec3 point2, ci::Color color){
     gl::color(color);
     ci::gl::drawSolidCircle(vec2(point1.x,point1.y), glm::distance(point1, point2));
     
-    gl::setMatricesWindow(ci::app::getWindowSize());//------------------------FBO END
+  //  gl::setMatricesWindow(ci::app::getWindowSize());//------------------------FBO END
     //------------------------------------------------------------------------DRAW STROKE
     std::vector<vec3> circumference;
-    for(float i = 0; i< 362.0f ; i+=1){
+    for(float i = 0; i< 362.0f ; i+=4){
         float x = point1.x + (glm::distance(point1, point2) * glm::cos(glm::radians(i)));
         float y = point1.y + (glm::distance(point1, point2) * glm::sin(glm::radians(i)));
         circumference.push_back(vec3(x,y,point1.z));
@@ -174,7 +174,7 @@ void Composition::drawRectangle(ci::vec3 point1,ci::vec3 point2, ci::Color color
     Rectf rect( point1.x, point1.y, point2.x , point2.y);
     ci::gl::drawSolidRect(rect);
     
-    gl::setMatricesWindow( ci::app::getWindowSize() );//----------------------FBO END
+ //   gl::setMatricesWindow( ci::app::getWindowSize() );//----------------------FBO END
     //------------------------------------------------------------------------DRAW STROKE
     
     
@@ -221,11 +221,9 @@ void Composition::drawInFbo(std::vector<ci::vec3>& points, ci::ColorA color){
         gl::ScopedBlendPremult scpBlend;
         gl::enableAlphaBlendingPremult();
         
-        
         gl::color(color);
         
         BrushManagerSingleton::Instance()->drawBrush(points, 0.98);
-        gl::setMatricesWindow( ci::app::getWindowSize() );
     }
     
 }
@@ -337,7 +335,8 @@ void Composition::draw(ci::Rectf drawingArea){
     
     
     
-    const Rectf r(0, 0, app::getWindowSize().x, app::getWindowSize().y);
+  //  const Rectf r(0, 0, app::getWindowSize().x, app::getWindowSize().y);
+	const Rectf r(0, 0, mActiveFbo->getWidth(), mActiveFbo->getHeight());
     vec2 upperLeftTexCoord = drawingArea.getUpperLeft();
     vec2 lowerRightTexCoord = drawingArea.getLowerRight();
     

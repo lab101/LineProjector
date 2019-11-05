@@ -268,7 +268,7 @@ void LineProjector2App::draw()
 
 		mActiveComposition->draw(ci::Rectf(0,1,1,0));
 		
-		mSpoutOut->sendTexture(mActiveComposition->getTexture());
+	//	mSpoutOut->sendTexture(mActiveComposition->getTexture());
 		
 		ci::gl::popMatrices();
 
