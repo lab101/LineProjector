@@ -14,10 +14,9 @@
 
 class PointsPackage{
     
-    
-    
 public:
-    std::vector<ci::vec3> points;
+
+	std::vector<ci::vec3> points;
     std::string color;
     std::string shape;
     bool isEraserOn;

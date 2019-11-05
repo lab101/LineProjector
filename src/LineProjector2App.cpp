@@ -11,8 +11,12 @@
 #include "WindowData.h"
 #include "Warp.h"
 #include "Lab101Utils.h"
+#include "ReplayManager.h"
 
+#ifdef CINDER_MSW
 #include "CiSpoutOut.h"
+#endif 
+
 
 #include "../blocks/Base/src/Settings/SettingController.h"
 
@@ -36,10 +40,15 @@ class LineProjector2App : public App {
 
     int activeWindow;
     SettingController   mSettingController;
-    ci::vec2		mMousePosition;
+    ci::vec2			mMousePosition;
 
+	ReplayManager		mReplayManager;
+	float				mLastReplayQueryTime;
+
+#ifdef CINDER_MSW
 	// spout
 	SpoutOut* mSpoutOut;
+#endif 
 
     
 public:
@@ -59,6 +68,8 @@ public:
     
     void update() override;
     void draw() override;
+
+	void handlePackage(PointsPackage& package);
 };
 
 
@@ -100,7 +111,7 @@ void LineProjector2App::setup()
     
     BrushManagerSingleton::Instance()->setup();
 	mSettingController.setup();
-
+	mReplayManager.readData();
     
     CI_LOG_I("SETUP composition with FBO");
     setupComposition(mActiveComposition,ivec2(size.x * nrOfScreens,size.y));
@@ -149,18 +160,67 @@ void LineProjector2App::setup()
         }
     }
     
-
+#ifdef CINDER_MSW
 	// SPOUT
-	mSpoutOut = new ci::SpoutOut("lineproject", size);
-	
+	if (GS()->isSpoutActive.value()) {
+		mSpoutOut = new ci::SpoutOut("lineproject", size);
+	}
+#endif
 
 
 }
 
 
+void LineProjector2App::handlePackage(PointsPackage& package) {
+
+	bool currentEraser = BrushManagerSingleton::Instance()->isEraserOn;
+	BrushManagerSingleton::Instance()->isEraserOn = package.isEraserOn;
+
+	for (auto&p : package.points) {
+		p.x *= mActiveComposition->getSize().x;
+		p.y *= mActiveComposition->getSize().y;
+	}
+	if (BrushManagerSingleton::Instance()->isEraserOn)
+	{
+		GS()->brushColor = GS()->fboBackground;
+	}
+	else {
+		GS()->brushColor = hexStringToColor(package.color);
+	}
+
+	if (package.shape == "RECT") {
+		mActiveComposition->drawRectangle(package.points[0], package.points[1], hexStringToColor(package.color));
+	}
+	else if (package.shape == "CIRCLE") {
+
+		mActiveComposition->drawCircle(package.points[0], package.points[1], hexStringToColor(package.color));
+	}
+	else if (package.shape == "LINE") {
+		mActiveComposition->drawLine(package.points[0], package.points[1], hexStringToColor(package.color));
+	}
+	else {
+		mActiveComposition->drawInFbo(package.points, hexStringToColor(package.color));
+	}
+
+
+	BrushManagerSingleton::Instance()->isEraserOn = currentEraser;
+}
+
+
+
 void LineProjector2App::update()
 {
     mNetworkHelper->update();
+
+	if (GS()->isReplayActive.value() && getElapsedSeconds() - mLastReplayQueryTime > 2) {
+
+		mLastReplayQueryTime = getElapsedSeconds();
+
+		if (mReplayManager.hasData()) {
+			auto p = mReplayManager.getNextCommand();
+			handlePackage(p);
+		}
+	}
 }
 
 
@@ -171,43 +231,15 @@ void LineProjector2App::setupNetwork(){
 
 	// incoming points
 	mNetworkHelper->onReceivePoints.connect([=](PointsPackage package){
-        bool currentEraser = BrushManagerSingleton::Instance()->isEraserOn;
-        BrushManagerSingleton::Instance()->isEraserOn = package.isEraserOn;
+		mReplayManager.writeData(package);
+		handlePackage(package);
 
-		for (auto&p : package.points){
-			p.x *= mActiveComposition->getSize().x;
-			p.y *= mActiveComposition->getSize().y;
-		}
-        if(BrushManagerSingleton::Instance()->isEraserOn)
-        {
-           GS()->brushColor = GS()->fboBackground;
-        } else{
-           GS()->brushColor = hexStringToColor(package.color);
-        }
-		
-		mActiveComposition->drawInFbo(package.points, hexStringToColor(package.color));
-        BrushManagerSingleton::Instance()->isEraserOn = currentEraser;
 	});
 
 	// incoming shapes
 	mNetworkHelper->onReceiveShapes.connect([=](PointsPackage package){
-		GS()->brushColor = hexStringToColor(package.color);
-
-		for (auto&p : package.points){
-			p.x *= mActiveComposition->getSize().x;
-			p.y *= mActiveComposition->getSize().y;
-		}
-
-		if (package.shape == "RECT"){
-			mActiveComposition->drawRectangle(package.points[0], package.points[1], hexStringToColor(package.color));
-		}
-		else if (package.shape == "CIRCLE"){
-
-			mActiveComposition->drawCircle(package.points[0], package.points[1], hexStringToColor(package.color));
-		}
-		else if (package.shape == "LINE"){
-			mActiveComposition->drawLine(package.points[0], package.points[1], hexStringToColor(package.color));
-		}
+		mReplayManager.writeData(package);
+		handlePackage(package);
 	});
 
 }
@@ -267,9 +299,10 @@ void LineProjector2App::draw()
 
 
 		mActiveComposition->draw(ci::Rectf(0,1,1,0));
-		
-	//	mSpoutOut->sendTexture(mActiveComposition->getTexture());
-		
+
+#ifdef CINDER_MSW
+		if(GS()->isSpoutActive.value()) mSpoutOut->sendTexture(mActiveComposition->getTexture());
+#endif
 		ci::gl::popMatrices();
 
 		//NotificationManagerSingleton::Instance()->draw();
@@ -285,8 +318,6 @@ void LineProjector2App::draw()
         }
         else{
 			gl::clear(ColorA(0, 0, 0, 1.0f));
-			//ci::gl::color(1, 1, 1);
-            ///ci::gl::drawSolidCircle(mMousePosition, 10);
         }
     }
     else{

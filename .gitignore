@@ -8,6 +8,8 @@
 assets/videos/
 assets/screenshots/
 settings.json
+assets/replayData.txt
+assets/wraps.xml
 
 # User-specific files
 *.suo

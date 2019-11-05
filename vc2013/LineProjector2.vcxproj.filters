@@ -135,6 +135,9 @@
     <ClCompile Include="..\src\classes\PointsPackage.cpp">
       <Filter>Source Files\classes</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\classes\ReplayManager.cpp">
+      <Filter>Source Files\classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Resources.h">
@@ -159,6 +162,9 @@
       <Filter>Source Files\classes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\classes\PointsPackage.hpp">
+      <Filter>Source Files\classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\classes\ReplayManager.h">
       <Filter>Source Files\classes</Filter>
     </ClInclude>
   </ItemGroup>

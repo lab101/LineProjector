@@ -27,6 +27,8 @@ GlobalSettings::GlobalSettings(){
 	sceensLeftOffset = Setting<int>("sceensLeftOffset", 20);
 	activeGroup = Setting<int>("activeGroup", 0);
 	isFullScreen = Setting<bool>("isFullScreen", false);
+	isSpoutActive = Setting<bool>("isSpoutActive", false);
+	isReplayActive = Setting<bool>("isReplayActive", false);
 
     compositionWidth = Setting<int>("compositionWidth",1920).setSteps(10);
     compositionHeight = Setting<int>("compositionHeight",1080).setSteps(10);
@@ -40,7 +42,6 @@ GlobalSettings::GlobalSettings(){
 	previewScale = Setting<float>("previewScale", 1).setMin(0).setMax(4).setSteps(0.01);
 
 	
-
 
    
     addSetting(&doFadeOut);
@@ -58,7 +59,8 @@ GlobalSettings::GlobalSettings(){
 	//addSetting(&fadeoutFactorReplay);
 	//addSetting(&replayStartTime);
 	addSetting(&previewScale);
-
+	addSetting(&isSpoutActive);
+	addSetting(&isReplayActive);
 
 
     compositionSize = ci::ivec2(compositionWidth.value(),compositionHeight.value());

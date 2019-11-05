@@ -43,9 +43,11 @@ bool NetworkHelper::setup(){
 		for (int i = 3; i < totals; i += 3){
 			points.push_back(ci::vec3(msg[i].flt(), msg[i + 1].flt(), msg[i + 2].flt()));
 		}
-            PointsPackage newPackage;
-            newPackage.setup(points, color);
-            newPackage.setEraser(isEraserOn); ////// ERASER
+
+		PointsPackage newPackage;
+		newPackage.shape = "points";
+        newPackage.setup(points, color);
+        newPackage.setEraser(isEraserOn); ////// ERASER
             
 		mPointsQueueLock.lock();
 		pointsQueue.push(newPackage);

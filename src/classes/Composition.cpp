@@ -40,7 +40,6 @@ ci::vec3 Composition::getNormalisedPositionAtIndex(ci::Path2d& points, ci::Path2
     ci::vec2 d = depths.getPoints()[index];
     
     return ci::vec3(p.x,p.y,d.y);
-    
 }
 
 
@@ -232,22 +231,12 @@ void Composition::drawFadeOut(){
     
 	gl::ScopedFramebuffer fbScp( mActiveFbo );
 	gl::ScopedViewport fbVP (mActiveFbo->getSize());
-//	gl::setMatricesWindow( mActiveFbo->getSize() );
 
 	ci::ColorA fade = GS()->fboBackground;
 	fade.a = GS()->fadeoutFactorDrawing.value() *0.000001f;
 	gl::color(fade);
 	ci::gl::drawSolidRect(Rectf(-1000, -1000, mActiveFbo->getSize().x + 2000, mActiveFbo->getSize().y + 2000));
 
-	//ci::gl::clearColor(ColorA(0.0f, 0.0f, 0.0f, 0.5f));
-
-    //
-    //
-    //// Enable pre-multiplied alpha blending.
-    ////  gl::ScopedBlendPremult scpBlend;
-    //
-    //
-    //gl::setMatricesWindow( ci::app::getWindowSize() );
     
     
 }

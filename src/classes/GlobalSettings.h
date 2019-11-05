@@ -37,6 +37,8 @@ public:
     Setting<bool>   doFadeOut;
 	Setting<bool>   debugMode;
 	Setting<bool>   isFullScreen;
+	Setting<bool>   isSpoutActive;
+	Setting<bool>	isReplayActive;
 
     ci::ColorA fboBackground;
     ci::ColorA brushColor;
