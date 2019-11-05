@@ -88,7 +88,8 @@ void LineProjector2App::setup()
 //	int screenOrder[4] = { 1, 4, 3, 2 };
 
     bool flipHorizontal = false;
-    
+	mLastReplayQueryTime = getElapsedSeconds();
+
     float offset = 1.0 / nrOfScreens;
 	float scale = GS()->windowScale.value();
 
@@ -173,6 +174,8 @@ void LineProjector2App::setup()
 
 void LineProjector2App::handlePackage(PointsPackage& package) {
 
+	package.isEraserOn = false;
+
 	bool currentEraser = BrushManagerSingleton::Instance()->isEraserOn;
 	BrushManagerSingleton::Instance()->isEraserOn = package.isEraserOn;
 
@@ -198,7 +201,7 @@ void LineProjector2App::handlePackage(PointsPackage& package) {
 	else if (package.shape == "LINE") {
 		mActiveComposition->drawLine(package.points[0], package.points[1], hexStringToColor(package.color));
 	}
-	else {
+	else if(package.shape == "POINTS") {
 		mActiveComposition->drawInFbo(package.points, hexStringToColor(package.color));
 	}
 
@@ -212,7 +215,7 @@ void LineProjector2App::update()
 {
     mNetworkHelper->update();
 
-	if (GS()->isReplayActive.value() && getElapsedSeconds() - mLastReplayQueryTime > 2) {
+	if (GS()->isReplayActive.value() && getElapsedSeconds() - mLastReplayQueryTime > (GS()->replayInterval.value() / 100.0f)) {
 
 		mLastReplayQueryTime = getElapsedSeconds();
 
@@ -231,6 +234,7 @@ void LineProjector2App::setupNetwork(){
 
 	// incoming points
 	mNetworkHelper->onReceivePoints.connect([=](PointsPackage package){
+		package.shape = "POINTS";
 		mReplayManager.writeData(package);
 		handlePackage(package);
 

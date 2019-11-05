@@ -28,6 +28,7 @@ public:
     Setting<int>	maxGroups;
 	Setting<int>	nrOfScreens;
 	Setting<int>	sceensLeftOffset;
+	Setting<int>	replayInterval;
 	Setting<float>	windowScale;
 	Setting<float>	previewScale;
 	Setting<int>	activeGroup;

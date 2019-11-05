@@ -37,6 +37,7 @@ GlobalSettings::GlobalSettings(){
 	fadeoutFactorDrawing = Setting<float>("fadeoutFactorDrawing", 1).setMin(0).setMax(1000).setSteps(1);
 	fadeoutFactorReplay = Setting<float>("fadeoutFactorReplay", 4).setMin(0).setMax(1000).setSteps(1);
 	replayStartTime = Setting<int>("replayStartTime", 10).setMin(0).setMax(60 * 10).setSteps(1);
+	replayInterval = Setting<int>("replayInterval", 100).setMin(0).setSteps(1);
 
 
 	previewScale = Setting<float>("previewScale", 1).setMin(0).setMax(4).setSteps(0.01);
@@ -61,12 +62,13 @@ GlobalSettings::GlobalSettings(){
 	addSetting(&previewScale);
 	addSetting(&isSpoutActive);
 	addSetting(&isReplayActive);
+	addSetting(&replayInterval);
 
 
     compositionSize = ci::ivec2(compositionWidth.value(),compositionHeight.value());
     
     
-    fboBackground = ci::ColorA(0.0,0.0,1.0,1.0);
+    fboBackground = ci::ColorA(0.0,0.0,0.0,1.0);
     brushColor = ci::ColorA(0.0, 1.0,1.0,0.0);
 
 }
