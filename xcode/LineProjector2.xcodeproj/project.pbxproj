@@ -26,6 +26,13 @@
 		505F84CC222EE744002AFC56 /* NetworkHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 505F84C2222EE744002AFC56 /* NetworkHelper.cpp */; };
 		505F84CD222EE744002AFC56 /* Composition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 505F84C3222EE744002AFC56 /* Composition.cpp */; };
 		505F84CE222EE744002AFC56 /* BrushManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 505F84C4222EE744002AFC56 /* BrushManager.cpp */; };
+		50FDCFCF2379FED900C29148 /* ReplayManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50FDCFCD2379FED900C29148 /* ReplayManager.cpp */; };
+		50FDCFF2237A0EB000C29148 /* SyphonNameboundClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FDCFE7237A0EB000C29148 /* SyphonNameboundClient.m */; };
+		50FDCFF3237A0EB000C29148 /* ServerDirectory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 50FDCFEB237A0EB000C29148 /* ServerDirectory.mm */; };
+		50FDCFF4237A0EB000C29148 /* Server.mm in Sources */ = {isa = PBXBuildFile; fileRef = 50FDCFEC237A0EB000C29148 /* Server.mm */; };
+		50FDCFF5237A0EB100C29148 /* Client.mm in Sources */ = {isa = PBXBuildFile; fileRef = 50FDCFF0237A0EB000C29148 /* Client.mm */; };
+		50FDCFF7237A0F2100C29148 /* Syphon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 50FDCFE6237A0EB000C29148 /* Syphon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		50FDCFF8237A0F4C00C29148 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50FDCFE6237A0EB000C29148 /* Syphon.framework */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5A60C80110724ABFA6C791BA /* Warp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BAC9BA945EC64ABAAA01D1FC /* Warp.cpp */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -35,6 +42,20 @@
 		E1D6B60D793E4AF38C3EAF6D /* NotificationManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDEB39BD31374DDFA967AD84 /* NotificationManager.cpp */; };
 		E69D33D4B4E4457F8F19DA9F /* WarpPerspectiveBilinear.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3AC39CFC7677499D945B107A /* WarpPerspectiveBilinear.cpp */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		50FDCFE3237A09AF00C29148 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				50FDCFF7237A0F2100C29148 /* Syphon.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		006D720219952D00008149E2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -71,6 +92,18 @@
 		505F84C8222EE744002AFC56 /* WindowData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindowData.h; sourceTree = "<group>"; };
 		505F84C9222EE744002AFC56 /* Lab101Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lab101Utils.h; sourceTree = "<group>"; };
 		505F84CA222EE744002AFC56 /* NetworkHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkHelper.h; sourceTree = "<group>"; };
+		50FDCFCD2379FED900C29148 /* ReplayManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ReplayManager.cpp; sourceTree = "<group>"; };
+		50FDCFCE2379FED900C29148 /* ReplayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplayManager.h; sourceTree = "<group>"; };
+		50FDCFE6237A0EB000C29148 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Syphon.framework; sourceTree = "<group>"; };
+		50FDCFE7237A0EB000C29148 /* SyphonNameboundClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyphonNameboundClient.m; sourceTree = "<group>"; };
+		50FDCFE8237A0EB000C29148 /* SyphonNameboundClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyphonNameboundClient.h; sourceTree = "<group>"; };
+		50FDCFEA237A0EB000C29148 /* Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Client.h; sourceTree = "<group>"; };
+		50FDCFEB237A0EB000C29148 /* ServerDirectory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ServerDirectory.mm; sourceTree = "<group>"; };
+		50FDCFEC237A0EB000C29148 /* Server.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Server.mm; sourceTree = "<group>"; };
+		50FDCFED237A0EB000C29148 /* Server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Server.h; sourceTree = "<group>"; };
+		50FDCFEE237A0EB000C29148 /* Syphon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Syphon.h; sourceTree = "<group>"; };
+		50FDCFEF237A0EB000C29148 /* ServerDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerDirectory.h; sourceTree = "<group>"; };
+		50FDCFF0237A0EB000C29148 /* Client.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Client.mm; sourceTree = "<group>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		54B674F858B0467EB8804FDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B05071BD2324C7A86A63617 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
@@ -94,6 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50FDCFF8237A0F4C00C29148 /* Syphon.framework in Frameworks */,
 				006D720419952D00008149E2 /* AVFoundation.framework in Frameworks */,
 				006D720519952D00008149E2 /* CoreMedia.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
@@ -114,6 +148,7 @@
 		01B97315FEAEA392516A2CEA /* Blocks */ = {
 			isa = PBXGroup;
 			children = (
+				50FDCFE4237A0EB000C29148 /* Syphon */,
 				A28082EBFA4B4CD9B42992FF /* Base */,
 				7168A493737E48C6A29DAFC7 /* Cinder-Warping */,
 				C66FB2FB6ED54C76AC895078 /* OSC */,
@@ -262,6 +297,8 @@
 		505F84C0222EE744002AFC56 /* classes */ = {
 			isa = PBXGroup;
 			children = (
+				50FDCFCD2379FED900C29148 /* ReplayManager.cpp */,
+				50FDCFCE2379FED900C29148 /* ReplayManager.h */,
 				505F84C4222EE744002AFC56 /* BrushManager.cpp */,
 				505F84C7222EE744002AFC56 /* BrushManager.h */,
 				505F84C3222EE744002AFC56 /* Composition.cpp */,
@@ -277,6 +314,40 @@
 			);
 			name = classes;
 			path = ../src/classes;
+			sourceTree = "<group>";
+		};
+		50FDCFE4237A0EB000C29148 /* Syphon */ = {
+			isa = PBXGroup;
+			children = (
+				50FDCFE5237A0EB000C29148 /* lib */,
+				50FDCFE9237A0EB000C29148 /* src */,
+			);
+			name = Syphon;
+			path = ../blocks/Syphon;
+			sourceTree = "<group>";
+		};
+		50FDCFE5237A0EB000C29148 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				50FDCFE6237A0EB000C29148 /* Syphon.framework */,
+				50FDCFE7237A0EB000C29148 /* SyphonNameboundClient.m */,
+				50FDCFE8237A0EB000C29148 /* SyphonNameboundClient.h */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		50FDCFE9237A0EB000C29148 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				50FDCFEA237A0EB000C29148 /* Client.h */,
+				50FDCFEB237A0EB000C29148 /* ServerDirectory.mm */,
+				50FDCFEC237A0EB000C29148 /* Server.mm */,
+				50FDCFED237A0EB000C29148 /* Server.h */,
+				50FDCFEE237A0EB000C29148 /* Syphon.h */,
+				50FDCFEF237A0EB000C29148 /* ServerDirectory.h */,
+				50FDCFF0237A0EB000C29148 /* Client.mm */,
+			);
+			path = src;
 			sourceTree = "<group>";
 		};
 		5B71CFD10EFD4014BC1F7076 /* osc */ = {
@@ -339,6 +410,7 @@
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
+				50FDCFE3237A09AF00C29148 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -397,12 +469,17 @@
 				E1D6B60D793E4AF38C3EAF6D /* NotificationManager.cpp in Sources */,
 				505F84CC222EE744002AFC56 /* NetworkHelper.cpp in Sources */,
 				158EAD9106DD4A5384AA445D /* SettingController.cpp in Sources */,
+				50FDCFF2237A0EB000C29148 /* SyphonNameboundClient.m in Sources */,
+				50FDCFF3237A0EB000C29148 /* ServerDirectory.mm in Sources */,
 				9F879561223805A900DD00DD /* pointsPackage.cpp in Sources */,
 				33DBD6C853834710B2D89B85 /* SettingManager.cpp in Sources */,
 				505F84CE222EE744002AFC56 /* BrushManager.cpp in Sources */,
 				5A60C80110724ABFA6C791BA /* Warp.cpp in Sources */,
 				27EC12BF46324CC6B9E35769 /* WarpBilinear.cpp in Sources */,
+				50FDCFF5237A0EB100C29148 /* Client.mm in Sources */,
+				50FDCFCF2379FED900C29148 /* ReplayManager.cpp in Sources */,
 				3FC86CCAE3B94C949CCC8C8A /* WarpPerspective.cpp in Sources */,
+				50FDCFF4237A0EB000C29148 /* Server.mm in Sources */,
 				505F84CD222EE744002AFC56 /* Composition.cpp in Sources */,
 				505F84CB222EE744002AFC56 /* GlobalSettings.cpp in Sources */,
 				E69D33D4B4E4457F8F19DA9F /* WarpPerspectiveBilinear.cpp in Sources */,
@@ -419,6 +496,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
+				FRAMEWORK_SEARCH_PATHS = ../blocks/Syphon/lib;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -431,10 +509,12 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/macosx/$(CONFIGURATION)/libcinder.a\"";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.libcinder.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = LineProjector2;
 				SYMROOT = ./build;
+				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../blocks/Base/src \"../blocks/Cinder-Warping/include\" ../blocks/OSC/src";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -445,6 +525,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = ../blocks/Syphon/lib;
 				GCC_FAST_MATH = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
@@ -458,11 +539,13 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/macosx/$(CONFIGURATION)/libcinder.a\"";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.libcinder.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = LineProjector2;
 				STRIP_INSTALLED_PRODUCT = YES;
 				SYMROOT = ./build;
+				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../blocks/Base/src \"../blocks/Cinder-Warping/include\" ../blocks/OSC/src";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

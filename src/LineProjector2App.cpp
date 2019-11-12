@@ -17,6 +17,10 @@
 #include "CiSpoutOut.h"
 #endif 
 
+#ifdef CINDER_MAC
+#include "../blocks/Syphon/src/Server.h"
+#endif
+
 
 #include "../blocks/Base/src/Settings/SettingController.h"
 
@@ -48,7 +52,13 @@ class LineProjector2App : public App {
 #ifdef CINDER_MSW
 	// spout
 	SpoutOut* mSpoutOut;
-#endif 
+#endif
+    
+#ifdef CINDER_MAC
+    // spout
+    reza::syphon::ServerRef server;
+#endif
+
 
     
 public:
@@ -56,6 +66,7 @@ public:
 	LineProjector2App();
     void setup() override;
 	void setupNetwork();
+    void setupExtraWrapWindows(bool flipHorizontal,float offset);
 	void drawScreenNumbers();
     
     void mouseMove(MouseEvent event) override;
@@ -83,17 +94,17 @@ void LineProjector2App::setup()
     
 
 	activeWindow = 0;
-	int nrOfScreens = GS()->nrOfScreens.value();
-	int screenOrder[4] = { 1, 2, 3, 4 };
-//	int screenOrder[4] = { 1, 4, 3, 2 };
-
+	const int nrOfScreens = GS()->nrOfScreens.value();
+    const ci::vec2 size(GS()->compositionWidth.value(), GS()->compositionHeight.value());
+    const float scale = GS()->windowScale.value();
     bool flipHorizontal = false;
+	int screenOrder[4] = { 1, 2, 3, 4 };
+    float offset = 1.0 / nrOfScreens;
+
+
 	mLastReplayQueryTime = getElapsedSeconds();
 
-    float offset = 1.0 / nrOfScreens;
-	float scale = GS()->windowScale.value();
 
-	ci::vec2 size(GS()->compositionWidth.value(), GS()->compositionHeight.value());
 
     
   	getWindow()->setUserData(new WindowData(ci::Rectf(flipHorizontal ? offset : 0, 1, flipHorizontal ? 0 : offset, 0.0), 0));
@@ -120,53 +131,25 @@ void LineProjector2App::setup()
     
 	setupNetwork();
 	drawScreenNumbers();
+    
+    
+    if(!GS()->isSyphonActive.value()) setupExtraWrapWindows(flipHorizontal,offset);
 	    
 
-	vec2 position(20,120);
-	app::WindowRef debugWindow = createWindow(Window::Format().size(800,800).pos(position));
-
-
-	debugWindow->setUserData(new WindowData(ci::Rectf(0, 0, 1, 1),  -100));
-	debugWindow->setTitle("DEBUG ");
-    
-    // creating the EXTRA WINDOWS
-    for (int i = 0; i < nrOfScreens-1; i++){
-		vec2 position(GS()->sceensLeftOffset.value() + (size.x * scale) * (screenOrder[i + 1] - 1), 0);
-        app::WindowRef newWindow2 = createWindow(Window::Format().size(size * scale).pos(position).fullScreen(true));
-        
-        
-        float offsetX1 = offset * (i + (flipHorizontal ? 2 : 1));
-        float offsetX2 = offset * (i + (flipHorizontal ? 1 : 2));
-        
-        newWindow2->setUserData(new WindowData(ci::Rectf(offsetX1, 1, offsetX2, 0), i+1));
-        newWindow2->setTitle("Window " + toString(i+2));
-        
-		newWindow2->setFullScreen(GS()->isFullScreen.value());
-    }
-    
-    
-    // setup WRAPS
-    mWrapSettings = getAssetPath("") / "warps.xml";
-    if (fs::exists(mWrapSettings)) {
-        // load warp settings from file if one exists
-        mWarps = Warp::readSettings(loadFile(mWrapSettings));
-    }
-    else {
-        // otherwise create a warp from scratch
-        for (int i = 0; i < nrOfScreens; i++){
-            auto w = WarpPerspective::create();
-            w->setSize(size);
-			w->resize(size);
-            mWarps.push_back(w);
-        }
-    }
-    
 #ifdef CINDER_MSW
 	// SPOUT
 	if (GS()->isSpoutActive.value()) {
 		mSpoutOut = new ci::SpoutOut("lineproject", size);
 	}
 #endif
+    
+#ifdef CINDER_MAC
+    if(GS()->isSyphonActive.value()){
+        server = reza::syphon::Server::create();
+        server->setName("lineprojector");
+    }
+#endif
+
 
 
 }
@@ -248,6 +231,56 @@ void LineProjector2App::setupNetwork(){
 
 }
 
+void LineProjector2App::setupExtraWrapWindows(bool flipHorizontal = false, float offset=0){
+    
+    const int nrOfScreens = GS()->nrOfScreens.value();
+    const ci::vec2 size(GS()->compositionWidth.value(), GS()->compositionHeight.value());
+    const float scale = GS()->windowScale.value();
+
+    int screenOrder[4] = { 1, 2, 3, 4 };
+    //    int screenOrder[4] = { 1, 4, 3, 2 };
+
+    vec2 position(20,120);
+    app::WindowRef debugWindow = createWindow(Window::Format().size(800,800).pos(position));
+    
+    
+    debugWindow->setUserData(new WindowData(ci::Rectf(0, 0, 1, 1),  -100));
+    debugWindow->setTitle("DEBUG ");
+    
+    // creating the EXTRA WINDOWS
+    for (int i = 0; i < nrOfScreens-1; i++){
+        vec2 position(GS()->sceensLeftOffset.value() + (size.x * scale) * (screenOrder[i + 1] - 1), 0);
+        app::WindowRef newWindow2 = createWindow(Window::Format().size(size * scale).pos(position).fullScreen(true));
+        
+        
+        float offsetX1 = offset * (i + (flipHorizontal ? 2 : 1));
+        float offsetX2 = offset * (i + (flipHorizontal ? 1 : 2));
+        
+        newWindow2->setUserData(new WindowData(ci::Rectf(offsetX1, 1, offsetX2, 0), i+1));
+        newWindow2->setTitle("Window " + toString(i+2));
+        
+        newWindow2->setFullScreen(GS()->isFullScreen.value());
+    }
+    
+    
+    // setup WRAPS
+    mWrapSettings = getAssetPath("") / "warps.xml";
+    if (fs::exists(mWrapSettings)) {
+        // load warp settings from file if one exists
+        mWarps = Warp::readSettings(loadFile(mWrapSettings));
+    }
+    else {
+        // otherwise create a warp from scratch
+        for (int i = 0; i < nrOfScreens; i++){
+            auto w = WarpPerspective::create();
+            w->setSize(size);
+            w->resize(size);
+            mWarps.push_back(w);
+        }
+    }
+
+}
+
 
 
 void LineProjector2App::drawScreenNumbers(){
@@ -290,6 +323,32 @@ void LineProjector2App::setupComposition(std::shared_ptr<Composition>& compositi
 
 void LineProjector2App::draw()
 {
+    if (GS()->doFadeOut.value())  mActiveComposition->drawFadeOut();
+
+// TEMP HACK to have syphon support for
+// mac multiscreen setup (cuba)
+#ifdef CINDER_MAC
+    
+    if(GS()->isSyphonActive.value()){
+        ci::gl::color(1, 1, 1);
+
+        ci::gl::pushMatrices();
+        gl::clear();
+
+        gl::setMatricesWindow(GS()->compositionWidth.value(),GS()->compositionHeight.value());
+        server->bind(vec2(GS()->compositionWidth.value(),GS()->compositionHeight.value()));
+        gl::clear();
+
+        gl::draw(mActiveComposition->mActiveFbo->getColorTexture());
+        server->unbind();
+        ci::gl::popMatrices();
+
+        gl::draw(mActiveComposition->mActiveFbo->getColorTexture());
+        if (GS()->debugMode.value()) mSettingController.draw();
+        return;
+    }
+    
+#endif
     
     WindowData *data = getWindow()->getUserData<WindowData>();
     
@@ -307,6 +366,11 @@ void LineProjector2App::draw()
 #ifdef CINDER_MSW
 		if(GS()->isSpoutActive.value()) mSpoutOut->sendTexture(mActiveComposition->getTexture());
 #endif
+        
+ 
+        
+
+
 		ci::gl::popMatrices();
 
 		//NotificationManagerSingleton::Instance()->draw();
@@ -315,6 +379,8 @@ void LineProjector2App::draw()
 		if (GS()->debugMode.value()) mSettingController.draw();
 		return;
 	}
+    return;
+
 
     if (GS()->debugMode.value()){
         if (activeWindow > -1 && data->mId != activeWindow){
@@ -332,15 +398,7 @@ void LineProjector2App::draw()
     
     mWarps[data->mId]->begin();
     mActiveComposition->draw(data->mDrawingArea);
-	if (GS()->doFadeOut.value())  mActiveComposition->drawFadeOut();
-
-	
 	mWarps[data->mId]->end();
-    
-    
-    
-	
-    
     
     
 }
@@ -351,7 +409,6 @@ void LineProjector2App::draw()
 
 void LineProjector2App::mouseMove(MouseEvent event)
 {
-
 
 	mMousePosition = event.getPos();
 

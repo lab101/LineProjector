@@ -27,7 +27,8 @@ GlobalSettings::GlobalSettings(){
 	sceensLeftOffset = Setting<int>("sceensLeftOffset", 20);
 	activeGroup = Setting<int>("activeGroup", 0);
 	isFullScreen = Setting<bool>("isFullScreen", false);
-	isSpoutActive = Setting<bool>("isSpoutActive", false);
+    isSpoutActive = Setting<bool>("isSpoutActive", false);
+    isSyphonActive = Setting<bool>("isSyphonActive", false);
 	isReplayActive = Setting<bool>("isReplayActive", false);
 
     compositionWidth = Setting<int>("compositionWidth",1920).setSteps(10);
@@ -60,7 +61,8 @@ GlobalSettings::GlobalSettings(){
 	//addSetting(&fadeoutFactorReplay);
 	//addSetting(&replayStartTime);
 	addSetting(&previewScale);
-	addSetting(&isSpoutActive);
+    addSetting(&isSpoutActive);
+    addSetting(&isSyphonActive);
 	addSetting(&isReplayActive);
 	addSetting(&replayInterval);
 

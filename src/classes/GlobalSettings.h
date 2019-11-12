@@ -39,6 +39,7 @@ public:
 	Setting<bool>   debugMode;
 	Setting<bool>   isFullScreen;
 	Setting<bool>   isSpoutActive;
+    Setting<bool>   isSyphonActive;
 	Setting<bool>	isReplayActive;
 
     ci::ColorA fboBackground;
