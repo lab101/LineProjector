@@ -20,7 +20,9 @@ public:
     Setting<float> fadeoutFactorDrawing;
     Setting<float> fadeoutFactorReplay;
 
-    Setting<int> replayStartTime;
+	Setting<bool>	isReplayActive;
+	Setting<int>	replayStartTime;
+	Setting<int>	replaySpeed;
 
     Setting<float>	zoomLevel;
     Setting<int>	compositionWidth;
@@ -28,7 +30,6 @@ public:
     Setting<int>	maxGroups;
 	Setting<int>	nrOfScreens;
 	Setting<int>	sceensLeftOffset;
-	Setting<int>	replayInterval;
 	Setting<float>	windowScale;
 	Setting<float>	previewScale;
 	Setting<int>	activeGroup;
@@ -40,7 +41,6 @@ public:
 	Setting<bool>   isFullScreen;
 	Setting<bool>   isSpoutActive;
     Setting<bool>   isSyphonActive;
-	Setting<bool>	isReplayActive;
 
     ci::ColorA fboBackground;
     ci::ColorA brushColor;

@@ -5,7 +5,7 @@
 //  Created by Lenn Vh on 12/03/2019.
 //
 
-#include "PointsPackage.hpp"
+#include "pointsPackage.hpp"
 
 
 void PointsPackage::setup(std::vector<ci::vec3> _points, std::string _color){

@@ -38,7 +38,7 @@ GlobalSettings::GlobalSettings(){
 	fadeoutFactorDrawing = Setting<float>("fadeoutFactorDrawing", 1).setMin(0).setMax(1000).setSteps(1);
 	fadeoutFactorReplay = Setting<float>("fadeoutFactorReplay", 4).setMin(0).setMax(1000).setSteps(1);
 	replayStartTime = Setting<int>("replayStartTime", 10).setMin(0).setMax(60 * 10).setSteps(1);
-	replayInterval = Setting<int>("replayInterval", 100).setMin(0).setSteps(1);
+	replaySpeed = Setting<int>("replaySpeed", 1).setMin(0).setSteps(1);
 
 
 	previewScale = Setting<float>("previewScale", 1).setMin(0).setMax(4).setSteps(0.01);
@@ -64,7 +64,8 @@ GlobalSettings::GlobalSettings(){
     addSetting(&isSpoutActive);
     addSetting(&isSyphonActive);
 	addSetting(&isReplayActive);
-	addSetting(&replayInterval);
+	addSetting(&replaySpeed);
+	addSetting(&replayStartTime);
 
 
     compositionSize = ci::ivec2(compositionWidth.value(),compositionHeight.value());

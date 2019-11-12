@@ -23,6 +23,7 @@
 #include "cinder/Signals.h"
 #include "cinder/Json.h"
 #include "cinder/Utilities.h"
+#include "cinder/Color.h"
 
 #include "SettingBase.h"
 
@@ -44,6 +45,7 @@ class Setting : public SettingBase {
     T mTweakableSteps;
     
     int mSortOrder = 0;
+	ci::Color mColor;
     std::string mCategory = "default";
     
     
@@ -93,6 +95,11 @@ public:
         return mCategory;
     }
     
+	Setting<T> setColor(ci::Color value) {
+		mColor = value;
+		return *this;
+	}
+
     void setValue(T value){
         mValue = value;
     }
