@@ -74,7 +74,10 @@ void ReplayManager::writeData(PointsPackage& p) {
 
 PointsPackage& ReplayManager::getNextCommand() {
 
-	if (++mCurrentDrawingIndex >= mDrawingCommands.size()) mCurrentDrawingIndex = 0;
+	if (++mCurrentDrawingIndex >= mDrawingCommands.size()) {
+		mCurrentDrawingIndex = 0;
+		app::getWindow()->getApp()->quit();
+	}
 	return mDrawingCommands[mCurrentDrawingIndex];
 
 }

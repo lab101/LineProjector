@@ -62,6 +62,7 @@ inline std::string getFormatedString(float value, int decimals){
 }
 
 
+
 // file helpers
 inline bool isHidden(const ci::fs::path &p)
 {

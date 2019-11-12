@@ -43,7 +43,9 @@ class LineProjector2App : public App {
     ci::vec2			mMousePosition;
 
 	ReplayManager		mReplayManager;
-	float				mLastReplayQueryTime;
+	float				mLastActivityTime;
+
+	bool	mShot = false;
 
 #ifdef CINDER_MSW
 	// spout
@@ -84,11 +86,11 @@ void LineProjector2App::setup()
 
 	activeWindow = 0;
 	int nrOfScreens = GS()->nrOfScreens.value();
-	int screenOrder[4] = { 1, 2, 3, 4 };
-//	int screenOrder[4] = { 1, 4, 3, 2 };
+//	int screenOrder[4] = { 1, 2, 3, 4 };
+	int screenOrder[4] = { 1, 4, 3, 2 };
 
     bool flipHorizontal = false;
-	mLastReplayQueryTime = getElapsedSeconds();
+	mLastActivityTime = getElapsedSeconds();
 
     float offset = 1.0 / nrOfScreens;
 	float scale = GS()->windowScale.value();
@@ -182,6 +184,7 @@ void LineProjector2App::handlePackage(PointsPackage& package) {
 	for (auto&p : package.points) {
 		p.x *= mActiveComposition->getSize().x;
 		p.y *= mActiveComposition->getSize().y;
+		//p.z *= 2;
 	}
 	if (BrushManagerSingleton::Instance()->isEraserOn)
 	{
@@ -215,13 +218,14 @@ void LineProjector2App::update()
 {
     mNetworkHelper->update();
 
-	if (GS()->isReplayActive.value() && getElapsedSeconds() - mLastReplayQueryTime > (GS()->replayInterval.value() / 100.0f)) {
+	if (GS()->isReplayActive.value() && (app::getElapsedSeconds() - mLastActivityTime > GS()->replayStartTime.value())) {
 
-		mLastReplayQueryTime = getElapsedSeconds();
 
 		if (mReplayManager.hasData()) {
-			auto p = mReplayManager.getNextCommand();
-			handlePackage(p);
+			for (int i = 0; i < GS()->replaySpeed.value(); i++) {
+				auto p = mReplayManager.getNextCommand();
+				handlePackage(p);
+			}
 		}
 	}
 }
@@ -237,6 +241,7 @@ void LineProjector2App::setupNetwork(){
 		package.shape = "POINTS";
 		mReplayManager.writeData(package);
 		handlePackage(package);
+		mLastActivityTime = getElapsedSeconds();
 
 	});
 
@@ -244,6 +249,8 @@ void LineProjector2App::setupNetwork(){
 	mNetworkHelper->onReceiveShapes.connect([=](PointsPackage package){
 		mReplayManager.writeData(package);
 		handlePackage(package);
+		mLastActivityTime = getElapsedSeconds();
+
 	});
 
 }
@@ -293,7 +300,7 @@ void LineProjector2App::draw()
     
     WindowData *data = getWindow()->getUserData<WindowData>();
     
-	if ( data->mId == -100){
+	if (data->mId == -100) {
 		gl::clear();
 
 		ci::gl::enableAlphaBlending();
@@ -302,7 +309,14 @@ void LineProjector2App::draw()
 		ci::gl::scale(GS()->previewScale.value(), GS()->previewScale.value());
 
 
-		mActiveComposition->draw(ci::Rectf(0,1,1,0));
+		mActiveComposition->draw(ci::Rectf(0, 1, 1, 0));
+
+	////	if (mShot){
+	//		auto outputPath = ci::app::getAssetPath("exports");
+	//		auto textureSource = (mActiveComposition->mActiveFbo->getColorTexture()->createSource());
+	//		ci::writeImage(outputPath.string() + "/image" + getStringWithLeadingZero(app::getElapsedFrames(),8) + ".png", textureSource);
+	//		mShot = false;
+	////	}
 
 #ifdef CINDER_MSW
 		if(GS()->isSpoutActive.value()) mSpoutOut->sendTexture(mActiveComposition->getTexture());
@@ -418,10 +432,14 @@ void LineProjector2App::keyDown(KeyEvent event)
 	if (event.getCode() == event.KEY_l){ //FADE 
 		GS()->fadeoutFactorDrawing.increaseStep(1);
 	}
+
+	if (event.getCode() == event.KEY_SPACE) {
+		mShot = true;
+	}
     
-    if (mSettingController.checkKeyDown(event))
+    if (GS()->debugMode.value() &&  !Warp::isEditModeEnabled())
     {
-    //    return;
+		mSettingController.checkKeyDown(event);
     }
     
     // pass this key event to the warp editor first
