@@ -129,14 +129,14 @@ void Composition::drawCircle(ci::vec3 point1,ci::vec3 point2, ci::Color color){
     //------------------------------------------------------------------------FBO
     gl::ScopedFramebuffer fbScp( mActiveFbo );
     gl::ScopedViewport fbVP (mActiveFbo->getSize());
-    gl::setMatricesWindow( mActiveFbo->getSize() );
+  //  gl::setMatricesWindow( mActiveFbo->getSize() );
     
     gl::ScopedBlendPremult scpBlend;
     //------------------------------------------------------------------------DRAW
     gl::color(color);
     ci::gl::drawSolidCircle(vec2(point1.x,point1.y), glm::distance(point1, point2));
     
-  //  gl::setMatricesWindow(ci::app::getWindowSize());//------------------------FBO END
+    gl::setMatricesWindow(ci::app::getWindowSize());//------------------------FBO END
     //------------------------------------------------------------------------DRAW STROKE
     std::vector<vec3> circumference;
     for(float i = 0; i< 362.0f ; i+=4){
@@ -166,14 +166,14 @@ void Composition::drawRectangle(ci::vec3 point1,ci::vec3 point2, ci::Color color
     //------------------------------------------------------------------------FBO
     gl::ScopedFramebuffer fbScp( mActiveFbo );
     gl::ScopedViewport fbVP (mActiveFbo->getSize());
-    gl::setMatricesWindow( mActiveFbo->getSize() );
+  //  gl::setMatricesWindow( mActiveFbo->getSize() );
     gl::ScopedBlendPremult scpBlend;
     //------------------------------------------------------------------------DRAW
     gl::color(color);
     Rectf rect( point1.x, point1.y, point2.x , point2.y);
     ci::gl::drawSolidRect(rect);
     
- //   gl::setMatricesWindow( ci::app::getWindowSize() );//----------------------FBO END
+   // gl::setMatricesWindow( ci::app::getWindowSize() );//----------------------FBO END
     //------------------------------------------------------------------------DRAW STROKE
     
     
@@ -223,6 +223,8 @@ void Composition::drawInFbo(std::vector<ci::vec3>& points, ci::ColorA color){
         gl::color(color);
         
         BrushManagerSingleton::Instance()->drawBrush(points, 0.98);
+
+
     }
     
 }

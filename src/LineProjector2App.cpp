@@ -391,7 +391,10 @@ void LineProjector2App::draw()
 		if (GS()->debugMode.value()) mSettingController.draw();
 		return;
 	}
-    return;
+   
+	
+	
+	if (GS()->isSpoutActive.value()) return;
 
 
     if (GS()->debugMode.value()){
