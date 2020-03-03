@@ -175,7 +175,7 @@ void Composition::drawRectangle(ci::vec3 point1,ci::vec3 point2, ci::Color color
     
    // gl::setMatricesWindow( ci::app::getWindowSize() );//----------------------FBO END
     //------------------------------------------------------------------------DRAW STROKE
-    
+     
     
     newLine(point1);
     
