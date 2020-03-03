@@ -134,7 +134,7 @@ void LineProjector2App::setup()
 	drawScreenNumbers();
     
     
-    if(!GS()->isSyphonActive.value()) setupExtraWrapWindows(flipHorizontal,offset);
+    if(!GS()->isSyphonActive.value() && nrOfScreens > 1) setupExtraWrapWindows(flipHorizontal,offset);
 	    
 
 #ifdef CINDER_MSW
@@ -386,10 +386,8 @@ void LineProjector2App::draw()
 		ci::gl::popMatrices();
 
 		//NotificationManagerSingleton::Instance()->draw();
-		ci::gl::enableAlphaBlending();
 
-		if (GS()->debugMode.value()) mSettingController.draw();
-		return;
+		//return;
 	}
    
 	
@@ -410,11 +408,19 @@ void LineProjector2App::draw()
     }
     
     
+	if (mWarps.size() > 0) {
+		mWarps[data->mId]->begin();
+		mActiveComposition->draw(data->mDrawingArea);
+		mWarps[data->mId]->end();
+	}
+	else {
+		mActiveComposition->draw(data->mDrawingArea);
+	}
     
-    mWarps[data->mId]->begin();
-    mActiveComposition->draw(data->mDrawingArea);
-	mWarps[data->mId]->end();
-    
+	ci::gl::enableAlphaBlending();
+
+	if (GS()->debugMode.value()) mSettingController.draw();
+
     
 }
 
