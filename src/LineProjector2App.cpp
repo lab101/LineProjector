@@ -376,7 +376,9 @@ void LineProjector2App::draw()
 	////	}
 
 #ifdef CINDER_MSW
-		if(GS()->isSpoutActive.value()) mSpoutOut->sendTexture(mActiveComposition->getTexture());
+		//if(GS()->isSpoutActive.value()) 
+			mSpoutOut->sendTexture(mActiveComposition->getTexture());
+		//mSpoutOut->sendViewport();
 #endif
         
  
@@ -391,8 +393,7 @@ void LineProjector2App::draw()
 	}
    
 	
-	
-	if (GS()->isSpoutActive.value()) return;
+	if (GS()->isSpoutActive.value()) mSpoutOut->sendTexture(mActiveComposition->getTexture());
 
 
     if (GS()->debugMode.value()){
@@ -406,7 +407,8 @@ void LineProjector2App::draw()
     else{
         gl::clear(ColorA(0, 0, 0, 1.0f));
     }
-    
+	
+
     
 	if (mWarps.size() > 0) {
 		mWarps[data->mId]->begin();
